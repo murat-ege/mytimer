@@ -32,7 +32,7 @@ class CustomRoutine {
     final intervalsSum = intervals.fold<int>(0, (sum, i) => sum + i.durationSeconds);
     final roundsTime = intervalsSum * rounds;
     final roundRestsTime = (rounds > 1) ? restBetweenRoundsSeconds * (rounds - 1) : 0;
-    return prepSeconds + roundsTime + roundRestsTime;
+    return roundsTime + roundRestsTime;
   }
 
   Map<String, dynamic> toJson() {

@@ -41,7 +41,9 @@ class WorkoutController extends ChangeNotifier {
 
   WorkoutController({required this.routine}) {
     _buildSegments();
-    _totalWorkoutSeconds = _segments.fold<int>(0, (s, seg) => s + seg.durationSeconds);
+    _totalWorkoutSeconds = _segments
+        .where((seg) => seg.phase != TimerPhase.prep)
+        .fold<int>(0, (s, seg) => s + seg.durationSeconds);
     _secondsRemaining = _segments.isNotEmpty ? _segments.first.durationSeconds : 0;
   }
 
@@ -134,6 +136,12 @@ class WorkoutController extends ChangeNotifier {
     return '${mins.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}';
   }
 
+  String get formattedTotalWorkoutTime {
+    final mins = _totalWorkoutSeconds ~/ 60;
+    final secs = _totalWorkoutSeconds % 60;
+    return '${mins.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}';
+  }
+
   void start() {
     if (_isFinished) return;
     _isRunning = true;
@@ -175,10 +183,21 @@ class WorkoutController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void _recalculateTotalElapsed() {
+    int elapsed = 0;
+    for (int i = 0; i < _currentSegmentIndex; i++) {
+      if (_segments[i].phase != TimerPhase.prep) {
+        elapsed += _segments[i].durationSeconds;
+      }
+    }
+    _totalElapsedSeconds = elapsed;
+  }
+
   void skipNext() {
     if (_currentSegmentIndex + 1 < _segments.length) {
       _currentSegmentIndex++;
       _secondsRemaining = _segments[_currentSegmentIndex].durationSeconds;
+      _recalculateTotalElapsed();
       _onSegmentStarted();
       notifyListeners();
     } else {
@@ -190,10 +209,13 @@ class WorkoutController extends ChangeNotifier {
     if (_currentSegmentIndex > 0) {
       _currentSegmentIndex--;
       _secondsRemaining = _segments[_currentSegmentIndex].durationSeconds;
+      _recalculateTotalElapsed();
       _onSegmentStarted();
       notifyListeners();
     } else {
+      _currentSegmentIndex = 0;
       _secondsRemaining = _segments.isNotEmpty ? _segments.first.durationSeconds : 0;
+      _totalElapsedSeconds = 0;
       notifyListeners();
     }
   }
@@ -210,7 +232,9 @@ class WorkoutController extends ChangeNotifier {
 
     if (_secondsRemaining > 1) {
       _secondsRemaining--;
-      _totalElapsedSeconds++;
+      if (currentPhase != TimerPhase.prep) {
+        _totalElapsedSeconds++;
+      }
 
       // Countdown cue (3, 2, 1)
       if (_secondsRemaining <= 3) {
@@ -220,11 +244,14 @@ class WorkoutController extends ChangeNotifier {
       _updateNotification();
       notifyListeners();
     } else {
-      _totalElapsedSeconds++;
+      if (currentPhase != TimerPhase.prep) {
+        _totalElapsedSeconds++;
+      }
       // Move to next segment
       if (_currentSegmentIndex + 1 < _segments.length) {
         _currentSegmentIndex++;
         _secondsRemaining = _segments[_currentSegmentIndex].durationSeconds;
+        _recalculateTotalElapsed();
         _onSegmentStarted();
         notifyListeners();
       } else {
@@ -270,9 +297,9 @@ class WorkoutController extends ChangeNotifier {
     _notificationService.showWorkoutProgress(
       phaseTitle: cur.title,
       timeRemainingText: formattedRemainingTime,
-      roundInfo: cur.roundIndex > 0
-          ? 'Tur ${cur.roundIndex}/${cur.totalRounds} • Toplam: $formattedTotalElapsed'
-          : 'Hazırlık • Toplam: $formattedTotalElapsed',
+      roundInfo: cur.phase == TimerPhase.prep
+          ? 'Hazırlık: $formattedRemainingTime'
+          : 'Tur ${cur.roundIndex}/${cur.totalRounds} • Toplam: $formattedTotalElapsed',
     );
   }
 

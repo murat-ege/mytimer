@@ -17,7 +17,7 @@ class _TabataScreenState extends State<TabataScreen> {
   int _prepSeconds = 10;
 
   int get _totalWorkoutSeconds {
-    return _prepSeconds + (_workSeconds + _restSeconds) * _rounds;
+    return (_workSeconds + _restSeconds) * _rounds;
   }
 
   String _formattedTotalTime(String minUnit, String secUnit) {

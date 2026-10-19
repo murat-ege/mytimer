@@ -226,10 +226,12 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.timer_outlined, color: Colors.white54, size: 16),
+                          const Icon(Icons.timer_outlined, color: Colors.white54, size: 16),
                           const SizedBox(width: 6),
                           Text(
-                            'Toplam: ${_controller.formattedTotalElapsed}',
+                            _controller.currentPhase == TimerPhase.prep
+                                ? '${l10n?.prep ?? "Hazırlık"}: ${_controller.formattedRemainingTime}'
+                                : '${l10n?.totalTime ?? "Toplam"}: ${_controller.formattedTotalElapsed} / ${_controller.formattedTotalWorkoutTime}',
                             style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 16,

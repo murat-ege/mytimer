@@ -19,14 +19,15 @@ void main() {
 
       final controller = WorkoutController(routine: tabata);
 
-      // Prep (10s) + 8 * (20s + 10s) = 10 + 240 = 250s
-      expect(controller.totalWorkoutSeconds, 250);
+      // Workout duration excludes prep time: 8 * (20s + 10s) = 240s
+      expect(controller.totalWorkoutSeconds, 240);
       expect(controller.totalRounds, 8);
       expect(controller.currentPhase, TimerPhase.prep);
       expect(controller.secondsRemaining, 10);
+      expect(controller.totalElapsedSeconds, 0);
     });
 
-    test('Skip next transitions to next interval', () {
+    test('Skip next transitions to next interval and manages elapsed workout time', () {
       final tabata = CustomRoutine.tabata(
         workSeconds: 20,
         restSeconds: 10,
@@ -36,14 +37,17 @@ void main() {
 
       final controller = WorkoutController(routine: tabata);
       expect(controller.currentPhase, TimerPhase.prep);
+      expect(controller.totalElapsedSeconds, 0);
 
       controller.skipNext(); // Jump to round 1 work
       expect(controller.currentPhase, TimerPhase.work);
       expect(controller.secondsRemaining, 20);
+      expect(controller.totalElapsedSeconds, 0); // Still 0 at start of first work segment
 
       controller.skipNext(); // Jump to round 1 rest
       expect(controller.currentPhase, TimerPhase.rest);
       expect(controller.secondsRemaining, 10);
+      expect(controller.totalElapsedSeconds, 20); // 20s completed work
     });
   });
 

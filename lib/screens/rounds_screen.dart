@@ -85,14 +85,8 @@ class _RoundsScreenState extends State<RoundsScreen>
         IntervalStep(
           id: 'step_emom_work',
           name: 'EMOM ÇALIŞ',
-          durationSeconds: 50,
+          durationSeconds: 60,
           phase: TimerPhase.work,
-        ),
-        IntervalStep(
-          id: 'step_emom_rest',
-          name: 'DİNLEN',
-          durationSeconds: 10,
-          phase: TimerPhase.rest,
         ),
       ],
       createdAt: now,
@@ -279,12 +273,12 @@ class _RoundsScreenState extends State<RoundsScreen>
           _buildStepperCard(
             title: l10n?.totalTime ?? 'TOPLAM DAKİKA',
             valueText: '$_emomMinutes $minUnit',
-            color: const Color(0xFF00E5FF),
+            color: const Color(0xFFFFD600),
             onDec: () => setState(() { if (_emomMinutes > 1) _emomMinutes--; }),
             onInc: () => setState(() => _emomMinutes++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('EMOM ${l10n?.start ?? "BAŞLAT"}', _startEmomWorkout, const Color(0xFF00E5FF)),
+          _buildStartButton('EMOM ${l10n?.start ?? "BAŞLAT"}', _startEmomWorkout, const Color(0xFFFFD600)),
         ],
       ),
     );
