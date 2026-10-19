@@ -51,4 +51,22 @@ app.*.map.json
 key.properties
 **/*.jks
 **/*.keystore
+local.properties
 
+# Environment variables & secrets
+.env
+.env.*
+*.env
+
+# Certificates & Private Keys
+*.p8
+*.p12
+*.cer
+*.mobileprovision
+*.pem
+*.key
+*.crt
+
+# Firebase & Google service configs (if added)
+google-services.json
+GoogleService-Info.plist
