@@ -254,17 +254,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
+      child: Material(
         color: const Color(0xFF1E1E1E),
         borderRadius: BorderRadius.circular(16),
-      ),
-      child: SwitchListTile(
-        title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
-        subtitle: Text(subtitle, style: const TextStyle(color: Colors.white54, fontSize: 12)),
-        secondary: Icon(icon, color: value ? const Color(0xFF00E676) : Colors.white38),
-        activeThumbColor: const Color(0xFF00E676),
-        value: value,
-        onChanged: onChanged,
+        clipBehavior: Clip.antiAlias,
+        child: SwitchListTile(
+          title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
+          subtitle: Text(subtitle, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+          secondary: Icon(icon, color: value ? const Color(0xFF00E676) : Colors.white38),
+          activeThumbColor: const Color(0xFF00E676),
+          value: value,
+          onChanged: onChanged,
+        ),
       ),
     );
   }
