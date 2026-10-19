@@ -50,20 +50,20 @@ class _RoundsScreenState extends State<RoundsScreen>
     final now = DateTime.now();
     final routine = CustomRoutine(
       id: 'rounds_${now.millisecondsSinceEpoch}',
-      name: '$_roundsCount TUR ANTRENMAN',
+      name: '$_roundsCount ROUNDS',
       prepSeconds: _prepSeconds,
       rounds: _roundsCount,
       intervals: [
         IntervalStep(
           id: 'step_r_work',
-          name: 'ÇALIŞMA',
+          name: 'WORK',
           durationSeconds: _roundWorkMinutes * 60,
           phase: TimerPhase.work,
         ),
         if (_roundRestMinutes > 0)
           IntervalStep(
             id: 'step_r_rest',
-            name: 'DİNLENME',
+            name: 'REST',
             durationSeconds: _roundRestMinutes * 60,
             phase: TimerPhase.rest,
           ),
@@ -79,13 +79,13 @@ class _RoundsScreenState extends State<RoundsScreen>
     final now = DateTime.now();
     final routine = CustomRoutine(
       id: 'emom_${now.millisecondsSinceEpoch}',
-      name: 'EMOM $_emomMinutes DK',
+      name: 'EMOM $_emomMinutes MIN',
       prepSeconds: _prepSeconds,
       rounds: _emomMinutes,
       intervals: const [
         IntervalStep(
           id: 'step_emom_work',
-          name: 'EMOM ÇALIŞ',
+          name: 'EMOM',
           durationSeconds: 60,
           phase: TimerPhase.work,
         ),
@@ -101,13 +101,13 @@ class _RoundsScreenState extends State<RoundsScreen>
     final now = DateTime.now();
     final routine = CustomRoutine(
       id: 'amrap_${now.millisecondsSinceEpoch}',
-      name: 'AMRAP $_amrapMinutes DK',
+      name: 'AMRAP $_amrapMinutes MIN',
       prepSeconds: _prepSeconds,
       rounds: 1,
       intervals: [
         IntervalStep(
           id: 'step_amrap',
-          name: 'AMRAP (MAKSİMUM TUR)',
+          name: 'AMRAP',
           durationSeconds: _amrapMinutes * 60,
           phase: TimerPhase.work,
         ),
@@ -123,13 +123,13 @@ class _RoundsScreenState extends State<RoundsScreen>
     final now = DateTime.now();
     final routine = CustomRoutine(
       id: 'fortime_${now.millisecondsSinceEpoch}',
-      name: 'FOR TIME ($_forTimeCapMinutes DK CAP)',
+      name: 'FOR TIME (CAP $_forTimeCapMinutes MIN)',
       prepSeconds: _prepSeconds,
       rounds: 1,
       intervals: [
         IntervalStep(
           id: 'step_fortime',
-          name: 'FOR TIME BİTİR',
+          name: 'FOR TIME',
           durationSeconds: _forTimeCapMinutes * 60,
           phase: TimerPhase.work,
         ),

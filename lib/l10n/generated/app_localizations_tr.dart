@@ -16,7 +16,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tabata => 'TABATA';
 
   @override
-  String get rounds => 'TUR & WOD';
+  String get rounds => 'ROUNDS';
 
   @override
   String get stopwatch => 'KRONOMETRE';
@@ -40,7 +40,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get cooldown => 'SOĞUMA';
 
   @override
-  String get round => 'TUR';
+  String get round => 'ROUND';
 
   @override
   String get set => 'SET';
@@ -52,10 +52,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get paused => 'DURAKLATILDI';
 
   @override
-  String get ready => 'HAZIR OL';
+  String get ready => 'HAZIRLAN';
 
   @override
-  String get finished => 'TEBRİKLER! ANTRENMAN BİTTİ';
+  String get finished => 'ANTRENMAN TAMAMLANDI!';
 
   @override
   String get start => 'BAŞLAT';
@@ -70,10 +70,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get reset => 'SIFIRLA';
 
   @override
-  String get skip => 'İLERİ ATLA';
+  String get skip => 'ATLA';
 
   @override
-  String get lap => 'TUR AT';
+  String get lap => 'SPLİT';
 
   @override
   String get workTime => 'ÇALIŞMA SÜRESİ';
@@ -85,19 +85,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get prepTime => 'HAZIRLANMA SÜRESİ';
 
   @override
-  String get totalRounds => 'TOPLAM TUR';
+  String get totalRounds => 'TOPLAM ROUND';
 
   @override
-  String get totalSets => 'Toplam Set';
+  String get totalSets => 'TOPLAM SET';
 
   @override
-  String get restBetweenSets => 'Setler Arası Dinlenme';
+  String get restBetweenSets => 'ROUND ARASI DİNLENME';
 
   @override
-  String get timeCap => 'ZAMAN SINIRI';
+  String get timeCap => 'TIME CAP';
 
   @override
-  String get sound => 'Ses Efektleri';
+  String get sound => 'Ses Sinyalleri';
 
   @override
   String get vibration => 'Titreşim';
@@ -118,28 +118,28 @@ class AppLocalizationsTr extends AppLocalizations {
   String get forTimeTitle => 'FOR TIME';
 
   @override
-  String get customRoutines => 'Kayıtlı Özel Timerlar';
+  String get customRoutines => 'Kayıtlı WOD & Timerlar';
 
   @override
-  String get createNewRoutine => 'Yeni Özel Timer Oluştur';
+  String get createNewRoutine => 'Yeni Timer Oluştur';
 
   @override
-  String get routineName => 'Timer Adı';
+  String get routineName => 'WOD / Timer Adı';
 
   @override
-  String get routineNameHint => 'Örn: Fran, Murph, 5x5 Interval';
+  String get routineNameHint => 'Örn: Fran, Cindy, Murph, 21-15-9';
 
   @override
-  String get addInterval => 'Aralık Ekle';
+  String get addInterval => 'İnterval Ekle';
 
   @override
-  String get intervalName => 'Aralık Adı';
+  String get intervalName => 'İnterval / Hareket Adı';
 
   @override
   String get intervalDuration => 'Süre (sn)';
 
   @override
-  String get intervalType => 'Aralık Tipi';
+  String get intervalType => 'İnterval Fazı';
 
   @override
   String get save => 'KAYDET';
@@ -155,42 +155,41 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get noCustomRoutines =>
-      'Henüz özel bir timer oluşturmadınız. Hemen ekleyin!';
+      'Henüz kayıtlı timer yok. + butonuna basarak ekleyin!';
 
   @override
   String get confirmDelete => 'Bu timer\'ı silmek istediğinize emin misiniz?';
 
   @override
-  String get cloudSyncNotice =>
-      'Timerlarınız cihazınızda saklanır. Backend bağlantısı eklendiğinde bulutla senkronize edilecektir.';
+  String get cloudSyncNotice => 'Timerlarınız cihazınızda saklanır.';
 
   @override
-  String get lapTimes => 'Tur Zamanları';
+  String get lapTimes => 'Split & Tur Zamanları';
 
   @override
-  String get fastestLap => 'En Hızlı Tur';
+  String get fastestLap => 'En Hızlı Split';
 
   @override
-  String get slowestLap => 'En Yavaş Tur';
+  String get slowestLap => 'En Yavaş Split';
 
   @override
   String get totalTime => 'TOPLAM SÜRE';
 
   @override
-  String get roundTime => 'Tur Süresi';
+  String get roundTime => 'Split Süresi';
 
   @override
   String get general => 'GENEL';
 
   @override
-  String get soundSubtitle => 'Geri sayım ve aralık geçiş sinyalleri';
+  String get soundSubtitle => 'Geri sayım ve interval geçiş bip sesleri';
 
   @override
-  String get vibrationSubtitle => 'Aralık geçişlerinde haptik geri bildirim';
+  String get vibrationSubtitle =>
+      'Aralık geçişlerinde haptik titreşim bildirimi';
 
   @override
-  String get keepScreenOnSubtitle =>
-      'Antrenman sırasında telefon ekranı kapanmaz';
+  String get keepScreenOnSubtitle => 'Antrenman boyunca ekran kapanmaz';
 
   @override
   String get soundTest => 'SES TESTİ';
@@ -206,7 +205,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aboutDesc =>
-      'CrossFit ve fonksiyonel fitness antrenmanları için tasarlandı.';
+      'CrossFit, HIIT ve fonksiyonel fitness antrenmanları için tasarlandı.';
 
   @override
   String get seconds => 'sn';
@@ -215,10 +214,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get minutes => 'dk';
 
   @override
-  String get totalRoundsStat => 'TUR SAYISI';
+  String get totalRoundsStat => 'ROUND SAYISI';
 
   @override
-  String get workRestStat => 'ÇALIŞMA/DİNLENME';
+  String get workRestStat => 'ÇALIŞMA / DİNLENME';
 
   @override
   String get startWorkout => 'ANTRENMANI BAŞLAT';
@@ -228,4 +227,20 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get allCategories => 'TÜMÜ';
+
+  @override
+  String get next => 'Sıradaki';
+
+  @override
+  String get exitWorkoutTitle => 'Antrenmandan Çıkılsın mı?';
+
+  @override
+  String get exitWorkoutMessage =>
+      'Antrenman sonlandırılacak. Çıkmak istediğinize emin misiniz?';
+
+  @override
+  String get continueWorkout => 'DEVAM ET';
+
+  @override
+  String get quit => 'ÇIK';
 }

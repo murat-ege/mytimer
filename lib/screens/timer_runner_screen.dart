@@ -185,8 +185,8 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
                       duration: const Duration(milliseconds: 300),
                       child: Text(
                         _controller.isFinished
-                            ? (l10n?.finished ?? 'TEBRİKLER!')
-                            : (curSegment?.title.toUpperCase() ?? phase.displayName),
+                            ? (l10n?.finished ?? 'WORKOUT COMPLETE!')
+                            : _getLocalizedTitle(curSegment, l10n),
                         key: ValueKey('${curSegment?.title}_${_controller.currentSegmentIndex}'),
                         style: TextStyle(
                           color: primaryColor,
@@ -252,7 +252,7 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          'Sıradaki: ${_controller.segments[_controller.currentSegmentIndex + 1].title} (${_controller.segments[_controller.currentSegmentIndex + 1].durationSeconds} sn)',
+                          '${l10n?.next ?? "Next"}: ${_getLocalizedTitle(_controller.segments[_controller.currentSegmentIndex + 1], l10n)} (${_controller.segments[_controller.currentSegmentIndex + 1].durationSeconds} ${l10n?.seconds ?? "s"})',
                           style: const TextStyle(
                             color: Colors.white54,
                             fontSize: 13,
@@ -351,15 +351,40 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
     );
   }
 
+  String _getLocalizedTitle(ExecutionSegment? segment, AppLocalizations? l10n) {
+    if (segment == null) return '';
+    switch (segment.phase) {
+      case TimerPhase.prep:
+        return l10n?.prep ?? 'PREP';
+      case TimerPhase.restBetweenSets:
+        return l10n?.restBetweenSets ?? 'REST BETWEEN ROUNDS';
+      case TimerPhase.work:
+        if (segment.title == 'ÇALIŞMA' || segment.title == 'WORK') {
+          return l10n?.work ?? 'WORK';
+        }
+        return segment.title.toUpperCase();
+      case TimerPhase.rest:
+        if (segment.title == 'DİNLENME' || segment.title == 'REST') {
+          return l10n?.rest ?? 'REST';
+        }
+        return segment.title.toUpperCase();
+      case TimerPhase.cooldown:
+        return l10n?.cooldown ?? 'COOLDOWN';
+      case TimerPhase.finished:
+        return l10n?.finished ?? 'WORKOUT COMPLETE!';
+    }
+  }
+
   void _showExitDialog() {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF1E1E1E),
-        title: const Text('Antrenmandan Çıkılsın mı?', style: TextStyle(color: Colors.white)),
-        content: const Text(
-          'Mevcut antrenman durdurulacak. Çıkmak istediğinize emin misiniz?',
-          style: TextStyle(color: Colors.white70),
+        title: Text(l10n?.exitWorkoutTitle ?? 'Exit Workout?', style: const TextStyle(color: Colors.white)),
+        content: Text(
+          l10n?.exitWorkoutMessage ?? 'The current workout will be stopped. Are you sure you want to quit?',
+          style: const TextStyle(color: Colors.white70),
         ),
         actions: [
           TextButton(
@@ -367,14 +392,14 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
               Navigator.of(ctx).pop();
               _controller.resume();
             },
-            child: const Text('DEVAM ET', style: TextStyle(color: Color(0xFF00E676))),
+            child: Text(l10n?.continueWorkout ?? 'RESUME', style: const TextStyle(color: Color(0xFF00E676))),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.of(context).pop();
             },
-            child: const Text('ÇIK', style: TextStyle(color: Colors.redAccent)),
+            child: Text(l10n?.quit ?? 'QUIT', style: const TextStyle(color: Colors.redAccent)),
           ),
         ],
       ),

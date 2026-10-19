@@ -113,7 +113,7 @@ abstract class AppLocalizations {
   /// No description provided for @rounds.
   ///
   /// In en, this message translates to:
-  /// **'ROUNDS & WOD'**
+  /// **'ROUNDS'**
   String get rounds;
 
   /// No description provided for @stopwatch.
@@ -125,7 +125,7 @@ abstract class AppLocalizations {
   /// No description provided for @custom.
   ///
   /// In en, this message translates to:
-  /// **'CUSTOM TIMER'**
+  /// **'CUSTOM'**
   String get custom;
 
   /// No description provided for @settings.
@@ -149,7 +149,7 @@ abstract class AppLocalizations {
   /// No description provided for @prep.
   ///
   /// In en, this message translates to:
-  /// **'PREPARE'**
+  /// **'PREP'**
   String get prep;
 
   /// No description provided for @cooldown.
@@ -173,7 +173,7 @@ abstract class AppLocalizations {
   /// No description provided for @completed.
   ///
   /// In en, this message translates to:
-  /// **'COMPLETED!'**
+  /// **'TIME!'**
   String get completed;
 
   /// No description provided for @paused.
@@ -191,7 +191,7 @@ abstract class AppLocalizations {
   /// No description provided for @finished.
   ///
   /// In en, this message translates to:
-  /// **'CONGRATS! WORKOUT FINISHED'**
+  /// **'WORKOUT COMPLETE!'**
   String get finished;
 
   /// No description provided for @start.
@@ -227,25 +227,25 @@ abstract class AppLocalizations {
   /// No description provided for @lap.
   ///
   /// In en, this message translates to:
-  /// **'LAP'**
+  /// **'SPLIT'**
   String get lap;
 
   /// No description provided for @workTime.
   ///
   /// In en, this message translates to:
-  /// **'WORK DURATION'**
+  /// **'WORK TIME'**
   String get workTime;
 
   /// No description provided for @restTime.
   ///
   /// In en, this message translates to:
-  /// **'REST DURATION'**
+  /// **'REST TIME'**
   String get restTime;
 
   /// No description provided for @prepTime.
   ///
   /// In en, this message translates to:
-  /// **'PREPARATION TIME'**
+  /// **'PREP TIME'**
   String get prepTime;
 
   /// No description provided for @totalRounds.
@@ -257,13 +257,13 @@ abstract class AppLocalizations {
   /// No description provided for @totalSets.
   ///
   /// In en, this message translates to:
-  /// **'Total Sets'**
+  /// **'TOTAL SETS'**
   String get totalSets;
 
   /// No description provided for @restBetweenSets.
   ///
   /// In en, this message translates to:
-  /// **'Rest Between Sets'**
+  /// **'REST BETWEEN ROUNDS'**
   String get restBetweenSets;
 
   /// No description provided for @timeCap.
@@ -275,13 +275,13 @@ abstract class AppLocalizations {
   /// No description provided for @sound.
   ///
   /// In en, this message translates to:
-  /// **'Sound Effects'**
+  /// **'Audio Cues'**
   String get sound;
 
   /// No description provided for @vibration.
   ///
   /// In en, this message translates to:
-  /// **'Vibration'**
+  /// **'Haptic Feedback'**
   String get vibration;
 
   /// No description provided for @keepScreenOn.
@@ -317,25 +317,25 @@ abstract class AppLocalizations {
   /// No description provided for @customRoutines.
   ///
   /// In en, this message translates to:
-  /// **'Saved Custom Timers'**
+  /// **'Saved WODs & Timers'**
   String get customRoutines;
 
   /// No description provided for @createNewRoutine.
   ///
   /// In en, this message translates to:
-  /// **'Create New Custom Timer'**
+  /// **'Create New Timer'**
   String get createNewRoutine;
 
   /// No description provided for @routineName.
   ///
   /// In en, this message translates to:
-  /// **'Timer Name'**
+  /// **'WOD / Timer Name'**
   String get routineName;
 
   /// No description provided for @routineNameHint.
   ///
   /// In en, this message translates to:
-  /// **'e.g., Fran, Murph, 5x5 Interval'**
+  /// **'e.g., Fran, Cindy, Murph, 21-15-9'**
   String get routineNameHint;
 
   /// No description provided for @addInterval.
@@ -347,7 +347,7 @@ abstract class AppLocalizations {
   /// No description provided for @intervalName.
   ///
   /// In en, this message translates to:
-  /// **'Interval Name'**
+  /// **'Interval / Movement Name'**
   String get intervalName;
 
   /// No description provided for @intervalDuration.
@@ -359,7 +359,7 @@ abstract class AppLocalizations {
   /// No description provided for @intervalType.
   ///
   /// In en, this message translates to:
-  /// **'Interval Type'**
+  /// **'Interval Phase'**
   String get intervalType;
 
   /// No description provided for @save.
@@ -389,7 +389,7 @@ abstract class AppLocalizations {
   /// No description provided for @noCustomRoutines.
   ///
   /// In en, this message translates to:
-  /// **'No custom timers yet. Create one now!'**
+  /// **'No custom timers yet. Tap + to build one!'**
   String get noCustomRoutines;
 
   /// No description provided for @confirmDelete.
@@ -407,19 +407,19 @@ abstract class AppLocalizations {
   /// No description provided for @lapTimes.
   ///
   /// In en, this message translates to:
-  /// **'Lap Times'**
+  /// **'Splits & Lap Times'**
   String get lapTimes;
 
   /// No description provided for @fastestLap.
   ///
   /// In en, this message translates to:
-  /// **'Fastest Lap'**
+  /// **'Best Split'**
   String get fastestLap;
 
   /// No description provided for @slowestLap.
   ///
   /// In en, this message translates to:
-  /// **'Slowest Lap'**
+  /// **'Slowest Split'**
   String get slowestLap;
 
   /// No description provided for @totalTime.
@@ -431,7 +431,7 @@ abstract class AppLocalizations {
   /// No description provided for @roundTime.
   ///
   /// In en, this message translates to:
-  /// **'Round Time'**
+  /// **'Split Time'**
   String get roundTime;
 
   /// No description provided for @general.
@@ -443,13 +443,13 @@ abstract class AppLocalizations {
   /// No description provided for @soundSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Countdown and interval transition beeps'**
+  /// **'Countdown beeps and interval transition cues'**
   String get soundSubtitle;
 
   /// No description provided for @vibrationSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Haptic feedback on interval transitions'**
+  /// **'Haptic pulses on interval transitions'**
   String get vibrationSubtitle;
 
   /// No description provided for @keepScreenOnSubtitle.
@@ -461,7 +461,7 @@ abstract class AppLocalizations {
   /// No description provided for @soundTest.
   ///
   /// In en, this message translates to:
-  /// **'SOUND TEST'**
+  /// **'AUDIO TEST'**
   String get soundTest;
 
   /// No description provided for @countdown.
@@ -485,7 +485,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutDesc.
   ///
   /// In en, this message translates to:
-  /// **'Designed for CrossFit and functional fitness workouts.'**
+  /// **'Engineered for CrossFit, HIIT, and functional fitness workouts.'**
   String get aboutDesc;
 
   /// No description provided for @seconds.
@@ -509,7 +509,7 @@ abstract class AppLocalizations {
   /// No description provided for @workRestStat.
   ///
   /// In en, this message translates to:
-  /// **'WORK/REST'**
+  /// **'WORK / REST'**
   String get workRestStat;
 
   /// No description provided for @startWorkout.
@@ -529,6 +529,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ALL'**
   String get allCategories;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @exitWorkoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Workout?'**
+  String get exitWorkoutTitle;
+
+  /// No description provided for @exitWorkoutMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The workout will be stopped. Are you sure you want to quit?'**
+  String get exitWorkoutMessage;
+
+  /// No description provided for @continueWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'RESUME'**
+  String get continueWorkout;
+
+  /// No description provided for @quit.
+  ///
+  /// In en, this message translates to:
+  /// **'QUIT'**
+  String get quit;
 }
 
 class _AppLocalizationsDelegate

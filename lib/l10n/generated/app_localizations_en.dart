@@ -16,13 +16,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabata => 'TABATA';
 
   @override
-  String get rounds => 'ROUNDS & WOD';
+  String get rounds => 'ROUNDS';
 
   @override
   String get stopwatch => 'STOPWATCH';
 
   @override
-  String get custom => 'CUSTOM TIMER';
+  String get custom => 'CUSTOM';
 
   @override
   String get settings => 'SETTINGS';
@@ -34,7 +34,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rest => 'REST';
 
   @override
-  String get prep => 'PREPARE';
+  String get prep => 'PREP';
 
   @override
   String get cooldown => 'COOLDOWN';
@@ -46,7 +46,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get set => 'SET';
 
   @override
-  String get completed => 'COMPLETED!';
+  String get completed => 'TIME!';
 
   @override
   String get paused => 'PAUSED';
@@ -55,7 +55,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ready => 'GET READY';
 
   @override
-  String get finished => 'CONGRATS! WORKOUT FINISHED';
+  String get finished => 'WORKOUT COMPLETE!';
 
   @override
   String get start => 'START';
@@ -73,34 +73,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skip => 'SKIP';
 
   @override
-  String get lap => 'LAP';
+  String get lap => 'SPLIT';
 
   @override
-  String get workTime => 'WORK DURATION';
+  String get workTime => 'WORK TIME';
 
   @override
-  String get restTime => 'REST DURATION';
+  String get restTime => 'REST TIME';
 
   @override
-  String get prepTime => 'PREPARATION TIME';
+  String get prepTime => 'PREP TIME';
 
   @override
   String get totalRounds => 'TOTAL ROUNDS';
 
   @override
-  String get totalSets => 'Total Sets';
+  String get totalSets => 'TOTAL SETS';
 
   @override
-  String get restBetweenSets => 'Rest Between Sets';
+  String get restBetweenSets => 'REST BETWEEN ROUNDS';
 
   @override
   String get timeCap => 'TIME CAP';
 
   @override
-  String get sound => 'Sound Effects';
+  String get sound => 'Audio Cues';
 
   @override
-  String get vibration => 'Vibration';
+  String get vibration => 'Haptic Feedback';
 
   @override
   String get keepScreenOn => 'Keep Screen Awake';
@@ -118,28 +118,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forTimeTitle => 'FOR TIME';
 
   @override
-  String get customRoutines => 'Saved Custom Timers';
+  String get customRoutines => 'Saved WODs & Timers';
 
   @override
-  String get createNewRoutine => 'Create New Custom Timer';
+  String get createNewRoutine => 'Create New Timer';
 
   @override
-  String get routineName => 'Timer Name';
+  String get routineName => 'WOD / Timer Name';
 
   @override
-  String get routineNameHint => 'e.g., Fran, Murph, 5x5 Interval';
+  String get routineNameHint => 'e.g., Fran, Cindy, Murph, 21-15-9';
 
   @override
   String get addInterval => 'Add Interval';
 
   @override
-  String get intervalName => 'Interval Name';
+  String get intervalName => 'Interval / Movement Name';
 
   @override
   String get intervalDuration => 'Duration (sec)';
 
   @override
-  String get intervalType => 'Interval Type';
+  String get intervalType => 'Interval Phase';
 
   @override
   String get save => 'SAVE';
@@ -154,7 +154,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get edit => 'EDIT';
 
   @override
-  String get noCustomRoutines => 'No custom timers yet. Create one now!';
+  String get noCustomRoutines => 'No custom timers yet. Tap + to build one!';
 
   @override
   String get confirmDelete => 'Are you sure you want to delete this timer?';
@@ -164,34 +164,34 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your timers are stored locally on your device.';
 
   @override
-  String get lapTimes => 'Lap Times';
+  String get lapTimes => 'Splits & Lap Times';
 
   @override
-  String get fastestLap => 'Fastest Lap';
+  String get fastestLap => 'Best Split';
 
   @override
-  String get slowestLap => 'Slowest Lap';
+  String get slowestLap => 'Slowest Split';
 
   @override
   String get totalTime => 'TOTAL TIME';
 
   @override
-  String get roundTime => 'Round Time';
+  String get roundTime => 'Split Time';
 
   @override
   String get general => 'GENERAL';
 
   @override
-  String get soundSubtitle => 'Countdown and interval transition beeps';
+  String get soundSubtitle => 'Countdown beeps and interval transition cues';
 
   @override
-  String get vibrationSubtitle => 'Haptic feedback on interval transitions';
+  String get vibrationSubtitle => 'Haptic pulses on interval transitions';
 
   @override
   String get keepScreenOnSubtitle => 'Screen stays awake during workouts';
 
   @override
-  String get soundTest => 'SOUND TEST';
+  String get soundTest => 'AUDIO TEST';
 
   @override
   String get countdown => 'Countdown';
@@ -204,7 +204,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutDesc =>
-      'Designed for CrossFit and functional fitness workouts.';
+      'Engineered for CrossFit, HIIT, and functional fitness workouts.';
 
   @override
   String get seconds => 's';
@@ -216,7 +216,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalRoundsStat => 'ROUNDS';
 
   @override
-  String get workRestStat => 'WORK/REST';
+  String get workRestStat => 'WORK / REST';
 
   @override
   String get startWorkout => 'START WORKOUT';
@@ -226,4 +226,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get allCategories => 'ALL';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get exitWorkoutTitle => 'Exit Workout?';
+
+  @override
+  String get exitWorkoutMessage =>
+      'The workout will be stopped. Are you sure you want to quit?';
+
+  @override
+  String get continueWorkout => 'RESUME';
+
+  @override
+  String get quit => 'QUIT';
 }
