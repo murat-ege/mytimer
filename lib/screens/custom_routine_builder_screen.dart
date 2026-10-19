@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import '../l10n/generated/app_localizations.dart';
 import '../models/custom_routine.dart';
 import '../models/interval_step.dart';
 import '../models/timer_phase.dart';
@@ -25,6 +26,7 @@ class _CustomRoutineBuilderScreenState
   int _prepSeconds = 10;
   int _rounds = 3;
   int _restBetweenRoundsSeconds = 30;
+  bool _initializedLocalizedName = false;
 
   List<IntervalStep> _intervals = [];
 
@@ -32,10 +34,7 @@ class _CustomRoutineBuilderScreenState
   void initState() {
     super.initState();
     final init = widget.initialRoutine;
-    final initialName = init == null
-        ? ''
-        : (init.isPreset ? '${init.name} (Özel)' : init.name);
-    _nameController = TextEditingController(text: initialName);
+    _nameController = TextEditingController(text: init?.name ?? '');
     _descController = TextEditingController(text: init?.description ?? '');
     _prepSeconds = init?.prepSeconds ?? 10;
     _rounds = init?.rounds ?? 3;
@@ -48,17 +47,31 @@ class _CustomRoutineBuilderScreenState
       _intervals = [
         const IntervalStep(
           id: 'step_1',
-          name: 'ÇALIŞMA',
+          name: 'WORK',
           durationSeconds: 40,
           phase: TimerPhase.work,
         ),
         const IntervalStep(
           id: 'step_2',
-          name: 'DİNLENME',
+          name: 'REST',
           durationSeconds: 20,
           phase: TimerPhase.rest,
         ),
       ];
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initializedLocalizedName) {
+      _initializedLocalizedName = true;
+      final init = widget.initialRoutine;
+      if (init != null && init.isPreset) {
+        final l10n = AppLocalizations.of(context);
+        final suffix = l10n?.customSuffix ?? ' (Custom)';
+        _nameController.text = '${init.name}$suffix';
+      }
     }
   }
 
@@ -70,10 +83,11 @@ class _CustomRoutineBuilderScreenState
   }
 
   void _addInterval() {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) {
-        String name = 'ÇALIŞMA';
+        String name = l10n?.work ?? 'WORK';
         int duration = 30;
         TimerPhase phase = TimerPhase.work;
 
@@ -81,18 +95,18 @@ class _CustomRoutineBuilderScreenState
           builder: (context, setDialogState) {
             return AlertDialog(
               backgroundColor: const Color(0xFF1E1E1E),
-              title: const Text('Yeni Aralık Ekle', style: TextStyle(color: Colors.white)),
+              title: Text(l10n?.addNewInterval ?? 'Add New Interval', style: const TextStyle(color: Colors.white)),
               content: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Aralık Adı',
-                        labelStyle: TextStyle(color: Colors.white70),
-                        hintText: 'Örn: Kettlebell Swing, Dinlenme',
-                        hintStyle: TextStyle(color: Colors.white30),
-                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+                      decoration: InputDecoration(
+                        labelText: l10n?.intervalName ?? 'Interval Name',
+                        labelStyle: const TextStyle(color: Colors.white70),
+                        hintText: l10n?.routineNameHint ?? 'e.g., Kettlebell Swing, Rest',
+                        hintStyle: const TextStyle(color: Colors.white30),
+                        enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
                       ),
                       style: const TextStyle(color: Colors.white),
                       onChanged: (val) => name = val.trim(),
@@ -101,21 +115,31 @@ class _CustomRoutineBuilderScreenState
                     DropdownButtonFormField<TimerPhase>(
                       initialValue: phase,
                       dropdownColor: const Color(0xFF262626),
-                      decoration: const InputDecoration(
-                        labelText: 'Tip',
-                        labelStyle: TextStyle(color: Colors.white70),
+                      decoration: InputDecoration(
+                        labelText: l10n?.intervalPhaseLabel ?? 'Phase',
+                        labelStyle: const TextStyle(color: Colors.white70),
                       ),
-                      items: const [
-                        DropdownMenuItem(value: TimerPhase.work, child: Text('ÇALIŞMA (Work)', style: TextStyle(color: Color(0xFF00E676)))),
-                        DropdownMenuItem(value: TimerPhase.rest, child: Text('DİNLENME (Rest)', style: TextStyle(color: Color(0xFFFF3D00)))),
-                        DropdownMenuItem(value: TimerPhase.cooldown, child: Text('SOĞUMA (Cooldown)', style: TextStyle(color: Color(0xFF00E5FF)))),
+                      items: [
+                        DropdownMenuItem(
+                          value: TimerPhase.work,
+                          child: Text(l10n?.work ?? 'WORK', style: const TextStyle(color: Color(0xFF00E676))),
+                        ),
+                        DropdownMenuItem(
+                          value: TimerPhase.rest,
+                          child: Text(l10n?.rest ?? 'REST', style: const TextStyle(color: Color(0xFFFF3D00))),
+                        ),
+                        DropdownMenuItem(
+                          value: TimerPhase.cooldown,
+                          child: Text(l10n?.cooldown ?? 'COOLDOWN', style: const TextStyle(color: Color(0xFF00E5FF))),
+                        ),
                       ],
                       onChanged: (val) {
                         if (val != null) {
                           setDialogState(() {
                             phase = val;
-                            if (phase == TimerPhase.rest) name = 'DİNLENME';
-                            if (phase == TimerPhase.work) name = 'ÇALIŞMA';
+                            if (phase == TimerPhase.rest) name = l10n?.rest ?? 'REST';
+                            if (phase == TimerPhase.work) name = l10n?.work ?? 'WORK';
+                            if (phase == TimerPhase.cooldown) name = l10n?.cooldown ?? 'COOLDOWN';
                           });
                         }
                       },
@@ -124,7 +148,7 @@ class _CustomRoutineBuilderScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Süre (sn):', style: TextStyle(color: Colors.white70)),
+                        Text(l10n?.durationSec ?? 'Duration (s):', style: const TextStyle(color: Colors.white70)),
                         Row(
                           children: [
                             IconButton(
@@ -133,7 +157,7 @@ class _CustomRoutineBuilderScreenState
                                 if (duration > 1) setDialogState(() => duration -= 1);
                               },
                             ),
-                            Text('$duration sn', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text('$duration ${l10n?.seconds ?? "s"}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
                             IconButton(
                               icon: const Icon(Icons.add, color: Color(0xFF00E676)),
                               onPressed: () => setDialogState(() => duration += 1),
@@ -148,7 +172,7 @@ class _CustomRoutineBuilderScreenState
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(ctx).pop(),
-                  child: const Text('İPTAL', style: TextStyle(color: Colors.white54)),
+                  child: Text(l10n?.cancel ?? 'CANCEL', style: const TextStyle(color: Colors.white54)),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF00E676), foregroundColor: Colors.black),
@@ -157,7 +181,7 @@ class _CustomRoutineBuilderScreenState
                       _intervals.add(
                         IntervalStep(
                           id: const Uuid().v4(),
-                          name: name.isEmpty ? 'Aralık' : name,
+                          name: name.isEmpty ? (l10n?.work ?? 'WORK') : name,
                           durationSeconds: duration,
                           phase: phase,
                         ),
@@ -165,7 +189,7 @@ class _CustomRoutineBuilderScreenState
                     });
                     Navigator.of(ctx).pop();
                   },
-                  child: const Text('EKLE'),
+                  child: Text(l10n?.add ?? 'ADD'),
                 ),
               ],
             );
@@ -176,10 +200,11 @@ class _CustomRoutineBuilderScreenState
   }
 
   Future<void> _saveRoutine() async {
+    final l10n = AppLocalizations.of(context);
     if (!_formKey.currentState!.validate()) return;
     if (_intervals.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Lütfen en az bir aralık ekleyin!')),
+        SnackBar(content: Text(l10n?.addAtLeastOneInterval ?? 'Please add at least one interval!')),
       );
       return;
     }
@@ -194,7 +219,7 @@ class _CustomRoutineBuilderScreenState
       id: routineId,
       name: _nameController.text.trim(),
       description: _descController.text.trim(),
-      category: 'Özel',
+      category: 'Custom',
       isPreset: false, // User modified or created routines are always custom
       prepSeconds: _prepSeconds,
       rounds: _rounds,
@@ -211,8 +236,33 @@ class _CustomRoutineBuilderScreenState
     }
   }
 
+  String _getStepDisplayName(String name, TimerPhase phase, AppLocalizations? l10n) {
+    if (name == 'ÇALIŞMA' || name == 'WORK') return l10n?.work ?? 'WORK';
+    if (name == 'DİNLENME' || name == 'REST') return l10n?.rest ?? 'REST';
+    if (name == 'SOĞUMA' || name == 'COOLDOWN') return l10n?.cooldown ?? 'COOLDOWN';
+    if (name == 'HAZIRLIK' || name == 'PREP') return l10n?.prep ?? 'PREP';
+    return name;
+  }
+
+  String _getPhaseDisplayName(TimerPhase phase, AppLocalizations? l10n) {
+    switch (phase) {
+      case TimerPhase.prep:
+        return l10n?.prep ?? 'PREP';
+      case TimerPhase.work:
+        return l10n?.work ?? 'WORK';
+      case TimerPhase.rest:
+      case TimerPhase.restBetweenSets:
+        return l10n?.rest ?? 'REST';
+      case TimerPhase.cooldown:
+        return l10n?.cooldown ?? 'COOLDOWN';
+      case TimerPhase.finished:
+        return l10n?.finished ?? 'FINISHED';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isEditingPreset = widget.initialRoutine?.isPreset ?? false;
 
     return Scaffold(
@@ -222,8 +272,8 @@ class _CustomRoutineBuilderScreenState
         elevation: 0,
         title: Text(
           widget.initialRoutine == null
-              ? 'YENİ TİMER OLUŞTUR'
-              : (isEditingPreset ? 'WOD''U ÖZELLEŞTİR' : 'TİMER DÜZENLE'),
+              ? (l10n?.createRoutine ?? 'CREATE TIMER')
+              : (isEditingPreset ? (l10n?.customizeWod ?? 'CUSTOMIZE WOD') : (l10n?.editTimer ?? 'EDIT TIMER')),
           style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, letterSpacing: 1.5),
         ),
         actions: [
@@ -245,15 +295,15 @@ class _CustomRoutineBuilderScreenState
                 controller: _nameController,
                 style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
-                  labelText: 'Timer Adı *',
+                  labelText: '${l10n?.routineName ?? "Timer Name"} *',
                   labelStyle: const TextStyle(color: Colors.white70),
-                  hintText: 'Örn: Barbell Complex, HIIT 45/15',
+                  hintText: l10n?.routineNameHint ?? 'e.g., Barbell Complex, HIIT 45/15',
                   hintStyle: const TextStyle(color: Colors.white30),
                   filled: true,
                   fillColor: const Color(0xFF1E1E1E),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
                 ),
-                validator: (val) => (val == null || val.trim().isEmpty) ? 'Lütfen bir ad girin' : null,
+                validator: (val) => (val == null || val.trim().isEmpty) ? (l10n?.routineNameRequired ?? 'Please enter a name') : null,
               ),
 
               const SizedBox(height: 14),
@@ -263,9 +313,9 @@ class _CustomRoutineBuilderScreenState
                 controller: _descController,
                 style: const TextStyle(color: Colors.white, fontSize: 14),
                 decoration: InputDecoration(
-                  labelText: 'Açıklama (İsteğe bağlı)',
+                  labelText: l10n?.descriptionLabel ?? 'Description (Optional)',
                   labelStyle: const TextStyle(color: Colors.white70),
-                  hintText: 'Hedeflenen hareketler, ağırlık veya notlar',
+                  hintText: l10n?.descriptionHint ?? 'Target movements, weights or notes',
                   hintStyle: const TextStyle(color: Colors.white30),
                   filled: true,
                   fillColor: const Color(0xFF1E1E1E),
@@ -280,7 +330,7 @@ class _CustomRoutineBuilderScreenState
                 children: [
                   Expanded(
                     child: _buildSmallStepper(
-                      'TOPLAM TUR',
+                      l10n?.totalRounds ?? 'TOTAL ROUNDS',
                       '$_rounds',
                       () { if (_rounds > 1) setState(() => _rounds--); },
                       () => setState(() => _rounds++),
@@ -289,8 +339,8 @@ class _CustomRoutineBuilderScreenState
                   const SizedBox(width: 12),
                   Expanded(
                     child: _buildSmallStepper(
-                      'HAZIRLIK',
-                      '$_prepSeconds s',
+                      l10n?.prepTime ?? 'PREP TIME',
+                      '$_prepSeconds ${l10n?.seconds ?? "s"}',
                       () { if (_prepSeconds > 0) setState(() => _prepSeconds -= 1); },
                       () => setState(() => _prepSeconds += 1),
                     ),
@@ -298,8 +348,8 @@ class _CustomRoutineBuilderScreenState
                   const SizedBox(width: 12),
                   Expanded(
                     child: _buildSmallStepper(
-                      'TUR ARASI',
-                      '$_restBetweenRoundsSeconds s',
+                      l10n?.restBetweenSets ?? 'REST BETWEEN ROUNDS',
+                      '$_restBetweenRoundsSeconds ${l10n?.seconds ?? "s"}',
                       () { if (_restBetweenRoundsSeconds > 0) setState(() => _restBetweenRoundsSeconds -= 1); },
                       () => setState(() => _restBetweenRoundsSeconds += 1),
                     ),
@@ -313,14 +363,17 @@ class _CustomRoutineBuilderScreenState
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'ARALIK SIRALAMASI',
-                    style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w800, letterSpacing: 1.2),
+                  Expanded(
+                    child: Text(
+                      l10n?.intervalSequence ?? 'INTERVAL SEQUENCE',
+                      style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w800, letterSpacing: 1.2),
+                    ),
                   ),
+                  const SizedBox(width: 8),
                   TextButton.icon(
                     onPressed: _addInterval,
                     icon: const Icon(Icons.add, color: Color(0xFF00E676)),
-                    label: const Text('ARALIK EKLE', style: TextStyle(color: Color(0xFF00E676), fontWeight: FontWeight.bold)),
+                    label: Text(l10n?.addInterval ?? 'ADD INTERVAL', style: const TextStyle(color: Color(0xFF00E676), fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -341,6 +394,8 @@ class _CustomRoutineBuilderScreenState
                 itemBuilder: (context, index) {
                   final step = _intervals[index];
                   final color = step.phase.primaryColor;
+                  final stepDisplayName = _getStepDisplayName(step.name, step.phase, l10n);
+                  final phaseName = _getPhaseDisplayName(step.phase, l10n);
 
                   return Container(
                     key: ValueKey(step.id),
@@ -353,7 +408,7 @@ class _CustomRoutineBuilderScreenState
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.drag_indicator, color: Colors.white38),
+                        const Icon(Icons.drag_indicator, color: Colors.white38),
                         const SizedBox(width: 10),
                         Container(
                           width: 10,
@@ -369,11 +424,11 @@ class _CustomRoutineBuilderScreenState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                step.name,
+                                stepDisplayName,
                                 style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
                               ),
                               Text(
-                                '${step.phase.displayName} • ${step.durationSeconds} sn',
+                                '$phaseName • ${step.durationSeconds} ${l10n?.seconds ?? "s"}',
                                 style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                             ],
@@ -406,14 +461,14 @@ class _CustomRoutineBuilderScreenState
                     foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.check_circle_outline_rounded, size: 26),
-                      SizedBox(width: 8),
+                      const Icon(Icons.check_circle_outline_rounded, size: 26),
+                      const SizedBox(width: 8),
                       Text(
-                        'TİMER\'I KAYDET',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 1.5),
+                        l10n?.saveTimer ?? 'SAVE TIMER',
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 1.5),
                       ),
                     ],
                   ),

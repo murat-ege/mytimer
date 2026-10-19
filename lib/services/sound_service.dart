@@ -91,7 +91,29 @@ class SoundService {
     await _safePlay('sounds/beep_complete.wav');
   }
 
+  AudioPlayer? _silentPlayer;
+
+  Future<void> startBackgroundKeepAlive() async {
+    try {
+      if (_silentPlayer == null) {
+        _silentPlayer = AudioPlayer();
+        await _silentPlayer!.setAudioContext(_audioContext);
+        await _silentPlayer!.setReleaseMode(ReleaseMode.loop);
+      }
+      if (_silentPlayer!.state != PlayerState.playing) {
+        await _silentPlayer!.play(AssetSource('sounds/silent.wav'), volume: 0.01);
+      }
+    } catch (_) {}
+  }
+
+  Future<void> stopBackgroundKeepAlive() async {
+    try {
+      await _silentPlayer?.stop();
+    } catch (_) {}
+  }
+
   void dispose() {
     _player?.dispose();
+    _silentPlayer?.dispose();
   }
 }

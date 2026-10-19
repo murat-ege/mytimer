@@ -10,7 +10,7 @@ import 'timer_repository.dart';
 class LocalTimerRepository implements TimerRepository {
   static const String _boxName = 'routines_hive_box_v1';
   static const String _settingsKey = 'timer_settings_v1';
-  static const String _seededKey = 'has_seeded_default_wods_v1';
+  static const String _seededKey = 'has_seeded_default_wods_v2';
 
   Box<String>? _box;
 
@@ -39,10 +39,8 @@ class LocalTimerRepository implements TimerRepository {
           final id = map['id'] as String;
           map['isPreset'] = true;
 
-          // Only seed if not already present
-          if (!box.containsKey(id)) {
-            await box.put(id, jsonEncode(map));
-          }
+          // Always seed / refresh default preset definitions to maintain current schema and translation
+          await box.put(id, jsonEncode(map));
         }
         await prefs.setBool(_seededKey, true);
       } catch (e) {
@@ -83,11 +81,11 @@ class LocalTimerRepository implements TimerRepository {
     if (routine.isPreset) {
       final customCopy = routine.copyWith(
         id: const Uuid().v4(),
-        name: routine.name.endsWith('(Özel)')
+        name: routine.name.endsWith('(Custom)') || routine.name.endsWith('(Özel)')
             ? routine.name
-            : '${routine.name} (Özel)',
+            : '${routine.name} (Custom)',
         isPreset: false,
-        category: 'Özel',
+        category: 'Custom',
         updatedAt: DateTime.now(),
       );
       await box.put(customCopy.id, jsonEncode(customCopy.toJson()));

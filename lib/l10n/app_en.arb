@@ -82,5 +82,55 @@
   "exitWorkoutTitle": "Exit Workout?",
   "exitWorkoutMessage": "The workout will be stopped. Are you sure you want to quit?",
   "continueWorkout": "RESUME",
-  "quit": "QUIT"
+  "quit": "QUIT",
+
+  "createRoutine": "CREATE TIMER",
+  "customizeWod": "CUSTOMIZE WOD",
+  "editTimer": "EDIT TIMER",
+  "customSuffix": " (Custom)",
+  "workoutsListed": "{count} workouts listed",
+  "@workoutsListed": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "clearFilters": "Clear Filters",
+  "noWorkoutsFound": "No workouts found for \"{query}\"",
+  "@noWorkoutsFound": {
+    "placeholders": {
+      "query": { "type": "String" }
+    }
+  },
+  "showAllWods": "Show All WODs",
+  "customizeOrCopy": "Customize / Save Copy",
+  "deleteTimerTitle": "Delete Timer?",
+  "deleteTimerConfirm": "{name} will be deleted. Are you sure?",
+  "@deleteTimerConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "routineNameRequired": "Please enter a name",
+  "descriptionLabel": "Description (Optional)",
+  "descriptionHint": "Target movements, weights or notes",
+  "intervalSequence": "INTERVAL SEQUENCE",
+  "saveTimer": "SAVE TIMER",
+  "addAtLeastOneInterval": "Please add at least one interval!",
+  "addNewInterval": "Add New Interval",
+  "intervalPhaseLabel": "Phase",
+  "durationSec": "Duration (s):",
+  "add": "ADD",
+  "roundsBadge": "{count} Rounds",
+  "@roundsBadge": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "intervalsBadge": "{count} Intervals",
+  "@intervalsBadge": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "categoryCustom": "Custom"
 }

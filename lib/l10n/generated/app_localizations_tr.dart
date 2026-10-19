@@ -243,4 +243,86 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get quit => 'ÇIK';
+
+  @override
+  String get createRoutine => 'YENİ TİMER OLUŞTUR';
+
+  @override
+  String get customizeWod => 'WOD\'U ÖZELLEŞTİR';
+
+  @override
+  String get editTimer => 'TİMER DÜZENLE';
+
+  @override
+  String get customSuffix => ' (Özel)';
+
+  @override
+  String workoutsListed(int count) {
+    return '$count antrenman listeleniyor';
+  }
+
+  @override
+  String get clearFilters => 'Filtreleri Temizle';
+
+  @override
+  String noWorkoutsFound(String query) {
+    return '\"$query\" için antrenman bulunamadı';
+  }
+
+  @override
+  String get showAllWods => 'Tüm WOD\'ları Göster';
+
+  @override
+  String get customizeOrCopy => 'Özelleştir / Yeni İsimle Kaydet';
+
+  @override
+  String get deleteTimerTitle => 'Timer Silinsin mi?';
+
+  @override
+  String deleteTimerConfirm(String name) {
+    return '$name silinecektir. Onaylıyor musunuz?';
+  }
+
+  @override
+  String get routineNameRequired => 'Lütfen bir ad girin';
+
+  @override
+  String get descriptionLabel => 'Açıklama (İsteğe bağlı)';
+
+  @override
+  String get descriptionHint => 'Hedeflenen hareketler, ağırlık veya notlar';
+
+  @override
+  String get intervalSequence => 'ARALIK SIRALAMASI';
+
+  @override
+  String get saveTimer => 'TİMER\'I KAYDET';
+
+  @override
+  String get addAtLeastOneInterval => 'Lütfen en az bir aralık ekleyin!';
+
+  @override
+  String get addNewInterval => 'Yeni Aralık Ekle';
+
+  @override
+  String get intervalPhaseLabel => 'Tip';
+
+  @override
+  String get durationSec => 'Süre (sn):';
+
+  @override
+  String get add => 'EKLE';
+
+  @override
+  String roundsBadge(int count) {
+    return '$count Tur';
+  }
+
+  @override
+  String intervalsBadge(int count) {
+    return '$count Aralık';
+  }
+
+  @override
+  String get categoryCustom => 'Özel';
 }

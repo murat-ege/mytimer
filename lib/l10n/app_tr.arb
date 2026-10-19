@@ -82,5 +82,55 @@
   "exitWorkoutTitle": "Antrenmandan Çıkılsın mı?",
   "exitWorkoutMessage": "Antrenman sonlandırılacak. Çıkmak istediğinize emin misiniz?",
   "continueWorkout": "DEVAM ET",
-  "quit": "ÇIK"
+  "quit": "ÇIK",
+
+  "createRoutine": "YENİ TİMER OLUŞTUR",
+  "customizeWod": "WOD''U ÖZELLEŞTİR",
+  "editTimer": "TİMER DÜZENLE",
+  "customSuffix": " (Özel)",
+  "workoutsListed": "{count} antrenman listeleniyor",
+  "@workoutsListed": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "clearFilters": "Filtreleri Temizle",
+  "noWorkoutsFound": "\"{query}\" için antrenman bulunamadı",
+  "@noWorkoutsFound": {
+    "placeholders": {
+      "query": { "type": "String" }
+    }
+  },
+  "showAllWods": "Tüm WOD''ları Göster",
+  "customizeOrCopy": "Özelleştir / Yeni İsimle Kaydet",
+  "deleteTimerTitle": "Timer Silinsin mi?",
+  "deleteTimerConfirm": "{name} silinecektir. Onaylıyor musunuz?",
+  "@deleteTimerConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "routineNameRequired": "Lütfen bir ad girin",
+  "descriptionLabel": "Açıklama (İsteğe bağlı)",
+  "descriptionHint": "Hedeflenen hareketler, ağırlık veya notlar",
+  "intervalSequence": "ARALIK SIRALAMASI",
+  "saveTimer": "TİMER''I KAYDET",
+  "addAtLeastOneInterval": "Lütfen en az bir aralık ekleyin!",
+  "addNewInterval": "Yeni Aralık Ekle",
+  "intervalPhaseLabel": "Tip",
+  "durationSec": "Süre (sn):",
+  "add": "EKLE",
+  "roundsBadge": "{count} Tur",
+  "@roundsBadge": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "intervalsBadge": "{count} Aralık",
+  "@intervalsBadge": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "categoryCustom": "Özel"
 }

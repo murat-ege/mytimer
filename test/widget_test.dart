@@ -49,6 +49,30 @@ void main() {
       expect(controller.secondsRemaining, 10);
       expect(controller.totalElapsedSeconds, 20); // 20s completed work
     });
+
+    test('syncWithRealTime correctly advances state when app resumes', () async {
+      final tabata = CustomRoutine.tabata(
+        workSeconds: 20,
+        restSeconds: 10,
+        rounds: 2,
+        prepSeconds: 0,
+      );
+
+      final controller = WorkoutController(routine: tabata);
+      controller.start();
+
+      expect(controller.currentPhase, TimerPhase.work);
+      expect(controller.secondsRemaining, 20);
+
+      // Wait a moment then trigger sync
+      await Future<void>.delayed(const Duration(milliseconds: 1050));
+      controller.syncWithRealTime();
+
+      expect(controller.secondsRemaining <= 19, true);
+      expect(controller.totalElapsedSeconds >= 1, true);
+
+      controller.reset();
+    });
   });
 
   group('StopwatchController Tests', () {

@@ -242,4 +242,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quit => 'QUIT';
+
+  @override
+  String get createRoutine => 'CREATE TIMER';
+
+  @override
+  String get customizeWod => 'CUSTOMIZE WOD';
+
+  @override
+  String get editTimer => 'EDIT TIMER';
+
+  @override
+  String get customSuffix => ' (Custom)';
+
+  @override
+  String workoutsListed(int count) {
+    return '$count workouts listed';
+  }
+
+  @override
+  String get clearFilters => 'Clear Filters';
+
+  @override
+  String noWorkoutsFound(String query) {
+    return 'No workouts found for \"$query\"';
+  }
+
+  @override
+  String get showAllWods => 'Show All WODs';
+
+  @override
+  String get customizeOrCopy => 'Customize / Save Copy';
+
+  @override
+  String get deleteTimerTitle => 'Delete Timer?';
+
+  @override
+  String deleteTimerConfirm(String name) {
+    return '$name will be deleted. Are you sure?';
+  }
+
+  @override
+  String get routineNameRequired => 'Please enter a name';
+
+  @override
+  String get descriptionLabel => 'Description (Optional)';
+
+  @override
+  String get descriptionHint => 'Target movements, weights or notes';
+
+  @override
+  String get intervalSequence => 'INTERVAL SEQUENCE';
+
+  @override
+  String get saveTimer => 'SAVE TIMER';
+
+  @override
+  String get addAtLeastOneInterval => 'Please add at least one interval!';
+
+  @override
+  String get addNewInterval => 'Add New Interval';
+
+  @override
+  String get intervalPhaseLabel => 'Phase';
+
+  @override
+  String get durationSec => 'Duration (s):';
+
+  @override
+  String get add => 'ADD';
+
+  @override
+  String roundsBadge(int count) {
+    return '$count Rounds';
+  }
+
+  @override
+  String intervalsBadge(int count) {
+    return '$count Intervals';
+  }
+
+  @override
+  String get categoryCustom => 'Custom';
 }

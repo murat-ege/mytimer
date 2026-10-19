@@ -13,11 +13,15 @@ class StopwatchScreen extends StatefulWidget {
 
 class _StopwatchScreenState extends State<StopwatchScreen> {
   final StopwatchController _controller = StopwatchController();
+  late final AppLifecycleListener _lifecycleListener;
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(_onUpdate);
+    _lifecycleListener = AppLifecycleListener(
+      onResume: () => _controller.syncWithRealTime(),
+    );
   }
 
   void _onUpdate() {
@@ -26,6 +30,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
 
   @override
   void dispose() {
+    _lifecycleListener.dispose();
     _controller.removeListener(_onUpdate);
     _controller.dispose();
     super.dispose();

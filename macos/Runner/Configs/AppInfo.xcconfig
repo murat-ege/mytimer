@@ -8,7 +8,7 @@
 PRODUCT_NAME = mytimer
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.muratege.mytimer
+PRODUCT_BUNDLE_IDENTIFIER = com.mege.mytimer
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 com.muratege. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 com.mege. All rights reserved.

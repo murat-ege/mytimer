@@ -2,14 +2,14 @@
   {
     "id": "wod_fran",
     "name": "Fran",
-    "description": "21-15-9 Tekrar: Thruster (43/30 kg) ve Pull-up. Hızlı ve patlayıcı güç!",
+    "description": "21-15-9 Reps: Thruster (95/65 lb) and Pull-up. Fast and explosive!",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "fran_step",
-        "name": "FRAN ÇALIŞMA",
+        "name": "FRAN WORK",
         "durationSeconds": 180,
         "phase": "work"
       }
@@ -22,14 +22,14 @@
   {
     "id": "wod_cindy",
     "name": "Cindy",
-    "description": "20 Dk AMRAP: 5 Pull-up, 10 Push-up, 15 Air Squat. Kesintisiz tempo!",
+    "description": "20 Min AMRAP: 5 Pull-ups, 10 Push-ups, 15 Air Squats. Continuous pace!",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "cindy_step",
-        "name": "AMRAP 20 DK",
+        "name": "AMRAP 20 MIN",
         "durationSeconds": 1200,
         "phase": "work"
       }
@@ -42,14 +42,14 @@
   {
     "id": "wod_grace",
     "name": "Grace",
-    "description": "30 Clean & Jerk (61/43 kg) For Time. Maksimum güç ve teknik dayanıklılık.",
+    "description": "30 Clean & Jerks (135/95 lb) For Time. Max power & barbell speed.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "grace_step",
-        "name": "GRACE (CAP 6 DK)",
+        "name": "GRACE (CAP 6 MIN)",
         "durationSeconds": 360,
         "phase": "work"
       }
@@ -62,14 +62,14 @@
   {
     "id": "wod_helen",
     "name": "Helen",
-    "description": "3 Tur: 400m Koşu, 21 Kettlebell Swing (24/16 kg), 12 Pull-up.",
+    "description": "3 Rounds: 400m Run, 21 Kettlebell Swings (24/16 kg), 12 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "helen_step",
-        "name": "HELEN TURU",
+        "name": "HELEN ROUND",
         "durationSeconds": 240,
         "phase": "work"
       }
@@ -82,14 +82,14 @@
   {
     "id": "wod_annie",
     "name": "Annie",
-    "description": "50-40-30-20-10 Tekrar: Double Under ve Sit-up For Time.",
+    "description": "50-40-30-20-10 Reps: Double Unders and Sit-ups For Time.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "annie_step",
-        "name": "ANNIE SERİSİ",
+        "name": "ANNIE ROUND",
         "durationSeconds": 150,
         "phase": "work"
       }
@@ -102,14 +102,14 @@
   {
     "id": "wod_diane",
     "name": "Diane",
-    "description": "21-15-9 Tekrar: Deadlift (102/70 kg) ve Handstand Push-up (HSPU).",
+    "description": "21-15-9 Reps: Deadlift (225/155 lb) and Handstand Push-up (HSPU).",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "diane_step",
-        "name": "DIANE ÇALIŞMA",
+        "name": "DIANE WORK",
         "durationSeconds": 180,
         "phase": "work"
       }
@@ -122,14 +122,14 @@
   {
     "id": "wod_karen",
     "name": "Karen",
-    "description": "150 Wall Ball Shot (9/6 kg) For Time. Bacak ve omuz testi!",
+    "description": "150 Wall Ball Shots (20/14 lb) For Time. Leg and shoulder endurance.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "karen_step",
-        "name": "KAREN (CAP 10 DK)",
+        "name": "KAREN (CAP 10 MIN)",
         "durationSeconds": 600,
         "phase": "work"
       }
@@ -142,20 +142,20 @@
   {
     "id": "wod_chelsea",
     "name": "Chelsea",
-    "description": "EMOM 30 Dk: Her dakika 5 Pull-up, 10 Push-up, 15 Squat.",
+    "description": "EMOM 30 Min: Every minute 5 Pull-ups, 10 Push-ups, 15 Air Squats.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "chelsea_w",
-        "name": "EMOM ÇALIŞ",
+        "name": "WORK",
         "durationSeconds": 45,
         "phase": "work"
       },
       {
         "id": "chelsea_r",
-        "name": "DİNLEN",
+        "name": "REST",
         "durationSeconds": 15,
         "phase": "rest"
       }
@@ -168,14 +168,14 @@
   {
     "id": "wod_angie",
     "name": "Angie",
-    "description": "For Time: 100 Pull-up, 100 Push-up, 100 Sit-up, 100 Squat.",
+    "description": "For Time: 100 Pull-ups, 100 Push-ups, 100 Sit-ups, 100 Squats.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "angie_step",
-        "name": "100 TEKRAR BÖLÜMÜ",
+        "name": "100 REPS SEGMENT",
         "durationSeconds": 360,
         "phase": "work"
       }
@@ -188,14 +188,14 @@
   {
     "id": "wod_nancy",
     "name": "Nancy",
-    "description": "5 Tur: 400m Koşu, 15 Overhead Squat (43/30 kg).",
+    "description": "5 Rounds: 400m Run, 15 Overhead Squats (95/65 lb).",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "nancy_step",
-        "name": "NANCY TURU",
+        "name": "NANCY ROUND",
         "durationSeconds": 210,
         "phase": "work"
       }
@@ -208,14 +208,14 @@
   {
     "id": "wod_kelly",
     "name": "Kelly",
-    "description": "5 Tur: 400m Koşu, 30 Box Jump (60/50 cm), 30 Wall Ball.",
+    "description": "5 Rounds: 400m Run, 30 Box Jumps (24/20 in), 30 Wall Balls.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "kelly_step",
-        "name": "KELLY TURU",
+        "name": "KELLY ROUND",
         "durationSeconds": 300,
         "phase": "work"
       }
@@ -228,14 +228,14 @@
   {
     "id": "wod_isabel",
     "name": "Isabel",
-    "description": "30 Snatch (61/43 kg) For Time. Patlayıcı olimpik halter WOD.",
+    "description": "30 Snatches (135/95 lb) For Time. Sprint Olympic lifting WOD.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "isabel_step",
-        "name": "ISABEL (CAP 6 DK)",
+        "name": "ISABEL (CAP 6 MIN)",
         "durationSeconds": 360,
         "phase": "work"
       }
@@ -248,7 +248,7 @@
   {
     "id": "wod_jackie",
     "name": "Jackie",
-    "description": "For Time: 1000m Row, 50 Thruster (20 kg bar), 30 Pull-up.",
+    "description": "For Time: 1000m Row, 50 Thrusters (45 lb bar), 30 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
@@ -261,18 +261,18 @@
       },
       {
         "id": "jackie_thr",
-        "name": "50 THRUSTER",
+        "name": "50 THRUSTERS",
         "durationSeconds": 150,
         "phase": "work"
       },
       {
         "id": "jackie_pull",
-        "name": "30 PULL-UP",
+        "name": "30 PULL-UPS",
         "durationSeconds": 120,
         "phase": "work"
       }
     ],
-    "rounds": 3,
+    "rounds": 1,
     "restBetweenRoundsSeconds": 0,
     "createdAt": "2026-01-01T00:00:00.000",
     "updatedAt": "2026-01-01T00:00:00.000"
@@ -280,14 +280,14 @@
   {
     "id": "wod_eva",
     "name": "Eva",
-    "description": "5 Tur: 800m Koşu, 30 KB Swing (32/24 kg), 30 Pull-up. Zorlu dayanıklılık testi.",
+    "description": "5 Rounds: 800m Run, 30 KB Swings (32/24 kg), 30 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "eva_step",
-        "name": "EVA TURU",
+        "name": "EVA ROUND",
         "durationSeconds": 360,
         "phase": "work"
       }
@@ -300,14 +300,14 @@
   {
     "id": "wod_mary",
     "name": "Mary",
-    "description": "20 Dk AMRAP: 5 HSPU, 10 Tek Bacak Squat (Pistol), 15 Pull-up.",
+    "description": "20 Min AMRAP: 5 HSPU, 10 Pistol Squats, 15 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "mary_step",
-        "name": "AMRAP 20 DK",
+        "name": "AMRAP 20 MIN",
         "durationSeconds": 1200,
         "phase": "work"
       }
@@ -320,60 +320,58 @@
   {
     "id": "wod_murph",
     "name": "Murph",
-    "description": "For Time (Yelekli): 1 Mil Koşu, 100 Pull-up, 200 Push-up, 300 Squat, 1 Mil Koşu.",
+    "description": "For Time (with 20/14 lb vest): 1 Mile Run, 100 Pull-ups, 200 Push-ups, 300 Squats, 1 Mile Run.",
     "category": "Hero WOD",
     "isPreset": true,
     "prepSeconds": 15,
-    "rounds": 5,
+    "rounds": 1,
     "restBetweenRoundsSeconds": 0,
     "intervals": [
       {
         "id": "murph_run1",
-        "name": "1 MİL KOŞU",
+        "name": "1 MILE RUN",
         "durationSeconds": 540,
         "phase": "work"
       },
       {
         "id": "murph_pull",
-        "name": "100 PULL-UP",
+        "name": "100 PULL-UPS",
         "durationSeconds": 600,
         "phase": "work"
       },
       {
         "id": "murph_push",
-        "name": "200 PUSH-UP",
+        "name": "200 PUSH-UPS",
         "durationSeconds": 720,
         "phase": "work"
       },
       {
         "id": "murph_sq",
-        "name": "300 AIR SQUAT",
+        "name": "300 AIR SQUATS",
         "durationSeconds": 600,
         "phase": "work"
       },
       {
         "id": "murph_run2",
-        "name": "1 MİL KOŞU BİTİRİŞ",
+        "name": "1 MILE RUN",
         "durationSeconds": 540,
         "phase": "work"
       }
     ],
-    "rounds": 5,
-    "restBetweenRoundsSeconds": 0,
     "createdAt": "2026-01-01T00:00:00.000",
     "updatedAt": "2026-01-01T00:00:00.000"
   },
   {
     "id": "wod_dt",
     "name": "DT",
-    "description": "5 Tur: 12 Deadlift, 9 Hang Power Clean, 6 Push Jerk (70/47 kg).",
+    "description": "5 Rounds: 12 Deadlifts, 9 Hang Power Cleans, 6 Push Jerks (155/105 lb).",
     "category": "Hero WOD",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "dt_step",
-        "name": "DT TURU",
+        "name": "DT ROUND",
         "durationSeconds": 150,
         "phase": "work"
       }
@@ -386,14 +384,14 @@
   {
     "id": "wod_nate",
     "name": "Nate",
-    "description": "20 Dk AMRAP: 2 Muscle-up, 4 Handstand Push-up, 8 KB Swing (32/24 kg).",
+    "description": "20 Min AMRAP: 2 Muscle-ups, 4 HSPU, 8 KB Swings (32/24 kg).",
     "category": "Hero WOD",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "nate_step",
-        "name": "NATE AMRAP 20 DK",
+        "name": "NATE AMRAP 20 MIN",
         "durationSeconds": 1200,
         "phase": "work"
       }
@@ -406,14 +404,14 @@
   {
     "id": "wod_badger",
     "name": "Badger",
-    "description": "3 Tur: 30 Squat Clean (43/30 kg), 30 Pull-up, 800m Koşu.",
+    "description": "3 Rounds: 30 Squat Cleans (95/65 lb), 30 Pull-ups, 800m Run.",
     "category": "Hero WOD",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "badger_step",
-        "name": "BADGER TURU",
+        "name": "BADGER ROUND",
         "durationSeconds": 420,
         "phase": "work"
       }
@@ -426,20 +424,20 @@
   {
     "id": "wod_kalsu",
     "name": "Kalsu",
-    "description": "100 Thruster (61/43 kg) For Time. Her dakikanın başında 5 Burpee EMOM!",
+    "description": "100 Thrusters (135/95 lb) For Time. At the top of every minute: 5 Burpees.",
     "category": "Hero WOD",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "kalsu_b",
-        "name": "5 BURPEE!",
+        "name": "5 BURPEES",
         "durationSeconds": 20,
         "phase": "work"
       },
       {
         "id": "kalsu_t",
-        "name": "THRUSTER YAP",
+        "name": "THRUSTERS",
         "durationSeconds": 40,
         "phase": "work"
       }
@@ -452,14 +450,14 @@
   {
     "id": "wod_fight_gone_bad",
     "name": "Fight Gone Bad",
-    "description": "3 Tur: 1 dk Wall Ball, 1 dk SDHP, 1 dk Box Jump, 1 dk Push Press, 1 dk Row, 1 dk Dinlenme.",
+    "description": "3 Rounds: 1 min Wall Balls, 1 min SDHP, 1 min Box Jumps, 1 min Push Press, 1 min Row, 1 min Rest.",
     "category": "Benchmark",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "fgb_1",
-        "name": "Wall Ball",
+        "name": "Wall Balls",
         "durationSeconds": 60,
         "phase": "work"
       },
@@ -471,7 +469,7 @@
       },
       {
         "id": "fgb_3",
-        "name": "Box Jump",
+        "name": "Box Jumps",
         "durationSeconds": 60,
         "phase": "work"
       },
@@ -483,7 +481,7 @@
       },
       {
         "id": "fgb_5",
-        "name": "Row (Kalori)",
+        "name": "Row (Calories)",
         "durationSeconds": 60,
         "phase": "work"
       }
@@ -496,20 +494,20 @@
   {
     "id": "wod_tabata_something_else",
     "name": "Tabata Something Else",
-    "description": "4 Bölüm x 8 Tabata turu (Pull-up, Push-up, Sit-up, Squat). Toplam 32 tur.",
+    "description": "4 movements x 8 Tabata rounds (Pull-up, Push-up, Sit-up, Squat). 32 rounds total.",
     "category": "Benchmark",
     "isPreset": true,
     "prepSeconds": 10,
     "intervals": [
       {
         "id": "tse_w",
-        "name": "TABATA ÇALIŞMA",
+        "name": "TABATA WORK",
         "durationSeconds": 20,
         "phase": "work"
       },
       {
         "id": "tse_r",
-        "name": "DİNLENME",
+        "name": "REST",
         "durationSeconds": 10,
         "phase": "rest"
       }
@@ -534,7 +532,7 @@
       },
       {
         "id": "row_r",
-        "name": "DİNLENME",
+        "name": "REST",
         "durationSeconds": 120,
         "phase": "rest"
       }
@@ -553,13 +551,13 @@
     "intervals": [
       {
         "id": "str_w",
-        "name": "AĞIR SET ÇALIŞMASI",
+        "name": "HEAVY WORK SET",
         "durationSeconds": 180,
         "phase": "work"
       },
       {
         "id": "str_r",
-        "name": "SET ARASI DİNLENME",
+        "name": "REST BETWEEN SETS",
         "durationSeconds": 120,
         "phase": "rest"
       }
@@ -578,13 +576,13 @@
     "intervals": [
       {
         "id": "hiit_w",
-        "name": "SPRINT / MAKSİMUM GÜÇ",
+        "name": "SPRINT / MAX EFFORT",
         "durationSeconds": 30,
         "phase": "work"
       },
       {
         "id": "hiit_r",
-        "name": "DİNLENME",
+        "name": "REST",
         "durationSeconds": 30,
         "phase": "rest"
       }

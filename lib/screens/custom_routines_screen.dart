@@ -21,14 +21,14 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
   List<CustomRoutine> _routines = [];
   bool _isLoading = true;
   String _searchQuery = '';
-  String _selectedCategory = 'Hepsi';
+  String _selectedCategory = 'ALL';
 
   final List<String> _categories = [
-    'Hepsi',
+    'ALL',
     'The Girls',
     'Hero WOD',
     'Benchmark',
-    'Özel',
+    'Custom',
   ];
 
   @override
@@ -61,8 +61,8 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
           r.name.toLowerCase().contains(query) ||
           r.description.toLowerCase().contains(query);
 
-      final matchesCategory = _selectedCategory == 'Hepsi' ||
-          (_selectedCategory == 'Özel'
+      final matchesCategory = _selectedCategory == 'ALL' ||
+          (_selectedCategory == 'Custom'
               ? (r.category == 'Custom' || r.category == 'Özel')
               : r.category == _selectedCategory);
 
@@ -90,23 +90,24 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
   }
 
   void _deleteRoutine(CustomRoutine routine) async {
+    final l10n = AppLocalizations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF1E1E1E),
-        title: const Text('Timer Silinsin mi?', style: TextStyle(color: Colors.white)),
+        title: Text(l10n?.deleteTimerTitle ?? 'Delete Timer?', style: const TextStyle(color: Colors.white)),
         content: Text(
-          '${routine.name} silinecektir. Onaylıyor musunuz?',
+          l10n?.deleteTimerConfirm(routine.name) ?? '${routine.name} will be deleted. Are you sure?',
           style: const TextStyle(color: Colors.white70),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('İPTAL', style: TextStyle(color: Colors.white54)),
+            child: Text(l10n?.cancel ?? 'CANCEL', style: const TextStyle(color: Colors.white54)),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('SİL', style: TextStyle(color: Colors.redAccent)),
+            child: Text(l10n?.delete ?? 'DELETE', style: const TextStyle(color: Colors.redAccent)),
           ),
         ],
       ),
@@ -118,11 +119,19 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
     }
   }
 
-  String _formatTotalSeconds(int totalSecs) {
+  String _formatTotalSeconds(int totalSecs, AppLocalizations? l10n) {
     final mins = totalSecs ~/ 60;
     final secs = totalSecs % 60;
-    if (mins == 0) return '${secs}sn';
-    return '${mins}dk ${secs > 0 ? '${secs}sn' : ''}';
+    final sUnit = l10n?.seconds ?? 's';
+    final mUnit = l10n?.minutes ?? 'min';
+    if (mins == 0) return '$secs$sUnit';
+    return '$mins$mUnit ${secs > 0 ? '$secs$sUnit' : ''}'.trim();
+  }
+
+  String _getCategoryDisplayName(String cat, AppLocalizations? l10n) {
+    if (cat == 'ALL') return l10n?.allCategories ?? 'ALL';
+    if (cat == 'Custom' || cat == 'Özel') return l10n?.categoryCustom ?? 'Custom';
+    return cat;
   }
 
   Color _getCategoryColor(String category) {
@@ -220,22 +229,27 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                     itemBuilder: (context, idx) {
                       final cat = _categories[idx];
                       final isSelected = _selectedCategory == cat;
-                      final displayCat = cat == 'Hepsi' ? (l10n?.allCategories ?? 'TÜMÜ') : cat;
-                      final count = cat == 'Hepsi'
+                      final displayCat = _getCategoryDisplayName(cat, l10n);
+                      final count = cat == 'ALL'
                           ? _routines.length
-                          : _routines.where((r) => cat == 'Özel' ? (r.category == 'Custom' || r.category == 'Özel') : r.category == cat).length;
+                          : _routines.where((r) => cat == 'Custom' ? (r.category == 'Custom' || r.category == 'Özel') : r.category == cat).length;
 
                       return Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: FilterChip(
                           label: Text(
-                            '$displayCat ($count)',
+                            '$displayCat ($count)'.replaceAll(' ', '\u00A0'),
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: isSelected ? Colors.black : Colors.white70,
                               fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
                               fontSize: 12,
                             ),
                           ),
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          visualDensity: VisualDensity.compact,
                           selected: isSelected,
                           onSelected: (_) {
                             setState(() {
@@ -267,21 +281,21 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${filtered.length} antrenman listeleniyor',
+                        l10n?.workoutsListed(filtered.length) ?? '${filtered.length} workouts listed',
                         style: const TextStyle(color: Colors.white38, fontSize: 12, fontWeight: FontWeight.bold),
                       ),
-                      if (_searchQuery.isNotEmpty || _selectedCategory != 'Hepsi')
+                      if (_searchQuery.isNotEmpty || _selectedCategory != 'ALL')
                         GestureDetector(
                           onTap: () {
                             _searchController.clear();
                             setState(() {
                               _searchQuery = '';
-                              _selectedCategory = 'Hepsi';
+                              _selectedCategory = 'ALL';
                             });
                           },
-                          child: const Text(
-                            'Filtreleri Temizle',
-                            style: TextStyle(color: Color(0xFF00E676), fontSize: 12, fontWeight: FontWeight.bold),
+                          child: Text(
+                            l10n?.clearFilters ?? 'Clear Filters',
+                            style: const TextStyle(color: Color(0xFF00E676), fontSize: 12, fontWeight: FontWeight.bold),
                           ),
                         ),
                     ],
@@ -298,7 +312,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                               Icon(Icons.search_off, size: 54, color: Colors.white.withValues(alpha: 0.3)),
                               const SizedBox(height: 12),
                               Text(
-                                '"$_searchQuery" için antrenman bulunamadı',
+                                l10n?.noWorkoutsFound(_searchQuery) ?? 'No workouts found for "$_searchQuery"',
                                 style: TextStyle(color: Colors.white.withValues(alpha: 0.6), fontSize: 15),
                               ),
                               const SizedBox(height: 8),
@@ -307,10 +321,10 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                                   _searchController.clear();
                                   setState(() {
                                     _searchQuery = '';
-                                    _selectedCategory = 'Hepsi';
+                                    _selectedCategory = 'ALL';
                                   });
                                 },
-                                child: const Text('Tüm WOD''ları Göster', style: TextStyle(color: Color(0xFF00E676))),
+                                child: Text(l10n?.showAllWods ?? 'Show All WODs', style: const TextStyle(color: Color(0xFF00E676))),
                               ),
                             ],
                           ),
@@ -320,7 +334,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                           itemCount: filtered.length,
                           itemBuilder: (context, index) {
                             final routine = filtered[index];
-                            return _buildRoutineCard(routine);
+                            return _buildRoutineCard(routine, l10n);
                           },
                         ),
                 ),
@@ -332,14 +346,14 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
         foregroundColor: Colors.black,
         icon: const Icon(Icons.add, size: 24),
         label: Text(
-          l10n?.createNewRoutine ?? 'YENİ TİMER',
+          l10n?.createRoutine ?? 'CREATE TIMER',
           style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
         ),
       ),
     );
   }
 
-  Widget _buildRoutineCard(CustomRoutine routine) {
+  Widget _buildRoutineCard(CustomRoutine routine, AppLocalizations? l10n) {
     final catColor = _getCategoryColor(routine.category);
     final isPreset = routine.isPreset;
 
@@ -372,7 +386,13 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                         border: Border.all(color: catColor.withValues(alpha: 0.4), width: 1),
                       ),
                       child: Text(
-                        routine.category.toUpperCase(),
+                        ((routine.category == 'Custom' || routine.category == 'Özel')
+                                ? (l10n?.categoryCustom.toUpperCase() ?? 'CUSTOM')
+                                : routine.category.toUpperCase())
+                            .replaceAll(' ', '\u00A0'),
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: catColor,
                           fontSize: 10,
@@ -386,14 +406,14 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                         IconButton(
                           icon: const Icon(Icons.edit_outlined, color: Colors.white60, size: 20),
                           onPressed: () => _openBuilder(routine),
-                          tooltip: isPreset ? 'Özelleştir / Yeni İsimle Kaydet' : 'Düzenle',
+                          tooltip: isPreset ? (l10n?.customizeOrCopy ?? 'Customize / Save Copy') : (l10n?.edit ?? 'Edit'),
                           visualDensity: VisualDensity.compact,
                         ),
                         if (!isPreset)
                           IconButton(
                             icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
                             onPressed: () => _deleteRoutine(routine),
-                            tooltip: 'Sil',
+                            tooltip: l10n?.delete ?? 'Delete',
                             visualDensity: VisualDensity.compact,
                           ),
                       ],
@@ -423,40 +443,54 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
 
                 const SizedBox(height: 12),
 
-                // Badges Row
+                // Badges & Action Row
                 Row(
                   children: [
-                    _buildBadge(
-                      Icons.repeat,
-                      '${routine.rounds} Tur',
-                      const Color(0xFFFFB300),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _buildBadge(
+                              Icons.repeat,
+                              l10n?.roundsBadge(routine.rounds) ?? '${routine.rounds} Rounds',
+                              const Color(0xFFFFB300),
+                            ),
+                            const SizedBox(width: 6),
+                            _buildBadge(
+                              Icons.list_alt,
+                              l10n?.intervalsBadge(routine.intervals.length) ?? '${routine.intervals.length} Intervals',
+                              const Color(0xFF00E5FF),
+                            ),
+                            const SizedBox(width: 6),
+                            _buildBadge(
+                              Icons.timer_outlined,
+                              _formatTotalSeconds(routine.totalDurationSeconds, l10n),
+                              const Color(0xFF00E676),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    _buildBadge(
-                      Icons.list_alt,
-                      '${routine.intervals.length} Aralık',
-                      const Color(0xFF00E5FF),
-                    ),
-                    const SizedBox(width: 8),
-                    _buildBadge(
-                      Icons.timer_outlined,
-                      _formatTotalSeconds(routine.totalDurationSeconds),
-                      const Color(0xFF00E676),
-                    ),
-                    const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
                         color: const Color(0xFF00E676),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Row(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.play_arrow_rounded, color: Colors.black, size: 16),
-                          SizedBox(width: 4),
+                          const Icon(Icons.play_arrow_rounded, color: Colors.black, size: 16),
+                          const SizedBox(width: 4),
                           Text(
-                            'BAŞLAT',
-                            style: TextStyle(
+                            l10n?.start ?? 'START',
+                            maxLines: 1,
+                            softWrap: false,
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 11,
                               fontWeight: FontWeight.w900,
@@ -489,7 +523,10 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
           Icon(icon, size: 13, color: color),
           const SizedBox(width: 4),
           Text(
-            text,
+            text.replaceAll(' ', '\u00A0'),
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: color,
               fontSize: 11,

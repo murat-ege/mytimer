@@ -52,7 +52,9 @@ class NotificationService {
     );
 
     const iosDetails = DarwinNotificationDetails(
-      presentAlert: false,
+      presentAlert: true,
+      presentBanner: true,
+      presentList: true,
       presentBadge: false,
       presentSound: false,
     );

@@ -89,6 +89,12 @@ class StopwatchController extends ChangeNotifier {
     });
   }
 
+  void syncWithRealTime() {
+    if (_stopwatch.isRunning) {
+      notifyListeners();
+    }
+  }
+
   static String formatMs(int ms, {bool showMs = true}) {
     final minutes = ms ~/ 60000;
     final seconds = (ms % 60000) ~/ 1000;

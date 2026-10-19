@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../l10n/generated/app_localizations.dart';
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
               label: l10n?.tabata ?? 'Tabata',
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.fitness_center),
+              icon: const Icon(CupertinoIcons.stopwatch),
               label: l10n?.rounds ?? 'Rounds',
             ),
             BottomNavigationBarItem(

@@ -1,4 +1,4 @@
-package com.muratege.mytimer
+package com.mege.mytimer
 
 import io.flutter.embedding.android.FlutterActivity
 

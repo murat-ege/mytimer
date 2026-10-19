@@ -34,6 +34,7 @@ class WorkoutController extends ChangeNotifier {
   int _totalElapsedSeconds = 0;
   late final int _totalWorkoutSeconds;
 
+  DateTime? _lastTickTime;
   Timer? _timer;
   bool _isRunning = false;
   bool _isPaused = false;
@@ -146,7 +147,9 @@ class WorkoutController extends ChangeNotifier {
     if (_isFinished) return;
     _isRunning = true;
     _isPaused = false;
+    _lastTickTime = DateTime.now();
     _wakelockService.enable();
+    _soundService.startBackgroundKeepAlive();
     _onSegmentStarted();
     _startTicker();
     notifyListeners();
@@ -157,6 +160,8 @@ class WorkoutController extends ChangeNotifier {
     _timer?.cancel();
     _isRunning = false;
     _isPaused = true;
+    _lastTickTime = null;
+    _soundService.stopBackgroundKeepAlive();
     _updateNotification();
     notifyListeners();
   }
@@ -165,7 +170,9 @@ class WorkoutController extends ChangeNotifier {
     if (!_isPaused || _isFinished) return;
     _isRunning = true;
     _isPaused = false;
+    _lastTickTime = DateTime.now();
     _wakelockService.enable();
+    _soundService.startBackgroundKeepAlive();
     _startTicker();
     notifyListeners();
   }
@@ -175,10 +182,12 @@ class WorkoutController extends ChangeNotifier {
     _isRunning = false;
     _isPaused = false;
     _isFinished = false;
+    _lastTickTime = null;
     _currentSegmentIndex = 0;
     _secondsRemaining = _segments.isNotEmpty ? _segments.first.durationSeconds : 0;
     _totalElapsedSeconds = 0;
     _wakelockService.disable();
+    _soundService.stopBackgroundKeepAlive();
     _notificationService.cancelWorkoutNotification();
     notifyListeners();
   }
@@ -198,6 +207,7 @@ class WorkoutController extends ChangeNotifier {
       _currentSegmentIndex++;
       _secondsRemaining = _segments[_currentSegmentIndex].durationSeconds;
       _recalculateTotalElapsed();
+      _lastTickTime = DateTime.now();
       _onSegmentStarted();
       notifyListeners();
     } else {
@@ -210,53 +220,85 @@ class WorkoutController extends ChangeNotifier {
       _currentSegmentIndex--;
       _secondsRemaining = _segments[_currentSegmentIndex].durationSeconds;
       _recalculateTotalElapsed();
+      _lastTickTime = DateTime.now();
       _onSegmentStarted();
       notifyListeners();
     } else {
       _currentSegmentIndex = 0;
       _secondsRemaining = _segments.isNotEmpty ? _segments.first.durationSeconds : 0;
       _totalElapsedSeconds = 0;
+      _lastTickTime = DateTime.now();
       notifyListeners();
     }
   }
 
   void _startTicker() {
     _timer?.cancel();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 250), (_) {
       _tick();
     });
   }
 
   void _tick() {
-    if (!_isRunning) return;
+    if (!_isRunning || _isPaused || _isFinished || _lastTickTime == null) return;
 
-    if (_secondsRemaining > 1) {
-      _secondsRemaining--;
-      if (currentPhase != TimerPhase.prep) {
-        _totalElapsedSeconds++;
-      }
+    final now = DateTime.now();
+    final elapsedMs = now.difference(_lastTickTime!).inMilliseconds;
+    if (elapsedMs < 1000) return;
 
-      // Countdown cue (3, 2, 1)
-      if (_secondsRemaining <= 3) {
-        _soundService.playCountdownBeep();
-      }
+    final elapsedSeconds = elapsedMs ~/ 1000;
+    _lastTickTime = _lastTickTime!.add(Duration(seconds: elapsedSeconds));
 
-      _updateNotification();
-      notifyListeners();
-    } else {
-      if (currentPhase != TimerPhase.prep) {
-        _totalElapsedSeconds++;
-      }
-      // Move to next segment
-      if (_currentSegmentIndex + 1 < _segments.length) {
-        _currentSegmentIndex++;
-        _secondsRemaining = _segments[_currentSegmentIndex].durationSeconds;
-        _recalculateTotalElapsed();
-        _onSegmentStarted();
-        notifyListeners();
+    _advanceSeconds(elapsedSeconds);
+  }
+
+  void _advanceSeconds(int elapsed) {
+    if (elapsed <= 0 || _isFinished) return;
+
+    int remainingToAdvance = elapsed;
+
+    while (remainingToAdvance > 0 && !_isFinished) {
+      if (_secondsRemaining > remainingToAdvance) {
+        _secondsRemaining -= remainingToAdvance;
+        if (currentPhase != TimerPhase.prep) {
+          _totalElapsedSeconds += remainingToAdvance;
+        }
+
+        // Only play countdown beep if ticking in real-time
+        if (elapsed == 1 && _secondsRemaining <= 3 && _secondsRemaining > 0) {
+          _soundService.playCountdownBeep();
+        }
+
+        remainingToAdvance = 0;
       } else {
-        _finishWorkout();
+        final used = _secondsRemaining;
+        remainingToAdvance -= used;
+        if (currentPhase != TimerPhase.prep) {
+          _totalElapsedSeconds += used;
+        }
+
+        if (_currentSegmentIndex + 1 < _segments.length) {
+          _currentSegmentIndex++;
+          _secondsRemaining = _segments[_currentSegmentIndex].durationSeconds;
+          _recalculateTotalElapsed();
+          _onSegmentStarted();
+        } else {
+          _finishWorkout();
+          return;
+        }
       }
+    }
+
+    _updateNotification();
+    notifyListeners();
+  }
+
+  /// Synchronizes state with real wall-clock time immediately.
+  /// Called when the app is brought back to foreground from background.
+  void syncWithRealTime() {
+    if (_isRunning && !_isPaused && !_isFinished) {
+      _tick();
+      notifyListeners();
     }
   }
 
@@ -280,7 +322,9 @@ class WorkoutController extends ChangeNotifier {
     _isRunning = false;
     _isPaused = false;
     _isFinished = true;
+    _lastTickTime = null;
     _secondsRemaining = 0;
+    _soundService.stopBackgroundKeepAlive();
     _soundService.playCompleteFanfare();
     _wakelockService.disable();
     _notificationService.showWorkoutProgress(
@@ -306,6 +350,7 @@ class WorkoutController extends ChangeNotifier {
   @override
   void dispose() {
     _timer?.cancel();
+    _soundService.stopBackgroundKeepAlive();
     _wakelockService.disable();
     _notificationService.cancelWorkoutNotification();
     super.dispose();

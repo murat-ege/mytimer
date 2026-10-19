@@ -559,6 +559,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'QUIT'**
   String get quit;
+
+  /// No description provided for @createRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'CREATE TIMER'**
+  String get createRoutine;
+
+  /// No description provided for @customizeWod.
+  ///
+  /// In en, this message translates to:
+  /// **'CUSTOMIZE WOD'**
+  String get customizeWod;
+
+  /// No description provided for @editTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'EDIT TIMER'**
+  String get editTimer;
+
+  /// No description provided for @customSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **' (Custom)'**
+  String get customSuffix;
+
+  /// No description provided for @workoutsListed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} workouts listed'**
+  String workoutsListed(int count);
+
+  /// No description provided for @clearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Filters'**
+  String get clearFilters;
+
+  /// No description provided for @noWorkoutsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No workouts found for \"{query}\"'**
+  String noWorkoutsFound(String query);
+
+  /// No description provided for @showAllWods.
+  ///
+  /// In en, this message translates to:
+  /// **'Show All WODs'**
+  String get showAllWods;
+
+  /// No description provided for @customizeOrCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize / Save Copy'**
+  String get customizeOrCopy;
+
+  /// No description provided for @deleteTimerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Timer?'**
+  String get deleteTimerTitle;
+
+  /// No description provided for @deleteTimerConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} will be deleted. Are you sure?'**
+  String deleteTimerConfirm(String name);
+
+  /// No description provided for @routineNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a name'**
+  String get routineNameRequired;
+
+  /// No description provided for @descriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get descriptionLabel;
+
+  /// No description provided for @descriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Target movements, weights or notes'**
+  String get descriptionHint;
+
+  /// No description provided for @intervalSequence.
+  ///
+  /// In en, this message translates to:
+  /// **'INTERVAL SEQUENCE'**
+  String get intervalSequence;
+
+  /// No description provided for @saveTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'SAVE TIMER'**
+  String get saveTimer;
+
+  /// No description provided for @addAtLeastOneInterval.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add at least one interval!'**
+  String get addAtLeastOneInterval;
+
+  /// No description provided for @addNewInterval.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Interval'**
+  String get addNewInterval;
+
+  /// No description provided for @intervalPhaseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phase'**
+  String get intervalPhaseLabel;
+
+  /// No description provided for @durationSec.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration (s):'**
+  String get durationSec;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'ADD'**
+  String get add;
+
+  /// No description provided for @roundsBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Rounds'**
+  String roundsBadge(int count);
+
+  /// No description provided for @intervalsBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Intervals'**
+  String intervalsBadge(int count);
+
+  /// No description provided for @categoryCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get categoryCustom;
 }
 
 class _AppLocalizationsDelegate

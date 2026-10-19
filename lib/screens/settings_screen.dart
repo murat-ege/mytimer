@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../l10n/generated/app_localizations.dart';
 import '../models/timer_settings.dart';
 import '../repositories/local_timer_repository.dart';
@@ -75,14 +76,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
         centerTitle: true,
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: Color(0xFF00E676)))
+          ? const Center(
+              child: CircularProgressIndicator(color: Color(0xFF00E676)),
+            )
           : ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               children: [
                 _buildSectionHeader(l10n?.general ?? 'GENEL'),
                 _buildSwitchTile(
                   title: l10n?.sound ?? 'Ses Efektleri',
-                  subtitle: l10n?.soundSubtitle ?? 'Geri sayım ve aralık geçiş sinyalleri',
+                  subtitle:
+                      l10n?.soundSubtitle ??
+                      'Geri sayım ve aralık geçiş sinyalleri',
                   value: _settings.soundEnabled,
                   icon: Icons.volume_up,
                   onChanged: (val) {
@@ -91,7 +96,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 _buildSwitchTile(
                   title: l10n?.vibration ?? 'Titreşim',
-                  subtitle: l10n?.vibrationSubtitle ?? 'Aralık geçişlerinde haptik geri bildirim',
+                  subtitle:
+                      l10n?.vibrationSubtitle ??
+                      'Aralık geçişlerinde haptik geri bildirim',
                   value: _settings.vibrationEnabled,
                   icon: Icons.vibration,
                   onChanged: (val) {
@@ -100,7 +107,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 _buildSwitchTile(
                   title: l10n?.keepScreenOn ?? 'Ekranı Açık Tut',
-                  subtitle: l10n?.keepScreenOnSubtitle ?? 'Antrenman sırasında telefon ekranı kapanmaz',
+                  subtitle:
+                      l10n?.keepScreenOnSubtitle ??
+                      'Antrenman sırasında telefon ekranı kapanmaz',
                   value: _settings.wakelockEnabled,
                   icon: Icons.stay_current_portrait,
                   onChanged: (val) {
@@ -123,8 +132,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           onPressed: () => _soundService.playCountdownBeep(),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Color(0xFFFFB300)),
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+                            visualDensity: VisualDensity.compact,
                           ),
-                          child: Text(l10n?.countdown ?? 'Geri Sayım', style: const TextStyle(color: Color(0xFFFFB300))),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              l10n?.countdown ?? 'Geri Sayım',
+                              maxLines: 1,
+                              softWrap: false,
+                              style: const TextStyle(
+                                color: Color(0xFFFFB300),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -133,8 +156,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           onPressed: () => _soundService.playWorkBeep(),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Color(0xFF00E676)),
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+                            visualDensity: VisualDensity.compact,
                           ),
-                          child: Text(l10n?.work ?? 'Başlama', style: const TextStyle(color: Color(0xFF00E676))),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              l10n?.work ?? 'Başlama',
+                              maxLines: 1,
+                              softWrap: false,
+                              style: const TextStyle(
+                                color: Color(0xFF00E676),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -143,8 +180,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           onPressed: () => _soundService.playRestBeep(),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Color(0xFFFF3D00)),
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+                            visualDensity: VisualDensity.compact,
                           ),
-                          child: Text(l10n?.rest ?? 'Dinlenme', style: const TextStyle(color: Color(0xFFFF3D00))),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              l10n?.rest ?? 'Dinlenme',
+                              maxLines: 1,
+                              softWrap: false,
+                              style: const TextStyle(
+                                color: Color(0xFFFF3D00),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -154,7 +205,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(height: 20),
                 _buildSectionHeader(l10n?.language ?? 'DİL / LANGUAGE'),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E1E1E),
                     borderRadius: BorderRadius.circular(16),
@@ -162,23 +216,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        l10n?.appLanguage ?? 'Uygulama Dili',
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                      Expanded(
+                        child: Text(
+                          l10n?.appLanguage ?? 'Uygulama Dili',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
+                      const SizedBox(width: 8),
                       DropdownButton<String>(
                         value: currentLang,
                         dropdownColor: const Color(0xFF262626),
                         underline: const SizedBox(),
-                        style: const TextStyle(color: Color(0xFF00E676), fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                          color: Color(0xFF00E676),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                         items: const [
-                          DropdownMenuItem(value: 'en', child: Text('English (EN)')),
-                          DropdownMenuItem(value: 'tr', child: Text('Türkçe (TR)')),
+                          DropdownMenuItem(
+                            value: 'en',
+                            child: Text('English (EN)'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'tr',
+                            child: Text('Türkçe (TR)'),
+                          ),
                         ],
                         onChanged: (lang) {
                           if (lang != null) {
                             widget.onLocaleChanged(Locale(lang));
-                            _updateSettings(_settings.copyWith(languageCode: lang));
+                            _updateSettings(
+                              _settings.copyWith(languageCode: lang),
+                            );
                           }
                         },
                       ),
@@ -200,28 +273,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       Row(
                         children: const [
-                          Icon(Icons.verified, color: Color(0xFF00E676), size: 20),
+                          Icon(
+                            Icons.verified,
+                            color: Color(0xFF00E676),
+                            size: 20,
+                          ),
                           SizedBox(width: 8),
-                          Text(
-                            'MyTimer v1.0.0 (Release Build)',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                          Expanded(
+                            child: Text(
+                              'MyTimer v1.0.0 (Release Build)',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 8),
                       Text(
                         l10n?.aboutDesc ?? 'CrossFit ve fonksiyonel fitness antrenmanları için tasarlandı.',
-                        style: const TextStyle(color: Colors.white70, fontSize: 13, height: 1.4),
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 13,
+                          height: 1.4,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       Row(
                         children: [
-                          const Icon(Icons.lock_outline, color: Color(0xFF00E5FF), size: 16),
+                          const Icon(
+                            Icons.lock_outline,
+                            color: Color(0xFF00E5FF),
+                            size: 16,
+                          ),
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
-                              l10n?.cloudSyncNotice ?? 'Timerlarınız cihazınızda saklanır.',
-                              style: const TextStyle(color: Colors.white54, fontSize: 12),
+                              l10n?.cloudSyncNotice ??
+                                  'Timerlarınız cihazınızda saklanır.',
+                              style: const TextStyle(
+                                color: Colors.white54,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ],
@@ -263,9 +358,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
         borderRadius: BorderRadius.circular(16),
         clipBehavior: Clip.antiAlias,
         child: SwitchListTile(
-          title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
-          subtitle: Text(subtitle, style: const TextStyle(color: Colors.white54, fontSize: 12)),
-          secondary: Icon(icon, color: value ? const Color(0xFF00E676) : Colors.white38),
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
+          ),
+          subtitle: Text(
+            subtitle,
+            style: const TextStyle(color: Colors.white54, fontSize: 12),
+          ),
+          secondary: Icon(
+            icon,
+            color: value ? const Color(0xFF00E676) : Colors.white38,
+          ),
           activeThumbColor: const Color(0xFF00E676),
           value: value,
           onChanged: onChanged,

@@ -117,5 +117,12 @@ void main() {
   ]);
   File('assets/sounds/beep_complete.wav').writeAsBytesSync(completeBytes);
 
+  // 5. Silent track for background keep-alive
+  final silentBytes = createWav(segments: [
+    ToneSegment(0, 1000),
+  ]);
+  File('assets/sounds/silent.wav').writeAsBytesSync(silentBytes);
+
+  // ignore: avoid_print
   print('Sound assets generated successfully in assets/sounds!');
 }
