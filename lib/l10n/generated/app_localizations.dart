@@ -269,7 +269,7 @@ abstract class AppLocalizations {
   /// No description provided for @timeCap.
   ///
   /// In tr, this message translates to:
-  /// **'ZAMAN SINIRI (TIME CAP)'**
+  /// **'ZAMAN SINIRI'**
   String get timeCap;
 
   /// No description provided for @sound.

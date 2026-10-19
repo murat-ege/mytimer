@@ -130,13 +130,13 @@ class _CustomRoutineBuilderScreenState
                             IconButton(
                               icon: const Icon(Icons.remove, color: Colors.white70),
                               onPressed: () {
-                                if (duration > 5) setDialogState(() => duration -= 5);
+                                if (duration > 1) setDialogState(() => duration -= 1);
                               },
                             ),
                             Text('$duration sn', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
                             IconButton(
                               icon: const Icon(Icons.add, color: Color(0xFF00E676)),
-                              onPressed: () => setDialogState(() => duration += 5),
+                              onPressed: () => setDialogState(() => duration += 1),
                             ),
                           ],
                         ),
@@ -291,8 +291,8 @@ class _CustomRoutineBuilderScreenState
                     child: _buildSmallStepper(
                       'HAZIRLIK',
                       '$_prepSeconds s',
-                      () { if (_prepSeconds > 0) setState(() => _prepSeconds -= 5); },
-                      () => setState(() => _prepSeconds += 5),
+                      () { if (_prepSeconds > 0) setState(() => _prepSeconds -= 1); },
+                      () => setState(() => _prepSeconds += 1),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -300,8 +300,8 @@ class _CustomRoutineBuilderScreenState
                     child: _buildSmallStepper(
                       'TUR ARASI',
                       '$_restBetweenRoundsSeconds s',
-                      () { if (_restBetweenRoundsSeconds > 0) setState(() => _restBetweenRoundsSeconds -= 5); },
-                      () => setState(() => _restBetweenRoundsSeconds += 5),
+                      () { if (_restBetweenRoundsSeconds > 0) setState(() => _restBetweenRoundsSeconds -= 1); },
+                      () => setState(() => _restBetweenRoundsSeconds += 1),
                     ),
                   ),
                 ],

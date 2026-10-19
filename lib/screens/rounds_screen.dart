@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../l10n/generated/app_localizations.dart';
 import '../models/custom_routine.dart';
 import '../models/interval_step.dart';
@@ -142,9 +143,7 @@ class _RoundsScreenState extends State<RoundsScreen>
 
   void _navigateToRunner(CustomRoutine routine) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => TimerRunnerScreen(routine: routine),
-      ),
+      MaterialPageRoute(builder: (_) => TimerRunnerScreen(routine: routine)),
     );
   }
 
@@ -172,7 +171,10 @@ class _RoundsScreenState extends State<RoundsScreen>
           indicatorWeight: 3,
           labelColor: const Color(0xFF00E676),
           unselectedLabelColor: Colors.white60,
-          labelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+          labelStyle: const TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 13,
+          ),
           tabs: [
             Tab(text: l10n?.round ?? 'TUR'),
             Tab(text: l10n?.emomTitle ?? 'EMOM'),
@@ -206,15 +208,15 @@ class _RoundsScreenState extends State<RoundsScreen>
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          _buildInfoBanner('Her tur çalışma ve dinlenme sürelerini belirleyip serinizi tamamlayın.'),
-          const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
             title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
             valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
-            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
-            onInc: () => setState(() => _prepSeconds += 5),
+            onDec: () => setState(() {
+              if (_prepSeconds > 0) _prepSeconds -= 1;
+            }),
+            onInc: () => setState(() => _prepSeconds += 1),
           ),
           const SizedBox(height: 14),
           // 2. Tur Çalışma Süresi
@@ -222,7 +224,9 @@ class _RoundsScreenState extends State<RoundsScreen>
             title: l10n?.workTime ?? 'TUR ÇALIŞMA SÜRESİ',
             valueText: '$_roundWorkMinutes $minUnit',
             color: const Color(0xFF00E676),
-            onDec: () => setState(() { if (_roundWorkMinutes > 1) _roundWorkMinutes--; }),
+            onDec: () => setState(() {
+              if (_roundWorkMinutes > 1) _roundWorkMinutes--;
+            }),
             onInc: () => setState(() => _roundWorkMinutes++),
           ),
           const SizedBox(height: 14),
@@ -231,7 +235,9 @@ class _RoundsScreenState extends State<RoundsScreen>
             title: l10n?.restTime ?? 'TUR DİNLENME SÜRESİ',
             valueText: '$_roundRestMinutes $minUnit',
             color: const Color(0xFFFF3D00),
-            onDec: () => setState(() { if (_roundRestMinutes > 0) _roundRestMinutes--; }),
+            onDec: () => setState(() {
+              if (_roundRestMinutes > 0) _roundRestMinutes--;
+            }),
             onInc: () => setState(() => _roundRestMinutes++),
           ),
           const SizedBox(height: 14),
@@ -240,11 +246,17 @@ class _RoundsScreenState extends State<RoundsScreen>
             title: l10n?.totalRounds ?? 'TOPLAM TUR SAYISI',
             valueText: '$_roundsCount $roundUnit',
             color: const Color(0xFFFFB300),
-            onDec: () => setState(() { if (_roundsCount > 1) _roundsCount--; }),
+            onDec: () => setState(() {
+              if (_roundsCount > 1) _roundsCount--;
+            }),
             onInc: () => setState(() => _roundsCount++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('${l10n?.round ?? "TUR"} ${l10n?.start ?? "BAŞLAT"}', _startRoundsWorkout, const Color(0xFF00E676)),
+          _buildStartButton(
+            '${l10n?.round ?? "TUR"} ${l10n?.start ?? "BAŞLAT"}',
+            _startRoundsWorkout,
+            const Color(0xFF00E676),
+          ),
         ],
       ),
     );
@@ -258,15 +270,15 @@ class _RoundsScreenState extends State<RoundsScreen>
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          _buildInfoBanner('EMOM (Every Minute on the Minute): Her dakikanın başında belirlenen tekrarı yapın, kalan sürede dinlenin.'),
-          const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
             title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
             valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
-            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
-            onInc: () => setState(() => _prepSeconds += 5),
+            onDec: () => setState(() {
+              if (_prepSeconds > 0) _prepSeconds -= 1;
+            }),
+            onInc: () => setState(() => _prepSeconds += 1),
           ),
           const SizedBox(height: 14),
           // 2. Toplam Dakika
@@ -274,11 +286,17 @@ class _RoundsScreenState extends State<RoundsScreen>
             title: l10n?.totalTime ?? 'TOPLAM DAKİKA',
             valueText: '$_emomMinutes $minUnit',
             color: const Color(0xFFFFD600),
-            onDec: () => setState(() { if (_emomMinutes > 1) _emomMinutes--; }),
+            onDec: () => setState(() {
+              if (_emomMinutes > 1) _emomMinutes--;
+            }),
             onInc: () => setState(() => _emomMinutes++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('EMOM ${l10n?.start ?? "BAŞLAT"}', _startEmomWorkout, const Color(0xFFFFD600)),
+          _buildStartButton(
+            'EMOM ${l10n?.start ?? "BAŞLAT"}',
+            _startEmomWorkout,
+            const Color(0xFFFFD600),
+          ),
         ],
       ),
     );
@@ -292,15 +310,15 @@ class _RoundsScreenState extends State<RoundsScreen>
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          _buildInfoBanner('AMRAP (As Many Rounds As Possible): Verilen süre boyunca mümkün olan en fazla tur veya tekrarı tamamlayın.'),
-          const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
             title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
             valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
-            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
-            onInc: () => setState(() => _prepSeconds += 5),
+            onDec: () => setState(() {
+              if (_prepSeconds > 0) _prepSeconds -= 1;
+            }),
+            onInc: () => setState(() => _prepSeconds += 1),
           ),
           const SizedBox(height: 14),
           // 2. AMRAP Süresi
@@ -308,11 +326,17 @@ class _RoundsScreenState extends State<RoundsScreen>
             title: 'AMRAP (${l10n?.timeCap ?? "SÜRE"})',
             valueText: '$_amrapMinutes $minUnit',
             color: const Color(0xFFFF9100),
-            onDec: () => setState(() { if (_amrapMinutes > 1) _amrapMinutes--; }),
+            onDec: () => setState(() {
+              if (_amrapMinutes > 1) _amrapMinutes--;
+            }),
             onInc: () => setState(() => _amrapMinutes++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('AMRAP ${l10n?.start ?? "BAŞLAT"}', _startAmrapWorkout, const Color(0xFFFF9100)),
+          _buildStartButton(
+            'AMRAP ${l10n?.start ?? "BAŞLAT"}',
+            _startAmrapWorkout,
+            const Color(0xFFFF9100),
+          ),
         ],
       ),
     );
@@ -326,49 +350,32 @@ class _RoundsScreenState extends State<RoundsScreen>
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          _buildInfoBanner('FOR TIME: Verilen egzersizleri zaman sınırından (Time Cap) önce en hızlı sürede tamamlayın.'),
-          const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
             title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
             valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
-            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
-            onInc: () => setState(() => _prepSeconds += 5),
+            onDec: () => setState(() {
+              if (_prepSeconds > 0) _prepSeconds -= 1;
+            }),
+            onInc: () => setState(() => _prepSeconds += 1),
           ),
           const SizedBox(height: 14),
           // 2. Time Cap
           _buildStepperCard(
-            title: l10n?.timeCap ?? 'TIME CAP (ZAMAN SINIRI)',
+            title: l10n?.timeCap ?? 'TIME CAP',
             valueText: '$_forTimeCapMinutes $minUnit',
             color: const Color(0xFF7C4DFF),
-            onDec: () => setState(() { if (_forTimeCapMinutes > 1) _forTimeCapMinutes--; }),
+            onDec: () => setState(() {
+              if (_forTimeCapMinutes > 1) _forTimeCapMinutes--;
+            }),
             onInc: () => setState(() => _forTimeCapMinutes++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('FOR TIME ${l10n?.start ?? "BAŞLAT"}', _startForTimeWorkout, const Color(0xFF7C4DFF)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInfoBanner(String text) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E1E1E),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.info_outline, color: Colors.white70, size: 22),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(color: Colors.white70, fontSize: 13, height: 1.4),
-            ),
+          _buildStartButton(
+            'FOR TIME ${l10n?.start ?? "BAŞLAT"}',
+            _startForTimeWorkout,
+            const Color(0xFF7C4DFF),
           ),
         ],
       ),
@@ -417,7 +424,11 @@ class _RoundsScreenState extends State<RoundsScreen>
           ),
           IconButton(
             onPressed: onDec,
-            icon: const Icon(Icons.remove_circle_outline, color: Colors.white70, size: 30),
+            icon: const Icon(
+              Icons.remove_circle_outline,
+              color: Colors.white70,
+              size: 30,
+            ),
           ),
           IconButton(
             onPressed: onInc,
@@ -437,7 +448,9 @@ class _RoundsScreenState extends State<RoundsScreen>
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           foregroundColor: Colors.black,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           elevation: 6,
         ),
         child: Text(

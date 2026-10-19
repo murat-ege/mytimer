@@ -94,7 +94,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get restBetweenSets => 'Setler Arası Dinlenme';
 
   @override
-  String get timeCap => 'ZAMAN SINIRI (TIME CAP)';
+  String get timeCap => 'ZAMAN SINIRI';
 
   @override
   String get sound => 'Ses Efektleri';

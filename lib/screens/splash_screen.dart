@@ -1,13 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onFinish;
 
-  const SplashScreen({
-    super.key,
-    required this.onFinish,
-  });
+  const SplashScreen({super.key, required this.onFinish});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -108,7 +106,8 @@ class _SplashScreenState extends State<SplashScreen>
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF00E676).withValues(alpha: 0.25),
+                            color: const Color(0xFF00E676)
+                                .withValues(alpha: 0.25),
                             blurRadius: 30,
                             spreadRadius: 2,
                           ),
@@ -125,7 +124,10 @@ class _SplashScreenState extends State<SplashScreen>
                           Positioned(
                             bottom: 14,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFFFB300),
                                 borderRadius: BorderRadius.circular(6),
@@ -162,7 +164,10 @@ class _SplashScreenState extends State<SplashScreen>
 
                     // Badge Subtitle
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white10,
                         borderRadius: BorderRadius.circular(20),
@@ -181,16 +186,16 @@ class _SplashScreenState extends State<SplashScreen>
 
                     const SizedBox(height: 14),
 
-                    // Discipline List
-                    const Text(
-                      'TABATA • TUR • EMOM • AMRAP • FOR TIME',
-                      style: TextStyle(
-                        color: Colors.white54,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
+                    // // Discipline List
+                    // const Text(
+                    //   'TABATA • TUR • EMOM • AMRAP • FOR TIME',
+                    //   style: TextStyle(
+                    //     color: Colors.white54,
+                    //     fontSize: 11,
+                    //     fontWeight: FontWeight.w600,
+                    //     letterSpacing: 1.5,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -211,7 +216,9 @@ class _SplashScreenState extends State<SplashScreen>
                     child: const LinearProgressIndicator(
                       minHeight: 3,
                       backgroundColor: Colors.white10,
-                      valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00E676)),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Color(0xFF00E676),
+                      ),
                     ),
                   ),
                 ),

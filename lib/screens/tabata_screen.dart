@@ -100,10 +100,10 @@ class _TabataScreenState extends State<TabataScreen> {
               color: const Color(0xFF00E5FF),
               icon: Icons.hourglass_top,
               onDecrement: () {
-                if (_prepSeconds > 0) setState(() => _prepSeconds -= 5);
+                if (_prepSeconds > 0) setState(() => _prepSeconds -= 1);
               },
               onIncrement: () {
-                setState(() => _prepSeconds += 5);
+                setState(() => _prepSeconds += 1);
               },
             ),
 
@@ -116,10 +116,10 @@ class _TabataScreenState extends State<TabataScreen> {
               color: const Color(0xFF00E676),
               icon: Icons.fitness_center,
               onDecrement: () {
-                if (_workSeconds > 5) setState(() => _workSeconds -= 5);
+                if (_workSeconds > 1) setState(() => _workSeconds -= 1);
               },
               onIncrement: () {
-                setState(() => _workSeconds += 5);
+                setState(() => _workSeconds += 1);
               },
             ),
 
@@ -132,10 +132,10 @@ class _TabataScreenState extends State<TabataScreen> {
               color: const Color(0xFFFF3D00),
               icon: Icons.pause_circle_outline,
               onDecrement: () {
-                if (_restSeconds > 0) setState(() => _restSeconds -= 5);
+                if (_restSeconds > 0) setState(() => _restSeconds -= 1);
               },
               onIncrement: () {
-                setState(() => _restSeconds += 5);
+                setState(() => _restSeconds += 1);
               },
             ),
 
