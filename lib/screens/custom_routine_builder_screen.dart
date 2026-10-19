@@ -240,30 +240,6 @@ class _CustomRoutineBuilderScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (isEditingPreset) ...[
-                Container(
-                  margin: const EdgeInsets.only(bottom: 16),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1E1E1E),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFFFB300).withValues(alpha: 0.5)),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.info_outline, color: Color(0xFFFFB300), size: 22),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          'Klasik ${widget.initialRoutine!.name} şablonu yüklendi. Orijinal WOD korunur; yaptığınız düzenleme Hive''da yeni bir özel timer olarak kaydedilecektir.',
-                          style: const TextStyle(color: Colors.white70, fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-
               // Routine Name Field
               TextFormField(
                 controller: _nameController,
