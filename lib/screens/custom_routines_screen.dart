@@ -6,7 +6,9 @@ import 'custom_routine_builder_screen.dart';
 import 'timer_runner_screen.dart';
 
 class CustomRoutinesScreen extends StatefulWidget {
-  const CustomRoutinesScreen({super.key});
+  final VoidCallback? onOpenSettings;
+
+  const CustomRoutinesScreen({super.key, this.onOpenSettings});
 
   @override
   State<CustomRoutinesScreen> createState() => _CustomRoutinesScreenState();
@@ -158,6 +160,14 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          if (widget.onOpenSettings != null)
+            IconButton(
+              icon: const Icon(Icons.settings_outlined, color: Colors.white70),
+              tooltip: l10n?.settings ?? 'Settings',
+              onPressed: widget.onOpenSettings,
+            ),
+        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator(color: Color(0xFF00E676)))

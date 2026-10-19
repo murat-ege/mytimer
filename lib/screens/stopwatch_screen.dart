@@ -3,7 +3,9 @@ import '../controllers/stopwatch_controller.dart';
 import '../l10n/generated/app_localizations.dart';
 
 class StopwatchScreen extends StatefulWidget {
-  const StopwatchScreen({super.key});
+  final VoidCallback? onOpenSettings;
+
+  const StopwatchScreen({super.key, this.onOpenSettings});
 
   @override
   State<StopwatchScreen> createState() => _StopwatchScreenState();
@@ -50,6 +52,14 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          if (widget.onOpenSettings != null)
+            IconButton(
+              icon: const Icon(Icons.settings_outlined, color: Colors.white70),
+              tooltip: l10n?.settings ?? 'Settings',
+              onPressed: widget.onOpenSettings,
+            ),
+        ],
       ),
       body: Column(
         children: [

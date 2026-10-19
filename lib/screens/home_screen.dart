@@ -40,24 +40,34 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _openSettings() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => SettingsScreen(
+          currentLocale: widget.currentLocale,
+          onLocaleChanged: widget.onLocaleChanged,
+        ),
+      ),
+    );
+  }
+
   void _initScreens() {
     _screens = [
       TabataScreen(
         key: ValueKey('tabata_${widget.currentLocale.languageCode}'),
+        onOpenSettings: _openSettings,
       ),
       RoundsScreen(
         key: ValueKey('rounds_${widget.currentLocale.languageCode}'),
+        onOpenSettings: _openSettings,
       ),
       StopwatchScreen(
         key: ValueKey('stopwatch_${widget.currentLocale.languageCode}'),
+        onOpenSettings: _openSettings,
       ),
       CustomRoutinesScreen(
         key: ValueKey('custom_${widget.currentLocale.languageCode}'),
-      ),
-      SettingsScreen(
-        key: ValueKey('settings_${widget.currentLocale.languageCode}'),
-        currentLocale: widget.currentLocale,
-        onLocaleChanged: widget.onLocaleChanged,
+        onOpenSettings: _openSettings,
       ),
     ];
   }
@@ -96,19 +106,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.fitness_center),
-              label: l10n?.rounds ?? 'Tur & WOD',
+              label: l10n?.rounds ?? 'Rounds',
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.timer),
-              label: l10n?.stopwatch ?? 'Kronometre',
+              label: l10n?.stopwatch ?? 'Stopwatch',
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.tune),
-              label: l10n?.custom ?? 'Özel',
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.settings),
-              label: l10n?.settings ?? 'Ayarlar',
+              label: l10n?.custom ?? 'Custom',
             ),
           ],
         ),

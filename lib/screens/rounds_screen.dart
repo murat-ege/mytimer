@@ -7,7 +7,9 @@ import '../models/timer_phase.dart';
 import 'timer_runner_screen.dart';
 
 class RoundsScreen extends StatefulWidget {
-  const RoundsScreen({super.key});
+  final VoidCallback? onOpenSettings;
+
+  const RoundsScreen({super.key, this.onOpenSettings});
 
   @override
   State<RoundsScreen> createState() => _RoundsScreenState();
@@ -165,6 +167,14 @@ class _RoundsScreenState extends State<RoundsScreen>
           ),
         ),
         centerTitle: true,
+        actions: [
+          if (widget.onOpenSettings != null)
+            IconButton(
+              icon: const Icon(Icons.settings_outlined, color: Colors.white70),
+              tooltip: l10n?.settings ?? 'Settings',
+              onPressed: widget.onOpenSettings,
+            ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: const Color(0xFF00E676),

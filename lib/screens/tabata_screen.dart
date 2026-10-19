@@ -5,7 +5,9 @@ import '../models/custom_routine.dart';
 import 'timer_runner_screen.dart';
 
 class TabataScreen extends StatefulWidget {
-  const TabataScreen({super.key});
+  final VoidCallback? onOpenSettings;
+
+  const TabataScreen({super.key, this.onOpenSettings});
 
   @override
   State<TabataScreen> createState() => _TabataScreenState();
@@ -61,6 +63,14 @@ class _TabataScreenState extends State<TabataScreen> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          if (widget.onOpenSettings != null)
+            IconButton(
+              icon: const Icon(Icons.settings_outlined, color: Colors.white70),
+              tooltip: l10n?.settings ?? 'Settings',
+              onPressed: widget.onOpenSettings,
+            ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
