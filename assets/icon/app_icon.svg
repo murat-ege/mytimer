@@ -119,13 +119,38 @@
   <circle cx="390" cy="540" r="9" fill="#00E676" />
   <circle cx="634" cy="540" r="9" fill="#FF9100" />
 
-  <!-- Bottom Brand Badge (High-Contrast, Crisp & Ultra Legible) -->
-  <rect x="292" y="745" width="440" height="74" rx="24" fill="#0C1410" stroke="#00E676" stroke-width="4.5" />
-  <text x="512" y="797" 
-        text-anchor="middle" 
-        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
-        font-size="46" 
-        font-weight="900" 
-        letter-spacing="10" 
-        fill="#FFFFFF">MYTIMER</text>
+  <!-- Bottom Brand Display Plate with Solid High-Contrast Background -->
+  <g id="brandPlate">
+    <!-- Solid Plate Container with High Contrast Dark Carbon fill & Neon Green Border -->
+    <rect x="232" y="730" width="560" height="135" rx="26" fill="#060C08" stroke="#00E676" stroke-width="4.5" />
+    
+    <!-- MYTIMER text: Bold Pure White -->
+    <text x="512" y="782" 
+          text-anchor="middle" 
+          font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+          font-size="44" 
+          font-weight="900" 
+          letter-spacing="10" 
+          fill="#FFFFFF">MYTIMER</text>
+          
+    <!-- Tag 1: WOD (Bright Electric Amber Pill with Bold Black Text) -->
+    <rect x="272" y="805" width="180" height="40" rx="10" fill="#FF9100" />
+    <text x="362" y="832" 
+          text-anchor="middle" 
+          font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+          font-size="21" 
+          font-weight="900" 
+          letter-spacing="3" 
+          fill="#000000">WOD</text>
+
+    <!-- Tag 2: INTERVAL (Bright Neon Green Pill with Bold Black Text) -->
+    <rect x="472" y="805" width="280" height="40" rx="10" fill="#00E676" />
+    <text x="612" y="832" 
+          text-anchor="middle" 
+          font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+          font-size="21" 
+          font-weight="900" 
+          letter-spacing="3" 
+          fill="#000000">INTERVAL</text>
+  </g>
 </svg>
