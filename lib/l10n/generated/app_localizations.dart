@@ -100,434 +100,434 @@ abstract class AppLocalizations {
 
   /// No description provided for @appTitle.
   ///
-  /// In tr, this message translates to:
+  /// In en, this message translates to:
   /// **'MyTimer'**
   String get appTitle;
 
   /// No description provided for @tabata.
   ///
-  /// In tr, this message translates to:
+  /// In en, this message translates to:
   /// **'TABATA'**
   String get tabata;
 
   /// No description provided for @rounds.
   ///
-  /// In tr, this message translates to:
-  /// **'TUR & WOD'**
+  /// In en, this message translates to:
+  /// **'ROUNDS & WOD'**
   String get rounds;
 
   /// No description provided for @stopwatch.
   ///
-  /// In tr, this message translates to:
-  /// **'KRONOMETRE'**
+  /// In en, this message translates to:
+  /// **'STOPWATCH'**
   String get stopwatch;
 
   /// No description provided for @custom.
   ///
-  /// In tr, this message translates to:
-  /// **'ÖZEL TİMER'**
+  /// In en, this message translates to:
+  /// **'CUSTOM TIMER'**
   String get custom;
 
   /// No description provided for @settings.
   ///
-  /// In tr, this message translates to:
-  /// **'AYARLAR'**
+  /// In en, this message translates to:
+  /// **'SETTINGS'**
   String get settings;
 
   /// No description provided for @work.
   ///
-  /// In tr, this message translates to:
-  /// **'ÇALIŞMA'**
+  /// In en, this message translates to:
+  /// **'WORK'**
   String get work;
 
   /// No description provided for @rest.
   ///
-  /// In tr, this message translates to:
-  /// **'DİNLENME'**
+  /// In en, this message translates to:
+  /// **'REST'**
   String get rest;
 
   /// No description provided for @prep.
   ///
-  /// In tr, this message translates to:
-  /// **'HAZIRLIK'**
+  /// In en, this message translates to:
+  /// **'PREPARE'**
   String get prep;
 
   /// No description provided for @cooldown.
   ///
-  /// In tr, this message translates to:
-  /// **'SOĞUMA'**
+  /// In en, this message translates to:
+  /// **'COOLDOWN'**
   String get cooldown;
 
   /// No description provided for @round.
   ///
-  /// In tr, this message translates to:
-  /// **'TUR'**
+  /// In en, this message translates to:
+  /// **'ROUND'**
   String get round;
 
   /// No description provided for @set.
   ///
-  /// In tr, this message translates to:
+  /// In en, this message translates to:
   /// **'SET'**
   String get set;
 
   /// No description provided for @completed.
   ///
-  /// In tr, this message translates to:
-  /// **'TAMAMLANDI!'**
+  /// In en, this message translates to:
+  /// **'COMPLETED!'**
   String get completed;
 
   /// No description provided for @paused.
   ///
-  /// In tr, this message translates to:
-  /// **'DURAKLATILDI'**
+  /// In en, this message translates to:
+  /// **'PAUSED'**
   String get paused;
 
   /// No description provided for @ready.
   ///
-  /// In tr, this message translates to:
-  /// **'HAZIR OL'**
+  /// In en, this message translates to:
+  /// **'GET READY'**
   String get ready;
 
   /// No description provided for @finished.
   ///
-  /// In tr, this message translates to:
-  /// **'TEBRİKLER! ANTRENMAN BİTTİ'**
+  /// In en, this message translates to:
+  /// **'CONGRATS! WORKOUT FINISHED'**
   String get finished;
 
   /// No description provided for @start.
   ///
-  /// In tr, this message translates to:
-  /// **'BAŞLAT'**
+  /// In en, this message translates to:
+  /// **'START'**
   String get start;
 
   /// No description provided for @pause.
   ///
-  /// In tr, this message translates to:
-  /// **'DURAKLAT'**
+  /// In en, this message translates to:
+  /// **'PAUSE'**
   String get pause;
 
   /// No description provided for @resume.
   ///
-  /// In tr, this message translates to:
-  /// **'DEVAM ET'**
+  /// In en, this message translates to:
+  /// **'RESUME'**
   String get resume;
 
   /// No description provided for @reset.
   ///
-  /// In tr, this message translates to:
-  /// **'SIFIRLA'**
+  /// In en, this message translates to:
+  /// **'RESET'**
   String get reset;
 
   /// No description provided for @skip.
   ///
-  /// In tr, this message translates to:
-  /// **'İLERİ ATLA'**
+  /// In en, this message translates to:
+  /// **'SKIP'**
   String get skip;
 
   /// No description provided for @lap.
   ///
-  /// In tr, this message translates to:
-  /// **'TUR AT'**
+  /// In en, this message translates to:
+  /// **'LAP'**
   String get lap;
 
   /// No description provided for @workTime.
   ///
-  /// In tr, this message translates to:
-  /// **'ÇALIŞMA SÜRESİ'**
+  /// In en, this message translates to:
+  /// **'WORK DURATION'**
   String get workTime;
 
   /// No description provided for @restTime.
   ///
-  /// In tr, this message translates to:
-  /// **'DİNLENME SÜRESİ'**
+  /// In en, this message translates to:
+  /// **'REST DURATION'**
   String get restTime;
 
   /// No description provided for @prepTime.
   ///
-  /// In tr, this message translates to:
-  /// **'HAZIRLANMA SÜRESİ'**
+  /// In en, this message translates to:
+  /// **'PREPARATION TIME'**
   String get prepTime;
 
   /// No description provided for @totalRounds.
   ///
-  /// In tr, this message translates to:
-  /// **'TOPLAM TUR'**
+  /// In en, this message translates to:
+  /// **'TOTAL ROUNDS'**
   String get totalRounds;
 
   /// No description provided for @totalSets.
   ///
-  /// In tr, this message translates to:
-  /// **'Toplam Set'**
+  /// In en, this message translates to:
+  /// **'Total Sets'**
   String get totalSets;
 
   /// No description provided for @restBetweenSets.
   ///
-  /// In tr, this message translates to:
-  /// **'Setler Arası Dinlenme'**
+  /// In en, this message translates to:
+  /// **'Rest Between Sets'**
   String get restBetweenSets;
 
   /// No description provided for @timeCap.
   ///
-  /// In tr, this message translates to:
-  /// **'ZAMAN SINIRI'**
+  /// In en, this message translates to:
+  /// **'TIME CAP'**
   String get timeCap;
 
   /// No description provided for @sound.
   ///
-  /// In tr, this message translates to:
-  /// **'Ses Efektleri'**
+  /// In en, this message translates to:
+  /// **'Sound Effects'**
   String get sound;
 
   /// No description provided for @vibration.
   ///
-  /// In tr, this message translates to:
-  /// **'Titreşim'**
+  /// In en, this message translates to:
+  /// **'Vibration'**
   String get vibration;
 
   /// No description provided for @keepScreenOn.
   ///
-  /// In tr, this message translates to:
-  /// **'Ekranı Açık Tut'**
+  /// In en, this message translates to:
+  /// **'Keep Screen Awake'**
   String get keepScreenOn;
 
   /// No description provided for @language.
   ///
-  /// In tr, this message translates to:
-  /// **'DİL / LANGUAGE'**
+  /// In en, this message translates to:
+  /// **'LANGUAGE'**
   String get language;
 
   /// No description provided for @emomTitle.
   ///
-  /// In tr, this message translates to:
+  /// In en, this message translates to:
   /// **'EMOM'**
   String get emomTitle;
 
   /// No description provided for @amrapTitle.
   ///
-  /// In tr, this message translates to:
+  /// In en, this message translates to:
   /// **'AMRAP'**
   String get amrapTitle;
 
   /// No description provided for @forTimeTitle.
   ///
-  /// In tr, this message translates to:
+  /// In en, this message translates to:
   /// **'FOR TIME'**
   String get forTimeTitle;
 
   /// No description provided for @customRoutines.
   ///
-  /// In tr, this message translates to:
-  /// **'Kayıtlı Özel Timerlar'**
+  /// In en, this message translates to:
+  /// **'Saved Custom Timers'**
   String get customRoutines;
 
   /// No description provided for @createNewRoutine.
   ///
-  /// In tr, this message translates to:
-  /// **'Yeni Özel Timer Oluştur'**
+  /// In en, this message translates to:
+  /// **'Create New Custom Timer'**
   String get createNewRoutine;
 
   /// No description provided for @routineName.
   ///
-  /// In tr, this message translates to:
-  /// **'Timer Adı'**
+  /// In en, this message translates to:
+  /// **'Timer Name'**
   String get routineName;
 
   /// No description provided for @routineNameHint.
   ///
-  /// In tr, this message translates to:
-  /// **'Örn: Fran, Murph, 5x5 Interval'**
+  /// In en, this message translates to:
+  /// **'e.g., Fran, Murph, 5x5 Interval'**
   String get routineNameHint;
 
   /// No description provided for @addInterval.
   ///
-  /// In tr, this message translates to:
-  /// **'Aralık Ekle'**
+  /// In en, this message translates to:
+  /// **'Add Interval'**
   String get addInterval;
 
   /// No description provided for @intervalName.
   ///
-  /// In tr, this message translates to:
-  /// **'Aralık Adı'**
+  /// In en, this message translates to:
+  /// **'Interval Name'**
   String get intervalName;
 
   /// No description provided for @intervalDuration.
   ///
-  /// In tr, this message translates to:
-  /// **'Süre (sn)'**
+  /// In en, this message translates to:
+  /// **'Duration (sec)'**
   String get intervalDuration;
 
   /// No description provided for @intervalType.
   ///
-  /// In tr, this message translates to:
-  /// **'Aralık Tipi'**
+  /// In en, this message translates to:
+  /// **'Interval Type'**
   String get intervalType;
 
   /// No description provided for @save.
   ///
-  /// In tr, this message translates to:
-  /// **'KAYDET'**
+  /// In en, this message translates to:
+  /// **'SAVE'**
   String get save;
 
   /// No description provided for @cancel.
   ///
-  /// In tr, this message translates to:
-  /// **'İPTAL'**
+  /// In en, this message translates to:
+  /// **'CANCEL'**
   String get cancel;
 
   /// No description provided for @delete.
   ///
-  /// In tr, this message translates to:
-  /// **'SİL'**
+  /// In en, this message translates to:
+  /// **'DELETE'**
   String get delete;
 
   /// No description provided for @edit.
   ///
-  /// In tr, this message translates to:
-  /// **'DÜZENLE'**
+  /// In en, this message translates to:
+  /// **'EDIT'**
   String get edit;
 
   /// No description provided for @noCustomRoutines.
   ///
-  /// In tr, this message translates to:
-  /// **'Henüz özel bir timer oluşturmadınız. Hemen ekleyin!'**
+  /// In en, this message translates to:
+  /// **'No custom timers yet. Create one now!'**
   String get noCustomRoutines;
 
   /// No description provided for @confirmDelete.
   ///
-  /// In tr, this message translates to:
-  /// **'Bu timer\'\'ı silmek istediğinize emin misiniz?'**
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this timer?'**
   String get confirmDelete;
 
   /// No description provided for @cloudSyncNotice.
   ///
-  /// In tr, this message translates to:
-  /// **'Timerlarınız cihazınızda saklanır. Backend bağlantısı eklendiğinde bulutla senkronize edilecektir.'**
+  /// In en, this message translates to:
+  /// **'Your timers are stored locally on your device.'**
   String get cloudSyncNotice;
 
   /// No description provided for @lapTimes.
   ///
-  /// In tr, this message translates to:
-  /// **'Tur Zamanları'**
+  /// In en, this message translates to:
+  /// **'Lap Times'**
   String get lapTimes;
 
   /// No description provided for @fastestLap.
   ///
-  /// In tr, this message translates to:
-  /// **'En Hızlı Tur'**
+  /// In en, this message translates to:
+  /// **'Fastest Lap'**
   String get fastestLap;
 
   /// No description provided for @slowestLap.
   ///
-  /// In tr, this message translates to:
-  /// **'En Yavaş Tur'**
+  /// In en, this message translates to:
+  /// **'Slowest Lap'**
   String get slowestLap;
 
   /// No description provided for @totalTime.
   ///
-  /// In tr, this message translates to:
-  /// **'TOPLAM SÜRE'**
+  /// In en, this message translates to:
+  /// **'TOTAL TIME'**
   String get totalTime;
 
   /// No description provided for @roundTime.
   ///
-  /// In tr, this message translates to:
-  /// **'Tur Süresi'**
+  /// In en, this message translates to:
+  /// **'Round Time'**
   String get roundTime;
 
   /// No description provided for @general.
   ///
-  /// In tr, this message translates to:
-  /// **'GENEL'**
+  /// In en, this message translates to:
+  /// **'GENERAL'**
   String get general;
 
   /// No description provided for @soundSubtitle.
   ///
-  /// In tr, this message translates to:
-  /// **'Geri sayım ve aralık geçiş sinyalleri'**
+  /// In en, this message translates to:
+  /// **'Countdown and interval transition beeps'**
   String get soundSubtitle;
 
   /// No description provided for @vibrationSubtitle.
   ///
-  /// In tr, this message translates to:
-  /// **'Aralık geçişlerinde haptik geri bildirim'**
+  /// In en, this message translates to:
+  /// **'Haptic feedback on interval transitions'**
   String get vibrationSubtitle;
 
   /// No description provided for @keepScreenOnSubtitle.
   ///
-  /// In tr, this message translates to:
-  /// **'Antrenman sırasında telefon ekranı kapanmaz'**
+  /// In en, this message translates to:
+  /// **'Screen stays awake during workouts'**
   String get keepScreenOnSubtitle;
 
   /// No description provided for @soundTest.
   ///
-  /// In tr, this message translates to:
-  /// **'SES TESTİ'**
+  /// In en, this message translates to:
+  /// **'SOUND TEST'**
   String get soundTest;
 
   /// No description provided for @countdown.
   ///
-  /// In tr, this message translates to:
-  /// **'Geri Sayım'**
+  /// In en, this message translates to:
+  /// **'Countdown'**
   String get countdown;
 
   /// No description provided for @appLanguage.
   ///
-  /// In tr, this message translates to:
-  /// **'Uygulama Dili'**
+  /// In en, this message translates to:
+  /// **'App Language'**
   String get appLanguage;
 
   /// No description provided for @aboutTitle.
   ///
-  /// In tr, this message translates to:
-  /// **'HAKKINDA'**
+  /// In en, this message translates to:
+  /// **'ABOUT'**
   String get aboutTitle;
 
   /// No description provided for @aboutDesc.
   ///
-  /// In tr, this message translates to:
-  /// **'CrossFit ve fonksiyonel fitness antrenmanları için tasarlandı.'**
+  /// In en, this message translates to:
+  /// **'Designed for CrossFit and functional fitness workouts.'**
   String get aboutDesc;
 
   /// No description provided for @seconds.
   ///
-  /// In tr, this message translates to:
-  /// **'sn'**
+  /// In en, this message translates to:
+  /// **'s'**
   String get seconds;
 
   /// No description provided for @minutes.
   ///
-  /// In tr, this message translates to:
-  /// **'dk'**
+  /// In en, this message translates to:
+  /// **'min'**
   String get minutes;
 
   /// No description provided for @totalRoundsStat.
   ///
-  /// In tr, this message translates to:
-  /// **'TUR SAYISI'**
+  /// In en, this message translates to:
+  /// **'ROUNDS'**
   String get totalRoundsStat;
 
   /// No description provided for @workRestStat.
   ///
-  /// In tr, this message translates to:
-  /// **'ÇALIŞMA/DİNLENME'**
+  /// In en, this message translates to:
+  /// **'WORK/REST'**
   String get workRestStat;
 
   /// No description provided for @startWorkout.
   ///
-  /// In tr, this message translates to:
-  /// **'ANTRENMANI BAŞLAT'**
+  /// In en, this message translates to:
+  /// **'START WORKOUT'**
   String get startWorkout;
 
   /// No description provided for @searchWods.
   ///
-  /// In tr, this message translates to:
-  /// **'WOD veya Egzersiz Ara...'**
+  /// In en, this message translates to:
+  /// **'Search WOD or Exercise...'**
   String get searchWods;
 
   /// No description provided for @allCategories.
   ///
-  /// In tr, this message translates to:
-  /// **'TÜMÜ'**
+  /// In en, this message translates to:
+  /// **'ALL'**
   String get allCategories;
 }
 

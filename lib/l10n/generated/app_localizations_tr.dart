@@ -22,7 +22,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get stopwatch => 'KRONOMETRE';
 
   @override
-  String get custom => 'ÖZEL TİMER';
+  String get custom => 'ÖZEL';
 
   @override
   String get settings => 'AYARLAR';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../l10n/generated/app_localizations.dart';
 import 'custom_routines_screen.dart';
 import 'rounds_screen.dart';
@@ -41,10 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _initScreens() {
     _screens = [
-      TabataScreen(key: ValueKey('tabata_${widget.currentLocale.languageCode}')),
-      RoundsScreen(key: ValueKey('rounds_${widget.currentLocale.languageCode}')),
-      StopwatchScreen(key: ValueKey('stopwatch_${widget.currentLocale.languageCode}')),
-      CustomRoutinesScreen(key: ValueKey('custom_${widget.currentLocale.languageCode}')),
+      TabataScreen(
+        key: ValueKey('tabata_${widget.currentLocale.languageCode}'),
+      ),
+      RoundsScreen(
+        key: ValueKey('rounds_${widget.currentLocale.languageCode}'),
+      ),
+      StopwatchScreen(
+        key: ValueKey('stopwatch_${widget.currentLocale.languageCode}'),
+      ),
+      CustomRoutinesScreen(
+        key: ValueKey('custom_${widget.currentLocale.languageCode}'),
+      ),
       SettingsScreen(
         key: ValueKey('settings_${widget.currentLocale.languageCode}'),
         currentLocale: widget.currentLocale,
@@ -58,10 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: Color(0xFF181818),
@@ -75,8 +81,14 @@ class _HomeScreenState extends State<HomeScreen> {
           type: BottomNavigationBarType.fixed,
           selectedItemColor: const Color(0xFF00E676),
           unselectedItemColor: Colors.white38,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 11),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+          selectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 11,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 11,
+          ),
           items: [
             BottomNavigationBarItem(
               icon: const Icon(Icons.flash_on),
@@ -92,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.tune),
-              label: l10n?.custom ?? 'Özel Timer',
+              label: l10n?.custom ?? 'Özel',
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.settings),

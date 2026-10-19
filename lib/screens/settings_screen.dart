@@ -172,8 +172,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         underline: const SizedBox(),
                         style: const TextStyle(color: Color(0xFF00E676), fontWeight: FontWeight.bold, fontSize: 15),
                         items: const [
-                          DropdownMenuItem(value: 'tr', child: Text('Türkçe (TR)')),
                           DropdownMenuItem(value: 'en', child: Text('English (EN)')),
+                          DropdownMenuItem(value: 'tr', child: Text('Türkçe (TR)')),
                         ],
                         onChanged: (lang) {
                           if (lang != null) {

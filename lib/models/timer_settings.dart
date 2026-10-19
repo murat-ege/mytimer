@@ -8,7 +8,7 @@ class TimerSettings {
     this.soundEnabled = true,
     this.vibrationEnabled = true,
     this.wakelockEnabled = true,
-    this.languageCode = 'tr',
+    this.languageCode = 'en',
   });
 
   Map<String, dynamic> toJson() {
@@ -25,7 +25,7 @@ class TimerSettings {
       soundEnabled: json['soundEnabled'] as bool? ?? true,
       vibrationEnabled: json['vibrationEnabled'] as bool? ?? true,
       wakelockEnabled: json['wakelockEnabled'] as bool? ?? true,
-      languageCode: json['languageCode'] as String? ?? 'tr',
+      languageCode: json['languageCode'] as String? ?? 'en',
     );
   }
 
