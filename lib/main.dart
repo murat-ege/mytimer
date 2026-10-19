@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'repositories/local_timer_repository.dart';
-import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 import 'services/notification_service.dart';
 import 'services/sound_service.dart';
 
@@ -98,7 +98,7 @@ class _MyTimerAppState extends State<MyTimerApp> {
           iconTheme: IconThemeData(color: Colors.white),
         ),
       ),
-      home: HomeScreen(
+      home: SplashScreen(
         currentLocale: _locale,
         onLocaleChanged: _setLocale,
       ),

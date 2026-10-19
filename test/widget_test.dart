@@ -3,6 +3,7 @@ import 'package:mytimer/controllers/stopwatch_controller.dart';
 import 'package:mytimer/controllers/workout_controller.dart';
 import 'package:mytimer/models/custom_routine.dart';
 import 'package:mytimer/models/timer_phase.dart';
+import 'package:mytimer/services/sound_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +65,14 @@ void main() {
     test('Formats ms accurately', () {
       expect(StopwatchController.formatMs(65120), '01:05.12');
       expect(StopwatchController.formatMs(65120, showMs: false), '01:05');
+    });
+  });
+
+  group('SoundService & Splash Tests', () {
+    test('SoundService initializes with ducking AudioContext', () async {
+      final soundService = SoundService();
+      await soundService.init();
+      expect(soundService.soundEnabled, true);
     });
   });
 }

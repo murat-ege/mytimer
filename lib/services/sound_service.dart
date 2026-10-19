@@ -10,13 +10,34 @@ class SoundService {
   bool soundEnabled = true;
   bool vibrationEnabled = true;
 
+  static final AudioContext _audioContext = AudioContext(
+    iOS: AudioContextIOS(
+      category: AVAudioSessionCategory.playback,
+      options: {
+        AVAudioSessionOptions.mixWithOthers,
+        AVAudioSessionOptions.duckOthers,
+      },
+    ),
+    android: AudioContextAndroid(
+      isSpeakerphoneOn: false,
+      stayAwake: true,
+      contentType: AndroidContentType.sonification,
+      usageType: AndroidUsageType.assistanceSonification,
+      audioFocus: AndroidAudioFocus.gainTransientMayDuck,
+    ),
+  );
+
   AudioPlayer get _audioPlayer {
-    _player ??= AudioPlayer();
+    if (_player == null) {
+      _player = AudioPlayer();
+      _player!.setAudioContext(_audioContext).catchError((_) {});
+    }
     return _player!;
   }
 
   Future<void> init() async {
     try {
+      await AudioPlayer.global.setAudioContext(_audioContext);
       await _audioPlayer.setReleaseMode(ReleaseMode.stop);
     } catch (_) {}
   }
