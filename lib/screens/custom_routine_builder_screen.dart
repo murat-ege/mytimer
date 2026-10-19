@@ -186,6 +186,7 @@ class _CustomRoutineBuilderScreenState
       id: widget.initialRoutine?.id ?? const Uuid().v4(),
       name: _nameController.text.trim(),
       description: _descController.text.trim(),
+      category: widget.initialRoutine?.category ?? 'Özel',
       prepSeconds: _prepSeconds,
       rounds: _rounds,
       restBetweenRoundsSeconds: _restBetweenRoundsSeconds,

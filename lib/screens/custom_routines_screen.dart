@@ -13,13 +13,31 @@ class CustomRoutinesScreen extends StatefulWidget {
 
 class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
   final LocalTimerRepository _repository = LocalTimerRepository();
+  final TextEditingController _searchController = TextEditingController();
+
   List<CustomRoutine> _routines = [];
   bool _isLoading = true;
+  String _searchQuery = '';
+  String _selectedCategory = 'Hepsi';
+
+  final List<String> _categories = [
+    'Hepsi',
+    'The Girls',
+    'Hero WOD',
+    'Benchmark',
+    'Özel',
+  ];
 
   @override
   void initState() {
     super.initState();
     _loadRoutines();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadRoutines() async {
@@ -31,6 +49,22 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
         _isLoading = false;
       });
     }
+  }
+
+  List<CustomRoutine> get _filteredRoutines {
+    return _routines.where((r) {
+      final query = _searchQuery.toLowerCase().trim();
+      final matchesSearch = query.isEmpty ||
+          r.name.toLowerCase().contains(query) ||
+          r.description.toLowerCase().contains(query);
+
+      final matchesCategory = _selectedCategory == 'Hepsi' ||
+          (_selectedCategory == 'Özel'
+              ? (r.category == 'Custom' || r.category == 'Özel')
+              : r.category == _selectedCategory);
+
+      return matchesSearch && matchesCategory;
+    }).toList();
   }
 
   void _openBuilder([CustomRoutine? routine]) async {
@@ -88,15 +122,33 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
     return '${mins}dk ${secs > 0 ? '${secs}sn' : ''}';
   }
 
+  Color _getCategoryColor(String category) {
+    switch (category) {
+      case 'The Girls':
+        return const Color(0xFFFF4081); // Vibrant Pink
+      case 'Hero WOD':
+        return const Color(0xFFFF3D00); // Fiery Red/Orange
+      case 'Benchmark':
+        return const Color(0xFF00E5FF); // Electric Cyan
+      case 'Özel':
+      case 'Custom':
+        return const Color(0xFF00E676); // High Voltage Green
+      default:
+        return const Color(0xFFFFB300); // Amber
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final filtered = _filteredRoutines;
+
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          'ÖZEL TİMERLAR',
+          'WOD & ÖZEL TİMERLAR',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
@@ -109,43 +161,152 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
           ? const Center(child: CircularProgressIndicator(color: Color(0xFF00E676)))
           : Column(
               children: [
-                // Cloud Sync Notice Banner
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1E1E1E),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.white12),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.cloud_done_outlined, color: Color(0xFF00E5FF), size: 22),
-                      const SizedBox(width: 10),
-                      const Expanded(
-                        child: Text(
-                          'Timer verileriniz lokal cihazınızda güvendedir. Gelecekteki hesap senkronizasyonu için hazırlandı.',
-                          style: TextStyle(color: Colors.white70, fontSize: 12),
-                        ),
+                // 1. Search Bar
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1E1E1E),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.white12),
+                    ),
+                    child: TextField(
+                      controller: _searchController,
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
+                      onChanged: (val) {
+                        setState(() {
+                          _searchQuery = val;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'WOD ara (Örn: Fran, Murph, Thruster, Pull-up)...',
+                        hintStyle: const TextStyle(color: Colors.white38, fontSize: 13),
+                        prefixIcon: const Icon(Icons.search, color: Color(0xFF00E676), size: 22),
+                        suffixIcon: _searchQuery.isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(Icons.clear, color: Colors.white54, size: 20),
+                                onPressed: () {
+                                  _searchController.clear();
+                                  setState(() => _searchQuery = '');
+                                },
+                              )
+                            : null,
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                       ),
+                    ),
+                  ),
+                ),
+
+                // 2. Category Filter Chips (Horizontal Scroll)
+                SizedBox(
+                  height: 48,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    itemCount: _categories.length,
+                    itemBuilder: (context, idx) {
+                      final cat = _categories[idx];
+                      final isSelected = _selectedCategory == cat;
+                      final count = cat == 'Hepsi'
+                          ? _routines.length
+                          : _routines.where((r) => cat == 'Özel' ? (r.category == 'Custom' || r.category == 'Özel') : r.category == cat).length;
+
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: FilterChip(
+                          label: Text(
+                            '$cat ($count)',
+                            style: TextStyle(
+                              color: isSelected ? Colors.black : Colors.white70,
+                              fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
+                              fontSize: 12,
+                            ),
+                          ),
+                          selected: isSelected,
+                          onSelected: (_) {
+                            setState(() {
+                              _selectedCategory = cat;
+                            });
+                          },
+                          backgroundColor: const Color(0xFF1E1E1E),
+                          selectedColor: const Color(0xFF00E676),
+                          checkmarkColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(
+                              color: isSelected ? const Color(0xFF00E676) : Colors.white12,
+                            ),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 4),
+
+                // 3. Results Count Bar
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${filtered.length} antrenman listeleniyor',
+                        style: const TextStyle(color: Colors.white38, fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+                      if (_searchQuery.isNotEmpty || _selectedCategory != 'Hepsi')
+                        GestureDetector(
+                          onTap: () {
+                            _searchController.clear();
+                            setState(() {
+                              _searchQuery = '';
+                              _selectedCategory = 'Hepsi';
+                            });
+                          },
+                          child: const Text(
+                            'Filtreleri Temizle',
+                            style: TextStyle(color: Color(0xFF00E676), fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                     ],
                   ),
                 ),
 
-                // Routines List
+                // 4. Routines List
                 Expanded(
-                  child: _routines.isEmpty
+                  child: filtered.isEmpty
                       ? Center(
-                          child: Text(
-                            'Kayıtlı timer bulunamadı. Yeni bir tane ekleyin!',
-                            style: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.search_off, size: 54, color: Colors.white.withValues(alpha: 0.3)),
+                              const SizedBox(height: 12),
+                              Text(
+                                '"$_searchQuery" için antrenman bulunamadı',
+                                style: TextStyle(color: Colors.white.withValues(alpha: 0.6), fontSize: 15),
+                              ),
+                              const SizedBox(height: 8),
+                              TextButton(
+                                onPressed: () {
+                                  _searchController.clear();
+                                  setState(() {
+                                    _searchQuery = '';
+                                    _selectedCategory = 'Hepsi';
+                                  });
+                                },
+                                child: const Text('Tüm WOD''ları Göster', style: TextStyle(color: Color(0xFF00E676))),
+                              ),
+                            ],
                           ),
                         )
                       : ListView.builder(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          itemCount: _routines.length,
+                          itemCount: filtered.length,
                           itemBuilder: (context, index) {
-                            final routine = _routines[index];
+                            final routine = filtered[index];
                             return _buildRoutineCard(routine);
                           },
                         ),
@@ -166,12 +327,15 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
   }
 
   Widget _buildRoutineCard(CustomRoutine routine) {
+    final catColor = _getCategoryColor(routine.category);
+    final isPreset = routine.id.startsWith('wod_');
+
     return Container(
-      margin: const EdgeInsets.only(bottom: 14),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: const Color(0xFF1E1E1E),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white10),
+        border: Border.all(color: catColor.withValues(alpha: 0.2)),
       ),
       child: Material(
         color: Colors.transparent,
@@ -183,39 +347,70 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Top Row: Category tag and Action buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: catColor.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: catColor.withValues(alpha: 0.4), width: 1),
+                      ),
                       child: Text(
-                        routine.name,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                        routine.category.toUpperCase(),
+                        style: TextStyle(
+                          color: catColor,
+                          fontSize: 10,
                           fontWeight: FontWeight.w900,
+                          letterSpacing: 1,
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.edit_outlined, color: Colors.white60, size: 20),
-                      onPressed: () => _openBuilder(routine),
-                      tooltip: 'Düzenle',
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
-                      onPressed: () => _deleteRoutine(routine),
-                      tooltip: 'Sil',
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit_outlined, color: Colors.white60, size: 20),
+                          onPressed: () => _openBuilder(routine),
+                          tooltip: 'Düzenle / Özelleştir',
+                          visualDensity: VisualDensity.compact,
+                        ),
+                        if (!isPreset)
+                          IconButton(
+                            icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
+                            onPressed: () => _deleteRoutine(routine),
+                            tooltip: 'Sil',
+                            visualDensity: VisualDensity.compact,
+                          ),
+                      ],
                     ),
                   ],
                 ),
+
+                const SizedBox(height: 6),
+
+                // Routine Name
+                Text(
+                  routine.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+
                 if (routine.description.isNotEmpty) ...[
                   const SizedBox(height: 4),
                   Text(
                     routine.description,
-                    style: const TextStyle(color: Colors.white54, fontSize: 13),
+                    style: const TextStyle(color: Colors.white70, fontSize: 13, height: 1.3),
                   ),
                 ],
+
                 const SizedBox(height: 12),
+
+                // Badges Row
                 Row(
                   children: [
                     _buildBadge(
@@ -235,6 +430,29 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                       _formatTotalSeconds(routine.totalDurationSeconds),
                       const Color(0xFF00E676),
                     ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF00E676),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.play_arrow, color: Colors.black, size: 16),
+                          SizedBox(width: 2),
+                          Text(
+                            'BAŞLAT',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -247,7 +465,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
 
   Widget _buildBadge(IconData icon, String text, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(8),
@@ -255,13 +473,13 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: color),
+          Icon(icon, size: 13, color: color),
           const SizedBox(width: 4),
           Text(
             text,
             style: TextStyle(
               color: color,
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
             ),
           ),

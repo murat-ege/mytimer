@@ -5,6 +5,7 @@ class CustomRoutine {
   final String id;
   final String name;
   final String description;
+  final String category;
   final int prepSeconds;
   final List<IntervalStep> intervals;
   final int rounds;
@@ -16,6 +17,7 @@ class CustomRoutine {
     required this.id,
     required this.name,
     this.description = '',
+    this.category = 'CrossFit WOD',
     this.prepSeconds = 10,
     required this.intervals,
     this.rounds = 1,
@@ -36,6 +38,7 @@ class CustomRoutine {
       'id': id,
       'name': name,
       'description': description,
+      'category': category,
       'prepSeconds': prepSeconds,
       'intervals': intervals.map((i) => i.toJson()).toList(),
       'rounds': rounds,
@@ -50,6 +53,7 @@ class CustomRoutine {
       id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String? ?? '',
+      category: json['category'] as String? ?? 'CrossFit WOD',
       prepSeconds: json['prepSeconds'] as int? ?? 10,
       intervals: (json['intervals'] as List<dynamic>)
           .map((i) => IntervalStep.fromJson(i as Map<String, dynamic>))
@@ -65,6 +69,7 @@ class CustomRoutine {
     String? id,
     String? name,
     String? description,
+    String? category,
     int? prepSeconds,
     List<IntervalStep>? intervals,
     int? rounds,
@@ -76,6 +81,7 @@ class CustomRoutine {
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
+      category: category ?? this.category,
       prepSeconds: prepSeconds ?? this.prepSeconds,
       intervals: intervals ?? this.intervals,
       rounds: rounds ?? this.rounds,
