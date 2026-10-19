@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'repositories/local_timer_repository.dart';
 import 'screens/home_screen.dart';
@@ -9,6 +10,9 @@ import 'services/sound_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive CE
+  await Hive.initFlutter();
 
   // Set system UI overlay style
   SystemChrome.setSystemUIOverlayStyle(

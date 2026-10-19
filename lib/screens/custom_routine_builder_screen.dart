@@ -32,7 +32,10 @@ class _CustomRoutineBuilderScreenState
   void initState() {
     super.initState();
     final init = widget.initialRoutine;
-    _nameController = TextEditingController(text: init?.name ?? '');
+    final initialName = init == null
+        ? ''
+        : (init.isPreset ? '${init.name} (Özel)' : init.name);
+    _nameController = TextEditingController(text: initialName);
     _descController = TextEditingController(text: init?.description ?? '');
     _prepSeconds = init?.prepSeconds ?? 10;
     _rounds = init?.rounds ?? 3;
@@ -182,16 +185,22 @@ class _CustomRoutineBuilderScreenState
     }
 
     final now = DateTime.now();
+    final isEditingPreset = widget.initialRoutine?.isPreset ?? false;
+    final routineId = (widget.initialRoutine == null || isEditingPreset)
+        ? const Uuid().v4()
+        : widget.initialRoutine!.id;
+
     final routine = CustomRoutine(
-      id: widget.initialRoutine?.id ?? const Uuid().v4(),
+      id: routineId,
       name: _nameController.text.trim(),
       description: _descController.text.trim(),
-      category: widget.initialRoutine?.category ?? 'Özel',
+      category: 'Özel',
+      isPreset: false, // User modified or created routines are always custom
       prepSeconds: _prepSeconds,
       rounds: _rounds,
       restBetweenRoundsSeconds: _restBetweenRoundsSeconds,
       intervals: _intervals,
-      createdAt: widget.initialRoutine?.createdAt ?? now,
+      createdAt: isEditingPreset ? now : (widget.initialRoutine?.createdAt ?? now),
       updatedAt: now,
     );
 
@@ -204,13 +213,17 @@ class _CustomRoutineBuilderScreenState
 
   @override
   Widget build(BuildContext context) {
+    final isEditingPreset = widget.initialRoutine?.isPreset ?? false;
+
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          widget.initialRoutine == null ? 'YENİ TİMER OLUŞTUR' : 'TİMER DÜZENLE',
+          widget.initialRoutine == null
+              ? 'YENİ TİMER OLUŞTUR'
+              : (isEditingPreset ? 'WOD''U ÖZELLEŞTİR' : 'TİMER DÜZENLE'),
           style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, letterSpacing: 1.5),
         ),
         actions: [
@@ -227,6 +240,30 @@ class _CustomRoutineBuilderScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if (isEditingPreset) ...[
+                Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E1E1E),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: const Color(0xFFFFB300).withValues(alpha: 0.5)),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.info_outline, color: Color(0xFFFFB300), size: 22),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          'Klasik ${widget.initialRoutine!.name} şablonu yüklendi. Orijinal WOD korunur; yaptığınız düzenleme Hive''da yeni bir özel timer olarak kaydedilecektir.',
+                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+
               // Routine Name Field
               TextFormField(
                 controller: _nameController,

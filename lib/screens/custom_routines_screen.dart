@@ -328,7 +328,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
 
   Widget _buildRoutineCard(CustomRoutine routine) {
     final catColor = _getCategoryColor(routine.category);
-    final isPreset = routine.id.startsWith('wod_');
+    final isPreset = routine.isPreset;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -373,7 +373,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                         IconButton(
                           icon: const Icon(Icons.edit_outlined, color: Colors.white60, size: 20),
                           onPressed: () => _openBuilder(routine),
-                          tooltip: 'Düzenle / Özelleştir',
+                          tooltip: isPreset ? 'Özelleştir / Yeni İsimle Kaydet' : 'Düzenle',
                           visualDensity: VisualDensity.compact,
                         ),
                         if (!isPreset)
