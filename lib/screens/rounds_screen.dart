@@ -15,6 +15,9 @@ class _RoundsScreenState extends State<RoundsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  // Preparation state
+  int _prepSeconds = 10;
+
   // Rounds Mode state
   int _roundWorkMinutes = 3;
   int _roundRestMinutes = 1;
@@ -46,7 +49,7 @@ class _RoundsScreenState extends State<RoundsScreen>
     final routine = CustomRoutine(
       id: 'rounds_${now.millisecondsSinceEpoch}',
       name: '$_roundsCount TUR ANTRENMAN',
-      prepSeconds: 10,
+      prepSeconds: _prepSeconds,
       rounds: _roundsCount,
       intervals: [
         IntervalStep(
@@ -75,7 +78,7 @@ class _RoundsScreenState extends State<RoundsScreen>
     final routine = CustomRoutine(
       id: 'emom_${now.millisecondsSinceEpoch}',
       name: 'EMOM $_emomMinutes DK',
-      prepSeconds: 10,
+      prepSeconds: _prepSeconds,
       rounds: _emomMinutes,
       intervals: const [
         IntervalStep(
@@ -103,7 +106,7 @@ class _RoundsScreenState extends State<RoundsScreen>
     final routine = CustomRoutine(
       id: 'amrap_${now.millisecondsSinceEpoch}',
       name: 'AMRAP $_amrapMinutes DK',
-      prepSeconds: 10,
+      prepSeconds: _prepSeconds,
       rounds: 1,
       intervals: [
         IntervalStep(
@@ -125,7 +128,7 @@ class _RoundsScreenState extends State<RoundsScreen>
     final routine = CustomRoutine(
       id: 'fortime_${now.millisecondsSinceEpoch}',
       name: 'FOR TIME ($_forTimeCapMinutes DK CAP)',
-      prepSeconds: 10,
+      prepSeconds: _prepSeconds,
       rounds: 1,
       intervals: [
         IntervalStep(
@@ -204,6 +207,16 @@ class _RoundsScreenState extends State<RoundsScreen>
         children: [
           _buildInfoBanner('Her tur çalışma ve dinlenme sürelerini belirleyip serinizi tamamlayın.'),
           const SizedBox(height: 20),
+          // 1. Hazırlanma Control (FIRST ACTION)
+          _buildStepperCard(
+            title: 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds Saniye',
+            color: const Color(0xFF00E5FF),
+            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
+            onInc: () => setState(() => _prepSeconds += 5),
+          ),
+          const SizedBox(height: 14),
+          // 2. Tur Çalışma Süresi
           _buildStepperCard(
             title: 'TUR ÇALIŞMA SÜRESİ',
             valueText: '$_roundWorkMinutes Dakika',
@@ -212,6 +225,7 @@ class _RoundsScreenState extends State<RoundsScreen>
             onInc: () => setState(() => _roundWorkMinutes++),
           ),
           const SizedBox(height: 14),
+          // 3. Tur Dinlenme Süresi
           _buildStepperCard(
             title: 'TUR DİNLENME SÜRESİ',
             valueText: '$_roundRestMinutes Dakika',
@@ -220,6 +234,7 @@ class _RoundsScreenState extends State<RoundsScreen>
             onInc: () => setState(() => _roundRestMinutes++),
           ),
           const SizedBox(height: 14),
+          // 4. Toplam Tur Sayısı
           _buildStepperCard(
             title: 'TOPLAM TUR SAYISI',
             valueText: '$_roundsCount Tur',
@@ -241,6 +256,16 @@ class _RoundsScreenState extends State<RoundsScreen>
         children: [
           _buildInfoBanner('EMOM (Every Minute on the Minute): Her dakikanın başında belirlenen tekrarı yapın, kalan sürede dinlenin.'),
           const SizedBox(height: 20),
+          // 1. Hazırlanma Control (FIRST ACTION)
+          _buildStepperCard(
+            title: 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds Saniye',
+            color: const Color(0xFF00E5FF),
+            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
+            onInc: () => setState(() => _prepSeconds += 5),
+          ),
+          const SizedBox(height: 14),
+          // 2. Toplam Dakika
           _buildStepperCard(
             title: 'TOPLAM DAKİKA',
             valueText: '$_emomMinutes Dakika',
@@ -262,6 +287,16 @@ class _RoundsScreenState extends State<RoundsScreen>
         children: [
           _buildInfoBanner('AMRAP (As Many Rounds As Possible): Verilen süre boyunca mümkün olan en fazla tur veya tekrarı tamamlayın.'),
           const SizedBox(height: 20),
+          // 1. Hazırlanma Control (FIRST ACTION)
+          _buildStepperCard(
+            title: 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds Saniye',
+            color: const Color(0xFF00E5FF),
+            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
+            onInc: () => setState(() => _prepSeconds += 5),
+          ),
+          const SizedBox(height: 14),
+          // 2. AMRAP Süresi
           _buildStepperCard(
             title: 'AMRAP SÜRESİ',
             valueText: '$_amrapMinutes Dakika',
@@ -283,6 +318,16 @@ class _RoundsScreenState extends State<RoundsScreen>
         children: [
           _buildInfoBanner('FOR TIME: Verilen egzersizleri zaman sınırından (Time Cap) önce en hızlı sürede tamamlayın.'),
           const SizedBox(height: 20),
+          // 1. Hazırlanma Control (FIRST ACTION)
+          _buildStepperCard(
+            title: 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds Saniye',
+            color: const Color(0xFF00E5FF),
+            onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
+            onInc: () => setState(() => _prepSeconds += 5),
+          ),
+          const SizedBox(height: 14),
+          // 2. Time Cap
           _buildStepperCard(
             title: 'TIME CAP (ZAMAN SINIRI)',
             valueText: '$_forTimeCapMinutes Dakika',

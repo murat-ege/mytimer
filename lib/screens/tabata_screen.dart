@@ -87,7 +87,23 @@ class _TabataScreenState extends State<TabataScreen> {
 
             const SizedBox(height: 24),
 
-            // Work Duration Control
+            // 1. Prep / Hazırlanma Control (FIRST ACTION)
+            _buildNumberStepper(
+              title: 'HAZIRLANMA SÜRESİ',
+              valueText: '$_prepSeconds sn',
+              color: const Color(0xFF00E5FF),
+              icon: Icons.hourglass_top,
+              onDecrement: () {
+                if (_prepSeconds > 0) setState(() => _prepSeconds -= 5);
+              },
+              onIncrement: () {
+                setState(() => _prepSeconds += 5);
+              },
+            ),
+
+            const SizedBox(height: 16),
+
+            // 2. Work Duration Control
             _buildNumberStepper(
               title: 'ÇALIŞMA SÜRESİ',
               valueText: '$_workSeconds sn',
@@ -103,7 +119,7 @@ class _TabataScreenState extends State<TabataScreen> {
 
             const SizedBox(height: 16),
 
-            // Rest Duration Control
+            // 3. Rest Duration Control
             _buildNumberStepper(
               title: 'DİNLENME SÜRESİ',
               valueText: '$_restSeconds sn',
@@ -119,7 +135,7 @@ class _TabataScreenState extends State<TabataScreen> {
 
             const SizedBox(height: 16),
 
-            // Rounds Control
+            // 4. Rounds Control
             _buildNumberStepper(
               title: 'TOPLAM TUR',
               valueText: '$_rounds Tur',
@@ -130,22 +146,6 @@ class _TabataScreenState extends State<TabataScreen> {
               },
               onIncrement: () {
                 setState(() => _rounds += 1);
-              },
-            ),
-
-            const SizedBox(height: 16),
-
-            // Prep Time Control
-            _buildNumberStepper(
-              title: 'HAZIRLIK GERİ SAYIM',
-              valueText: '$_prepSeconds sn',
-              color: const Color(0xFF00E5FF),
-              icon: Icons.hourglass_top,
-              onDecrement: () {
-                if (_prepSeconds > 0) setState(() => _prepSeconds -= 5);
-              },
-              onIncrement: () {
-                setState(() => _prepSeconds += 5);
               },
             ),
 
