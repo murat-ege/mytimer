@@ -406,9 +406,16 @@ class _CustomRoutineBuilderScreenState
                     foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   ),
-                  child: const Text(
-                    'TİMER''I KAYDET',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 1.5),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.check_circle_outline_rounded, size: 26),
+                      SizedBox(width: 8),
+                      Text(
+                        'TİMER\'I KAYDET',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 1.5),
+                      ),
+                    ],
                   ),
                 ),
               ),

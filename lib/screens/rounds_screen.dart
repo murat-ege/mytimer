@@ -253,7 +253,7 @@ class _RoundsScreenState extends State<RoundsScreen>
           ),
           const SizedBox(height: 30),
           _buildStartButton(
-            '${l10n?.round ?? "TUR"} ${l10n?.start ?? "BAŞLAT"}',
+            l10n?.start ?? "BAŞLAT",
             _startRoundsWorkout,
             const Color(0xFF00E676),
           ),
@@ -293,7 +293,7 @@ class _RoundsScreenState extends State<RoundsScreen>
           ),
           const SizedBox(height: 30),
           _buildStartButton(
-            'EMOM ${l10n?.start ?? "BAŞLAT"}',
+            l10n?.start ?? "BAŞLAT",
             _startEmomWorkout,
             const Color(0xFFFFD600),
           ),
@@ -333,7 +333,7 @@ class _RoundsScreenState extends State<RoundsScreen>
           ),
           const SizedBox(height: 30),
           _buildStartButton(
-            'AMRAP ${l10n?.start ?? "BAŞLAT"}',
+            l10n?.start ?? "BAŞLAT",
             _startAmrapWorkout,
             const Color(0xFFFF9100),
           ),
@@ -373,7 +373,7 @@ class _RoundsScreenState extends State<RoundsScreen>
           ),
           const SizedBox(height: 30),
           _buildStartButton(
-            'FOR TIME ${l10n?.start ?? "BAŞLAT"}',
+            l10n?.start ?? "BAŞLAT",
             _startForTimeWorkout,
             const Color(0xFF7C4DFF),
           ),
@@ -451,15 +451,23 @@ class _RoundsScreenState extends State<RoundsScreen>
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          elevation: 6,
+          elevation: 8,
+          shadowColor: color.withValues(alpha: 0.5),
         ),
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 1.5,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.play_arrow_rounded, size: 36),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2,
+              ),
+            ),
+          ],
         ),
       ),
     );

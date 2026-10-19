@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../l10n/generated/app_localizations.dart';
 import '../models/custom_routine.dart';
 import 'timer_runner_screen.dart';
@@ -35,9 +36,7 @@ class _TabataScreenState extends State<TabataScreen> {
     );
 
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => TimerRunnerScreen(routine: routine),
-      ),
+      MaterialPageRoute(builder: (_) => TimerRunnerScreen(routine: routine)),
     );
   }
 
@@ -82,11 +81,23 @@ class _TabataScreenState extends State<TabataScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildStatItem(l10n?.totalTime ?? 'TOPLAM SÜRE', _formattedTotalTime(minUnit, secUnit), const Color(0xFF00E676)),
+                  _buildStatItem(
+                    l10n?.totalTime ?? 'TOPLAM SÜRE',
+                    _formattedTotalTime(minUnit, secUnit),
+                    const Color(0xFF00E676),
+                  ),
                   Container(width: 1, height: 40, color: Colors.white12),
-                  _buildStatItem(l10n?.totalRoundsStat ?? 'TUR SAYISI', '$_rounds $roundUnit', const Color(0xFFFFB300)),
+                  _buildStatItem(
+                    l10n?.totalRoundsStat ?? 'TUR SAYISI',
+                    '$_rounds $roundUnit',
+                    const Color(0xFFFFB300),
+                  ),
                   Container(width: 1, height: 40, color: Colors.white12),
-                  _buildStatItem(l10n?.workRestStat ?? 'ÇALIŞMA/DİNLENME', '$_workSeconds$secUnit / $_restSeconds$secUnit', const Color(0xFFFF3D00)),
+                  _buildStatItem(
+                    l10n?.workRestStat ?? 'ÇALIŞMA/DİNLENME',
+                    '$_workSeconds$secUnit / $_restSeconds$secUnit',
+                    const Color(0xFFFF3D00),
+                  ),
                 ],
               ),
             ),
@@ -178,7 +189,7 @@ class _TabataScreenState extends State<TabataScreen> {
                     const Icon(Icons.play_arrow_rounded, size: 36),
                     const SizedBox(width: 8),
                     Text(
-                      '${l10n?.tabata ?? "TABATA"} ${l10n?.start ?? "BAŞLAT"}',
+                      l10n?.start ?? "BAŞLAT",
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
@@ -273,7 +284,11 @@ class _TabataScreenState extends State<TabataScreen> {
           ),
           IconButton(
             onPressed: onDecrement,
-            icon: const Icon(Icons.remove_circle_outline, color: Colors.white70, size: 30),
+            icon: const Icon(
+              Icons.remove_circle_outline,
+              color: Colors.white70,
+              size: 30,
+            ),
           ),
           IconButton(
             onPressed: onIncrement,

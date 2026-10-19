@@ -442,8 +442,8 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                       ),
                       child: const Row(
                         children: [
-                          Icon(Icons.play_arrow, color: Colors.black, size: 16),
-                          SizedBox(width: 2),
+                          Icon(Icons.play_arrow_rounded, color: Colors.black, size: 16),
+                          SizedBox(width: 4),
                           Text(
                             'BAŞLAT',
                             style: TextStyle(

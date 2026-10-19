@@ -83,6 +83,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
               children: [
                 // Reset / Lap Button
                 _buildCircularButton(
+                  icon: _controller.isRunning ? Icons.flag_rounded : Icons.refresh_rounded,
                   label: _controller.isRunning ? (l10n?.lap ?? 'TUR') : (l10n?.reset ?? 'SIFIRLA'),
                   color: Colors.white24,
                   textColor: Colors.white,
@@ -97,6 +98,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
 
                 // Start / Stop Button
                 _buildCircularButton(
+                  icon: _controller.isRunning ? Icons.pause_rounded : Icons.play_arrow_rounded,
                   label: _controller.isRunning ? (l10n?.pause ?? 'DURDUR') : (l10n?.start ?? 'BAŞLAT'),
                   color: _controller.isRunning
                       ? const Color(0xFFFF3D00)
@@ -196,6 +198,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     required Color color,
     required Color textColor,
     required VoidCallback onTap,
+    IconData? icon,
   }) {
     return GestureDetector(
       onTap: onTap,
@@ -213,14 +216,23 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
           ],
         ),
         child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w900,
-              fontSize: 14,
-              letterSpacing: 1,
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) ...[
+                Icon(icon, color: textColor, size: 28),
+                const SizedBox(height: 2),
+              ],
+              Text(
+                label,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 12,
+                  letterSpacing: 1,
+                ),
+              ),
+            ],
           ),
         ),
       ),
