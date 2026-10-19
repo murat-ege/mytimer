@@ -16,7 +16,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tabata => 'TABATA';
 
   @override
-  String get rounds => 'TUR (ROUNDS)';
+  String get rounds => 'TUR & WOD';
 
   @override
   String get stopwatch => 'KRONOMETRE';
@@ -76,16 +76,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lap => 'TUR AT';
 
   @override
-  String get workTime => 'Çalışma Süresi';
+  String get workTime => 'ÇALIŞMA SÜRESİ';
 
   @override
-  String get restTime => 'Dinlenme Süresi';
+  String get restTime => 'DİNLENME SÜRESİ';
 
   @override
-  String get prepTime => 'Hazırlık Süresi';
+  String get prepTime => 'HAZIRLANMA SÜRESİ';
 
   @override
-  String get totalRounds => 'Toplam Tur';
+  String get totalRounds => 'TOPLAM TUR';
 
   @override
   String get totalSets => 'Toplam Set';
@@ -94,7 +94,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get restBetweenSets => 'Setler Arası Dinlenme';
 
   @override
-  String get timeCap => 'Zaman Sınırı (Time Cap)';
+  String get timeCap => 'ZAMAN SINIRI (TIME CAP)';
 
   @override
   String get sound => 'Ses Efektleri';
@@ -106,7 +106,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get keepScreenOn => 'Ekranı Açık Tut';
 
   @override
-  String get language => 'Dil / Language';
+  String get language => 'DİL / LANGUAGE';
 
   @override
   String get emomTitle => 'EMOM';
@@ -162,7 +162,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get cloudSyncNotice =>
-      'Timerlarınız lokalde saklanır. Backend bağlantısı eklendiğinde bulutla senkronize edilecektir.';
+      'Timerlarınız cihazınızda saklanır. Backend bağlantısı eklendiğinde bulutla senkronize edilecektir.';
 
   @override
   String get lapTimes => 'Tur Zamanları';
@@ -174,8 +174,58 @@ class AppLocalizationsTr extends AppLocalizations {
   String get slowestLap => 'En Yavaş Tur';
 
   @override
-  String get totalTime => 'Toplam Süre';
+  String get totalTime => 'TOPLAM SÜRE';
 
   @override
   String get roundTime => 'Tur Süresi';
+
+  @override
+  String get general => 'GENEL';
+
+  @override
+  String get soundSubtitle => 'Geri sayım ve aralık geçiş sinyalleri';
+
+  @override
+  String get vibrationSubtitle => 'Aralık geçişlerinde haptik geri bildirim';
+
+  @override
+  String get keepScreenOnSubtitle =>
+      'Antrenman sırasında telefon ekranı kapanmaz';
+
+  @override
+  String get soundTest => 'SES TESTİ';
+
+  @override
+  String get countdown => 'Geri Sayım';
+
+  @override
+  String get appLanguage => 'Uygulama Dili';
+
+  @override
+  String get aboutTitle => 'HAKKINDA';
+
+  @override
+  String get aboutDesc =>
+      'CrossFit ve fonksiyonel fitness antrenmanları için tasarlandı.';
+
+  @override
+  String get seconds => 'sn';
+
+  @override
+  String get minutes => 'dk';
+
+  @override
+  String get totalRoundsStat => 'TUR SAYISI';
+
+  @override
+  String get workRestStat => 'ÇALIŞMA/DİNLENME';
+
+  @override
+  String get startWorkout => 'ANTRENMANI BAŞLAT';
+
+  @override
+  String get searchWods => 'WOD veya Egzersiz Ara...';
+
+  @override
+  String get allCategories => 'TÜMÜ';
 }

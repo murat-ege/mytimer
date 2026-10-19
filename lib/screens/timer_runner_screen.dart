@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../controllers/workout_controller.dart';
+import '../l10n/generated/app_localizations.dart';
 import '../models/custom_routine.dart';
 import '../models/timer_phase.dart';
 import '../services/sound_service.dart';
@@ -65,6 +66,7 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final curSegment = _controller.currentSegment;
     final phase = _controller.currentPhase;
     final primaryColor = phase.primaryColor;
@@ -163,10 +165,10 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
                       ),
                       child: Text(
                         _controller.isFinished
-                            ? 'BİTTİ'
+                            ? (l10n?.completed ?? 'TAMAMLANDI!')
                             : (curSegment != null && curSegment.roundIndex > 0)
-                                ? 'TUR ${_controller.currentRound} / ${_controller.totalRounds}'
-                                : 'HAZIRLIK',
+                                ? '${l10n?.round ?? "TUR"} ${_controller.currentRound} / ${_controller.totalRounds}'
+                                : (l10n?.prep ?? 'HAZIRLIK'),
                         style: TextStyle(
                           color: primaryColor,
                           fontSize: 18,
@@ -183,7 +185,7 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
                       duration: const Duration(milliseconds: 300),
                       child: Text(
                         _controller.isFinished
-                            ? 'TEBRİKLER!'
+                            ? (l10n?.finished ?? 'TEBRİKLER!')
                             : (curSegment?.title.toUpperCase() ?? phase.displayName),
                         key: ValueKey('${curSegment?.title}_${_controller.currentSegmentIndex}'),
                         style: TextStyle(

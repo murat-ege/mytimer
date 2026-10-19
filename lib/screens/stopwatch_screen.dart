@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controllers/stopwatch_controller.dart';
+import '../l10n/generated/app_localizations.dart';
 
 class StopwatchScreen extends StatefulWidget {
   const StopwatchScreen({super.key});
@@ -30,6 +31,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final laps = _controller.laps;
     final fastest = _controller.fastestLapMs;
     final slowest = _controller.slowestLapMs;
@@ -39,9 +41,9 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'KRONOMETRE',
-          style: TextStyle(
+        title: Text(
+          l10n?.stopwatch ?? 'KRONOMETRE',
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
@@ -81,7 +83,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
               children: [
                 // Reset / Lap Button
                 _buildCircularButton(
-                  label: _controller.isRunning ? 'TUR (LAP)' : 'SIFIRLA',
+                  label: _controller.isRunning ? (l10n?.lap ?? 'TUR') : (l10n?.reset ?? 'SIFIRLA'),
                   color: Colors.white24,
                   textColor: Colors.white,
                   onTap: () {
@@ -95,7 +97,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
 
                 // Start / Stop Button
                 _buildCircularButton(
-                  label: _controller.isRunning ? 'DURDUR' : 'BAŞLAT',
+                  label: _controller.isRunning ? (l10n?.pause ?? 'DURDUR') : (l10n?.start ?? 'BAŞLAT'),
                   color: _controller.isRunning
                       ? const Color(0xFFFF3D00)
                       : const Color(0xFF00E676),
@@ -121,10 +123,10 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('TUR', style: TextStyle(color: Colors.white54, fontWeight: FontWeight.bold, fontSize: 13)),
-                  Text('TUR SÜRESİ', style: TextStyle(color: Colors.white54, fontWeight: FontWeight.bold, fontSize: 13)),
-                  Text('TOPLAM', style: TextStyle(color: Colors.white54, fontWeight: FontWeight.bold, fontSize: 13)),
+                children: [
+                  Text(l10n?.round ?? 'TUR', style: const TextStyle(color: Colors.white54, fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(l10n?.roundTime ?? 'TUR SÜRESİ', style: const TextStyle(color: Colors.white54, fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(l10n?.totalTime ?? 'TOPLAM', style: const TextStyle(color: Colors.white54, fontWeight: FontWeight.bold, fontSize: 13)),
                 ],
               ),
             ),

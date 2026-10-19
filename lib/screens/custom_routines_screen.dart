@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/generated/app_localizations.dart';
 import '../models/custom_routine.dart';
 import '../repositories/local_timer_repository.dart';
 import 'custom_routine_builder_screen.dart';
@@ -140,6 +141,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final filtered = _filteredRoutines;
 
     return Scaffold(
@@ -147,9 +149,9 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'WOD & ÖZEL TİMERLAR',
-          style: TextStyle(
+        title: Text(
+          l10n?.custom ?? 'WOD & ÖZEL TİMERLAR',
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
@@ -179,7 +181,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                         });
                       },
                       decoration: InputDecoration(
-                        hintText: 'WOD ara (Örn: Fran, Murph, Thruster, Pull-up)...',
+                        hintText: l10n?.searchWods ?? 'WOD ara (Örn: Fran, Murph, Thruster, Pull-up)...',
                         hintStyle: const TextStyle(color: Colors.white38, fontSize: 13),
                         prefixIcon: const Icon(Icons.search, color: Color(0xFF00E676), size: 22),
                         suffixIcon: _searchQuery.isNotEmpty
@@ -208,6 +210,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                     itemBuilder: (context, idx) {
                       final cat = _categories[idx];
                       final isSelected = _selectedCategory == cat;
+                      final displayCat = cat == 'Hepsi' ? (l10n?.allCategories ?? 'TÜMÜ') : cat;
                       final count = cat == 'Hepsi'
                           ? _routines.length
                           : _routines.where((r) => cat == 'Özel' ? (r.category == 'Custom' || r.category == 'Özel') : r.category == cat).length;
@@ -216,7 +219,7 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: FilterChip(
                           label: Text(
-                            '$cat ($count)',
+                            '$displayCat ($count)',
                             style: TextStyle(
                               color: isSelected ? Colors.black : Colors.white70,
                               fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
@@ -318,9 +321,9 @@ class _CustomRoutinesScreenState extends State<CustomRoutinesScreen> {
         backgroundColor: const Color(0xFF00E676),
         foregroundColor: Colors.black,
         icon: const Icon(Icons.add, size: 24),
-        label: const Text(
-          'YENİ TİMER',
-          style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
+        label: Text(
+          l10n?.createNewRoutine ?? 'YENİ TİMER',
+          style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
         ),
       ),
     );

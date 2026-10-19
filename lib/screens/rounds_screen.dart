@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/generated/app_localizations.dart';
 import '../models/custom_routine.dart';
 import '../models/interval_step.dart';
 import '../models/timer_phase.dart';
@@ -155,14 +156,16 @@ class _RoundsScreenState extends State<RoundsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'TUR & CROSSFIT',
-          style: TextStyle(
+        title: Text(
+          l10n?.rounds ?? 'TUR & CROSSFIT',
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
@@ -176,11 +179,11 @@ class _RoundsScreenState extends State<RoundsScreen>
           labelColor: const Color(0xFF00E676),
           unselectedLabelColor: Colors.white60,
           labelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
-          tabs: const [
-            Tab(text: 'TUR'),
-            Tab(text: 'EMOM'),
-            Tab(text: 'AMRAP'),
-            Tab(text: 'FOR TIME'),
+          tabs: [
+            Tab(text: l10n?.round ?? 'TUR'),
+            Tab(text: l10n?.emomTitle ?? 'EMOM'),
+            Tab(text: l10n?.amrapTitle ?? 'AMRAP'),
+            Tab(text: l10n?.forTimeTitle ?? 'FOR TIME'),
           ],
         ),
       ),
@@ -188,19 +191,23 @@ class _RoundsScreenState extends State<RoundsScreen>
         controller: _tabController,
         children: [
           // 1. ROUNDS TAB
-          _buildRoundsTab(),
+          _buildRoundsTab(l10n),
           // 2. EMOM TAB
-          _buildEmomTab(),
+          _buildEmomTab(l10n),
           // 3. AMRAP TAB
-          _buildAmrapTab(),
+          _buildAmrapTab(l10n),
           // 4. FOR TIME TAB
-          _buildForTimeTab(),
+          _buildForTimeTab(l10n),
         ],
       ),
     );
   }
 
-  Widget _buildRoundsTab() {
+  Widget _buildRoundsTab(AppLocalizations? l10n) {
+    final secUnit = l10n?.seconds ?? 'sn';
+    final minUnit = l10n?.minutes ?? 'dk';
+    final roundUnit = l10n?.round ?? 'Tur';
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -209,8 +216,8 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
-            title: 'HAZIRLANMA SÜRESİ',
-            valueText: '$_prepSeconds Saniye',
+            title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
             onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
             onInc: () => setState(() => _prepSeconds += 5),
@@ -218,8 +225,8 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 14),
           // 2. Tur Çalışma Süresi
           _buildStepperCard(
-            title: 'TUR ÇALIŞMA SÜRESİ',
-            valueText: '$_roundWorkMinutes Dakika',
+            title: l10n?.workTime ?? 'TUR ÇALIŞMA SÜRESİ',
+            valueText: '$_roundWorkMinutes $minUnit',
             color: const Color(0xFF00E676),
             onDec: () => setState(() { if (_roundWorkMinutes > 1) _roundWorkMinutes--; }),
             onInc: () => setState(() => _roundWorkMinutes++),
@@ -227,8 +234,8 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 14),
           // 3. Tur Dinlenme Süresi
           _buildStepperCard(
-            title: 'TUR DİNLENME SÜRESİ',
-            valueText: '$_roundRestMinutes Dakika',
+            title: l10n?.restTime ?? 'TUR DİNLENME SÜRESİ',
+            valueText: '$_roundRestMinutes $minUnit',
             color: const Color(0xFFFF3D00),
             onDec: () => setState(() { if (_roundRestMinutes > 0) _roundRestMinutes--; }),
             onInc: () => setState(() => _roundRestMinutes++),
@@ -236,20 +243,23 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 14),
           // 4. Toplam Tur Sayısı
           _buildStepperCard(
-            title: 'TOPLAM TUR SAYISI',
-            valueText: '$_roundsCount Tur',
+            title: l10n?.totalRounds ?? 'TOPLAM TUR SAYISI',
+            valueText: '$_roundsCount $roundUnit',
             color: const Color(0xFFFFB300),
             onDec: () => setState(() { if (_roundsCount > 1) _roundsCount--; }),
             onInc: () => setState(() => _roundsCount++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('TUR ANTRENMANI BAŞLAT', _startRoundsWorkout, const Color(0xFF00E676)),
+          _buildStartButton('${l10n?.round ?? "TUR"} ${l10n?.start ?? "BAŞLAT"}', _startRoundsWorkout, const Color(0xFF00E676)),
         ],
       ),
     );
   }
 
-  Widget _buildEmomTab() {
+  Widget _buildEmomTab(AppLocalizations? l10n) {
+    final secUnit = l10n?.seconds ?? 'sn';
+    final minUnit = l10n?.minutes ?? 'dk';
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -258,8 +268,8 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
-            title: 'HAZIRLANMA SÜRESİ',
-            valueText: '$_prepSeconds Saniye',
+            title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
             onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
             onInc: () => setState(() => _prepSeconds += 5),
@@ -267,20 +277,23 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 14),
           // 2. Toplam Dakika
           _buildStepperCard(
-            title: 'TOPLAM DAKİKA',
-            valueText: '$_emomMinutes Dakika',
+            title: l10n?.totalTime ?? 'TOPLAM DAKİKA',
+            valueText: '$_emomMinutes $minUnit',
             color: const Color(0xFF00E5FF),
             onDec: () => setState(() { if (_emomMinutes > 1) _emomMinutes--; }),
             onInc: () => setState(() => _emomMinutes++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('EMOM BAŞLAT', _startEmomWorkout, const Color(0xFF00E5FF)),
+          _buildStartButton('EMOM ${l10n?.start ?? "BAŞLAT"}', _startEmomWorkout, const Color(0xFF00E5FF)),
         ],
       ),
     );
   }
 
-  Widget _buildAmrapTab() {
+  Widget _buildAmrapTab(AppLocalizations? l10n) {
+    final secUnit = l10n?.seconds ?? 'sn';
+    final minUnit = l10n?.minutes ?? 'dk';
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -289,8 +302,8 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
-            title: 'HAZIRLANMA SÜRESİ',
-            valueText: '$_prepSeconds Saniye',
+            title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
             onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
             onInc: () => setState(() => _prepSeconds += 5),
@@ -298,20 +311,23 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 14),
           // 2. AMRAP Süresi
           _buildStepperCard(
-            title: 'AMRAP SÜRESİ',
-            valueText: '$_amrapMinutes Dakika',
+            title: 'AMRAP (${l10n?.timeCap ?? "SÜRE"})',
+            valueText: '$_amrapMinutes $minUnit',
             color: const Color(0xFFFF9100),
             onDec: () => setState(() { if (_amrapMinutes > 1) _amrapMinutes--; }),
             onInc: () => setState(() => _amrapMinutes++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('AMRAP BAŞLAT', _startAmrapWorkout, const Color(0xFFFF9100)),
+          _buildStartButton('AMRAP ${l10n?.start ?? "BAŞLAT"}', _startAmrapWorkout, const Color(0xFFFF9100)),
         ],
       ),
     );
   }
 
-  Widget _buildForTimeTab() {
+  Widget _buildForTimeTab(AppLocalizations? l10n) {
+    final secUnit = l10n?.seconds ?? 'sn';
+    final minUnit = l10n?.minutes ?? 'dk';
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -320,8 +336,8 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 20),
           // 1. Hazırlanma Control (FIRST ACTION)
           _buildStepperCard(
-            title: 'HAZIRLANMA SÜRESİ',
-            valueText: '$_prepSeconds Saniye',
+            title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
+            valueText: '$_prepSeconds $secUnit',
             color: const Color(0xFF00E5FF),
             onDec: () => setState(() { if (_prepSeconds > 0) _prepSeconds -= 5; }),
             onInc: () => setState(() => _prepSeconds += 5),
@@ -329,14 +345,14 @@ class _RoundsScreenState extends State<RoundsScreen>
           const SizedBox(height: 14),
           // 2. Time Cap
           _buildStepperCard(
-            title: 'TIME CAP (ZAMAN SINIRI)',
-            valueText: '$_forTimeCapMinutes Dakika',
+            title: l10n?.timeCap ?? 'TIME CAP (ZAMAN SINIRI)',
+            valueText: '$_forTimeCapMinutes $minUnit',
             color: const Color(0xFF7C4DFF),
             onDec: () => setState(() { if (_forTimeCapMinutes > 1) _forTimeCapMinutes--; }),
             onInc: () => setState(() => _forTimeCapMinutes++),
           ),
           const SizedBox(height: 30),
-          _buildStartButton('FOR TIME BAŞLAT', _startForTimeWorkout, const Color(0xFF7C4DFF)),
+          _buildStartButton('FOR TIME ${l10n?.start ?? "BAŞLAT"}', _startForTimeWorkout, const Color(0xFF7C4DFF)),
         ],
       ),
     );

@@ -16,7 +16,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabata => 'TABATA';
 
   @override
-  String get rounds => 'ROUNDS';
+  String get rounds => 'ROUNDS & WOD';
 
   @override
   String get stopwatch => 'STOPWATCH';
@@ -76,16 +76,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lap => 'LAP';
 
   @override
-  String get workTime => 'Work Duration';
+  String get workTime => 'WORK DURATION';
 
   @override
-  String get restTime => 'Rest Duration';
+  String get restTime => 'REST DURATION';
 
   @override
-  String get prepTime => 'Prep Duration';
+  String get prepTime => 'PREPARATION TIME';
 
   @override
-  String get totalRounds => 'Total Rounds';
+  String get totalRounds => 'TOTAL ROUNDS';
 
   @override
   String get totalSets => 'Total Sets';
@@ -94,7 +94,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restBetweenSets => 'Rest Between Sets';
 
   @override
-  String get timeCap => 'Time Cap';
+  String get timeCap => 'TIME CAP';
 
   @override
   String get sound => 'Sound Effects';
@@ -106,7 +106,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keepScreenOn => 'Keep Screen Awake';
 
   @override
-  String get language => 'Language';
+  String get language => 'LANGUAGE';
 
   @override
   String get emomTitle => 'EMOM';
@@ -118,7 +118,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forTimeTitle => 'FOR TIME';
 
   @override
-  String get customRoutines => 'Custom Timers';
+  String get customRoutines => 'Saved Custom Timers';
 
   @override
   String get createNewRoutine => 'Create New Custom Timer';
@@ -161,7 +161,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cloudSyncNotice =>
-      'Your timers are stored locally. They will sync with the cloud once backend is connected.';
+      'Your timers are stored locally on your device.';
 
   @override
   String get lapTimes => 'Lap Times';
@@ -173,8 +173,57 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slowestLap => 'Slowest Lap';
 
   @override
-  String get totalTime => 'Total Time';
+  String get totalTime => 'TOTAL TIME';
 
   @override
   String get roundTime => 'Round Time';
+
+  @override
+  String get general => 'GENERAL';
+
+  @override
+  String get soundSubtitle => 'Countdown and interval transition beeps';
+
+  @override
+  String get vibrationSubtitle => 'Haptic feedback on interval transitions';
+
+  @override
+  String get keepScreenOnSubtitle => 'Screen stays awake during workouts';
+
+  @override
+  String get soundTest => 'SOUND TEST';
+
+  @override
+  String get countdown => 'Countdown';
+
+  @override
+  String get appLanguage => 'App Language';
+
+  @override
+  String get aboutTitle => 'ABOUT';
+
+  @override
+  String get aboutDesc =>
+      'Designed for CrossFit and functional fitness workouts.';
+
+  @override
+  String get seconds => 's';
+
+  @override
+  String get minutes => 'min';
+
+  @override
+  String get totalRoundsStat => 'ROUNDS';
+
+  @override
+  String get workRestStat => 'WORK/REST';
+
+  @override
+  String get startWorkout => 'START WORKOUT';
+
+  @override
+  String get searchWods => 'Search WOD or Exercise...';
+
+  @override
+  String get allCategories => 'ALL';
 }

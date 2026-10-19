@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/generated/app_localizations.dart';
 import '../models/custom_routine.dart';
 import 'timer_runner_screen.dart';
 
@@ -19,10 +20,10 @@ class _TabataScreenState extends State<TabataScreen> {
     return _prepSeconds + (_workSeconds + _restSeconds) * _rounds;
   }
 
-  String get _formattedTotalTime {
+  String _formattedTotalTime(String minUnit, String secUnit) {
     final mins = _totalWorkoutSeconds ~/ 60;
     final secs = _totalWorkoutSeconds % 60;
-    return '${mins}d ${secs.toString().padLeft(2, '0')}s';
+    return '$mins$minUnit ${secs.toString().padLeft(2, '0')}$secUnit';
   }
 
   void _startWorkout() {
@@ -42,14 +43,19 @@ class _TabataScreenState extends State<TabataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final secUnit = l10n?.seconds ?? 'sn';
+    final minUnit = l10n?.minutes ?? 'dk';
+    final roundUnit = l10n?.round ?? 'TUR';
+
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'TABATA TIMER',
-          style: TextStyle(
+        title: Text(
+          l10n?.tabata ?? 'TABATA TIMER',
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
@@ -76,11 +82,11 @@ class _TabataScreenState extends State<TabataScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildStatItem('TOPLAM SÜRE', _formattedTotalTime, const Color(0xFF00E676)),
+                  _buildStatItem(l10n?.totalTime ?? 'TOPLAM SÜRE', _formattedTotalTime(minUnit, secUnit), const Color(0xFF00E676)),
                   Container(width: 1, height: 40, color: Colors.white12),
-                  _buildStatItem('TUR SAYISI', '$_rounds TUR', const Color(0xFFFFB300)),
+                  _buildStatItem(l10n?.totalRoundsStat ?? 'TUR SAYISI', '$_rounds $roundUnit', const Color(0xFFFFB300)),
                   Container(width: 1, height: 40, color: Colors.white12),
-                  _buildStatItem('ÇALIŞMA/DİNLENME', '${_workSeconds}s / ${_restSeconds}s', const Color(0xFFFF3D00)),
+                  _buildStatItem(l10n?.workRestStat ?? 'ÇALIŞMA/DİNLENME', '$_workSeconds$secUnit / $_restSeconds$secUnit', const Color(0xFFFF3D00)),
                 ],
               ),
             ),
@@ -89,8 +95,8 @@ class _TabataScreenState extends State<TabataScreen> {
 
             // 1. Prep / Hazırlanma Control (FIRST ACTION)
             _buildNumberStepper(
-              title: 'HAZIRLANMA SÜRESİ',
-              valueText: '$_prepSeconds sn',
+              title: l10n?.prepTime ?? 'HAZIRLANMA SÜRESİ',
+              valueText: '$_prepSeconds $secUnit',
               color: const Color(0xFF00E5FF),
               icon: Icons.hourglass_top,
               onDecrement: () {
@@ -105,8 +111,8 @@ class _TabataScreenState extends State<TabataScreen> {
 
             // 2. Work Duration Control
             _buildNumberStepper(
-              title: 'ÇALIŞMA SÜRESİ',
-              valueText: '$_workSeconds sn',
+              title: l10n?.workTime ?? 'ÇALIŞMA SÜRESİ',
+              valueText: '$_workSeconds $secUnit',
               color: const Color(0xFF00E676),
               icon: Icons.fitness_center,
               onDecrement: () {
@@ -121,8 +127,8 @@ class _TabataScreenState extends State<TabataScreen> {
 
             // 3. Rest Duration Control
             _buildNumberStepper(
-              title: 'DİNLENME SÜRESİ',
-              valueText: '$_restSeconds sn',
+              title: l10n?.restTime ?? 'DİNLENME SÜRESİ',
+              valueText: '$_restSeconds $secUnit',
               color: const Color(0xFFFF3D00),
               icon: Icons.pause_circle_outline,
               onDecrement: () {
@@ -137,8 +143,8 @@ class _TabataScreenState extends State<TabataScreen> {
 
             // 4. Rounds Control
             _buildNumberStepper(
-              title: 'TOPLAM TUR',
-              valueText: '$_rounds Tur',
+              title: l10n?.totalRounds ?? 'TOPLAM TUR',
+              valueText: '$_rounds $roundUnit',
               color: const Color(0xFFFFB300),
               icon: Icons.repeat,
               onDecrement: () {
@@ -166,14 +172,14 @@ class _TabataScreenState extends State<TabataScreen> {
                   elevation: 8,
                   shadowColor: const Color(0xFF00E676).withValues(alpha: 0.5),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.play_arrow_rounded, size: 36),
-                    SizedBox(width: 8),
+                    const Icon(Icons.play_arrow_rounded, size: 36),
+                    const SizedBox(width: 8),
                     Text(
-                      'TABATA BAŞLAT',
-                      style: TextStyle(
+                      '${l10n?.tabata ?? "TABATA"} ${l10n?.start ?? "BAŞLAT"}',
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 2,

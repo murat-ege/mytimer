@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/generated/app_localizations.dart';
 import '../models/timer_settings.dart';
 import '../repositories/local_timer_repository.dart';
 import '../services/sound_service.dart';
@@ -55,14 +56,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final currentLang = Localizations.localeOf(context).languageCode;
+
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'AYARLAR',
-          style: TextStyle(
+        title: Text(
+          l10n?.settings ?? 'AYARLAR',
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
@@ -75,10 +79,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           : ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               children: [
-                _buildSectionHeader('GENEL'),
+                _buildSectionHeader(l10n?.general ?? 'GENEL'),
                 _buildSwitchTile(
-                  title: 'Ses Efektleri',
-                  subtitle: 'Geri sayım ve aralık geçiş sinyalleri',
+                  title: l10n?.sound ?? 'Ses Efektleri',
+                  subtitle: l10n?.soundSubtitle ?? 'Geri sayım ve aralık geçiş sinyalleri',
                   value: _settings.soundEnabled,
                   icon: Icons.volume_up,
                   onChanged: (val) {
@@ -86,8 +90,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
                 _buildSwitchTile(
-                  title: 'Titreşim',
-                  subtitle: 'Aralık geçişlerinde haptik geri bildirim',
+                  title: l10n?.vibration ?? 'Titreşim',
+                  subtitle: l10n?.vibrationSubtitle ?? 'Aralık geçişlerinde haptik geri bildirim',
                   value: _settings.vibrationEnabled,
                   icon: Icons.vibration,
                   onChanged: (val) {
@@ -95,8 +99,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
                 _buildSwitchTile(
-                  title: 'Ekranı Açık Tut',
-                  subtitle: 'Antrenman sırasında telefon ekranı kapanmaz',
+                  title: l10n?.keepScreenOn ?? 'Ekranı Açık Tut',
+                  subtitle: l10n?.keepScreenOnSubtitle ?? 'Antrenman sırasında telefon ekranı kapanmaz',
                   value: _settings.wakelockEnabled,
                   icon: Icons.stay_current_portrait,
                   onChanged: (val) {
@@ -105,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
 
                 const SizedBox(height: 20),
-                _buildSectionHeader('SES TESTİ'),
+                _buildSectionHeader(l10n?.soundTest ?? 'SES TESTİ'),
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -120,7 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Color(0xFFFFB300)),
                           ),
-                          child: const Text('Geri Sayım', style: TextStyle(color: Color(0xFFFFB300))),
+                          child: Text(l10n?.countdown ?? 'Geri Sayım', style: const TextStyle(color: Color(0xFFFFB300))),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -130,7 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Color(0xFF00E676)),
                           ),
-                          child: const Text('Başlama', style: TextStyle(color: Color(0xFF00E676))),
+                          child: Text(l10n?.work ?? 'Başlama', style: const TextStyle(color: Color(0xFF00E676))),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -140,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Color(0xFFFF3D00)),
                           ),
-                          child: const Text('Dinlenme', style: TextStyle(color: Color(0xFFFF3D00))),
+                          child: Text(l10n?.rest ?? 'Dinlenme', style: const TextStyle(color: Color(0xFFFF3D00))),
                         ),
                       ),
                     ],
@@ -148,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
 
                 const SizedBox(height: 20),
-                _buildSectionHeader('DİL / LANGUAGE'),
+                _buildSectionHeader(l10n?.language ?? 'DİL / LANGUAGE'),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
@@ -158,12 +162,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Uygulama Dili',
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                      Text(
+                        l10n?.appLanguage ?? 'Uygulama Dili',
+                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       DropdownButton<String>(
-                        value: widget.currentLocale.languageCode,
+                        value: currentLang,
                         dropdownColor: const Color(0xFF262626),
                         underline: const SizedBox(),
                         style: const TextStyle(color: Color(0xFF00E676), fontWeight: FontWeight.bold, fontSize: 15),
@@ -183,7 +187,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
 
                 const SizedBox(height: 24),
-                _buildSectionHeader('HAKKINDA & BULUT SENKRONİZASYONU'),
+                _buildSectionHeader(l10n?.aboutTitle ?? 'HAKKINDA'),
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -205,19 +209,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        'CrossFit ve fonksiyonel fitness antrenmanları için tasarlandı. Bu sürüm Google Play Store test programı ve hesap aktivasyonu için hazırlandı.',
-                        style: TextStyle(color: Colors.white70, fontSize: 13, height: 1.4),
+                      Text(
+                        l10n?.aboutDesc ?? 'CrossFit ve fonksiyonel fitness antrenmanları için tasarlandı.',
+                        style: const TextStyle(color: Colors.white70, fontSize: 13, height: 1.4),
                       ),
                       const SizedBox(height: 12),
                       Row(
-                        children: const [
-                          Icon(Icons.lock_outline, color: Color(0xFF00E5FF), size: 16),
-                          SizedBox(width: 6),
+                        children: [
+                          const Icon(Icons.lock_outline, color: Color(0xFF00E5FF), size: 16),
+                          const SizedBox(width: 6),
                           Expanded(
                             child: Text(
-                              'Özel timerlar cihazınızda saklanır. Backend bağlantısı kurulduğunda bulut üzerinden otomatik eşitlenecektir.',
-                              style: TextStyle(color: Colors.white54, fontSize: 12),
+                              l10n?.cloudSyncNotice ?? 'Timerlarınız cihazınızda saklanır.',
+                              style: const TextStyle(color: Colors.white54, fontSize: 12),
                             ),
                           ),
                         ],

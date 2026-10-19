@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/generated/app_localizations.dart';
 import 'custom_routines_screen.dart';
 import 'rounds_screen.dart';
 import 'settings_screen.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  late final List<Widget> _screens;
+  late List<Widget> _screens;
 
   @override
   void initState() {
@@ -40,11 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _initScreens() {
     _screens = [
-      const TabataScreen(),
-      const RoundsScreen(),
-      const StopwatchScreen(),
-      const CustomRoutinesScreen(),
+      TabataScreen(key: ValueKey('tabata_${widget.currentLocale.languageCode}')),
+      RoundsScreen(key: ValueKey('rounds_${widget.currentLocale.languageCode}')),
+      StopwatchScreen(key: ValueKey('stopwatch_${widget.currentLocale.languageCode}')),
+      CustomRoutinesScreen(key: ValueKey('custom_${widget.currentLocale.languageCode}')),
       SettingsScreen(
+        key: ValueKey('settings_${widget.currentLocale.languageCode}'),
         currentLocale: widget.currentLocale,
         onLocaleChanged: widget.onLocaleChanged,
       ),
@@ -53,6 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -73,26 +77,26 @@ class _HomeScreenState extends State<HomeScreen> {
           unselectedItemColor: Colors.white38,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 11),
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.flash_on),
-              label: 'Tabata',
+              icon: const Icon(Icons.flash_on),
+              label: l10n?.tabata ?? 'Tabata',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.fitness_center),
-              label: 'Tur & WOD',
+              icon: const Icon(Icons.fitness_center),
+              label: l10n?.rounds ?? 'Tur & WOD',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.timer),
-              label: 'Kronometre',
+              icon: const Icon(Icons.timer),
+              label: l10n?.stopwatch ?? 'Kronometre',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.tune),
-              label: 'Özel Timer',
+              icon: const Icon(Icons.tune),
+              label: l10n?.custom ?? 'Özel Timer',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Ayarlar',
+              icon: const Icon(Icons.settings),
+              label: l10n?.settings ?? 'Ayarlar',
             ),
           ],
         ),

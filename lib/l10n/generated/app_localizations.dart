@@ -113,7 +113,7 @@ abstract class AppLocalizations {
   /// No description provided for @rounds.
   ///
   /// In tr, this message translates to:
-  /// **'TUR (ROUNDS)'**
+  /// **'TUR & WOD'**
   String get rounds;
 
   /// No description provided for @stopwatch.
@@ -233,25 +233,25 @@ abstract class AppLocalizations {
   /// No description provided for @workTime.
   ///
   /// In tr, this message translates to:
-  /// **'Çalışma Süresi'**
+  /// **'ÇALIŞMA SÜRESİ'**
   String get workTime;
 
   /// No description provided for @restTime.
   ///
   /// In tr, this message translates to:
-  /// **'Dinlenme Süresi'**
+  /// **'DİNLENME SÜRESİ'**
   String get restTime;
 
   /// No description provided for @prepTime.
   ///
   /// In tr, this message translates to:
-  /// **'Hazırlık Süresi'**
+  /// **'HAZIRLANMA SÜRESİ'**
   String get prepTime;
 
   /// No description provided for @totalRounds.
   ///
   /// In tr, this message translates to:
-  /// **'Toplam Tur'**
+  /// **'TOPLAM TUR'**
   String get totalRounds;
 
   /// No description provided for @totalSets.
@@ -269,7 +269,7 @@ abstract class AppLocalizations {
   /// No description provided for @timeCap.
   ///
   /// In tr, this message translates to:
-  /// **'Zaman Sınırı (Time Cap)'**
+  /// **'ZAMAN SINIRI (TIME CAP)'**
   String get timeCap;
 
   /// No description provided for @sound.
@@ -293,7 +293,7 @@ abstract class AppLocalizations {
   /// No description provided for @language.
   ///
   /// In tr, this message translates to:
-  /// **'Dil / Language'**
+  /// **'DİL / LANGUAGE'**
   String get language;
 
   /// No description provided for @emomTitle.
@@ -401,7 +401,7 @@ abstract class AppLocalizations {
   /// No description provided for @cloudSyncNotice.
   ///
   /// In tr, this message translates to:
-  /// **'Timerlarınız lokalde saklanır. Backend bağlantısı eklendiğinde bulutla senkronize edilecektir.'**
+  /// **'Timerlarınız cihazınızda saklanır. Backend bağlantısı eklendiğinde bulutla senkronize edilecektir.'**
   String get cloudSyncNotice;
 
   /// No description provided for @lapTimes.
@@ -425,7 +425,7 @@ abstract class AppLocalizations {
   /// No description provided for @totalTime.
   ///
   /// In tr, this message translates to:
-  /// **'Toplam Süre'**
+  /// **'TOPLAM SÜRE'**
   String get totalTime;
 
   /// No description provided for @roundTime.
@@ -433,6 +433,102 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Tur Süresi'**
   String get roundTime;
+
+  /// No description provided for @general.
+  ///
+  /// In tr, this message translates to:
+  /// **'GENEL'**
+  String get general;
+
+  /// No description provided for @soundSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geri sayım ve aralık geçiş sinyalleri'**
+  String get soundSubtitle;
+
+  /// No description provided for @vibrationSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aralık geçişlerinde haptik geri bildirim'**
+  String get vibrationSubtitle;
+
+  /// No description provided for @keepScreenOnSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Antrenman sırasında telefon ekranı kapanmaz'**
+  String get keepScreenOnSubtitle;
+
+  /// No description provided for @soundTest.
+  ///
+  /// In tr, this message translates to:
+  /// **'SES TESTİ'**
+  String get soundTest;
+
+  /// No description provided for @countdown.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geri Sayım'**
+  String get countdown;
+
+  /// No description provided for @appLanguage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uygulama Dili'**
+  String get appLanguage;
+
+  /// No description provided for @aboutTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'HAKKINDA'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutDesc.
+  ///
+  /// In tr, this message translates to:
+  /// **'CrossFit ve fonksiyonel fitness antrenmanları için tasarlandı.'**
+  String get aboutDesc;
+
+  /// No description provided for @seconds.
+  ///
+  /// In tr, this message translates to:
+  /// **'sn'**
+  String get seconds;
+
+  /// No description provided for @minutes.
+  ///
+  /// In tr, this message translates to:
+  /// **'dk'**
+  String get minutes;
+
+  /// No description provided for @totalRoundsStat.
+  ///
+  /// In tr, this message translates to:
+  /// **'TUR SAYISI'**
+  String get totalRoundsStat;
+
+  /// No description provided for @workRestStat.
+  ///
+  /// In tr, this message translates to:
+  /// **'ÇALIŞMA/DİNLENME'**
+  String get workRestStat;
+
+  /// No description provided for @startWorkout.
+  ///
+  /// In tr, this message translates to:
+  /// **'ANTRENMANI BAŞLAT'**
+  String get startWorkout;
+
+  /// No description provided for @searchWods.
+  ///
+  /// In tr, this message translates to:
+  /// **'WOD veya Egzersiz Ara...'**
+  String get searchWods;
+
+  /// No description provided for @allCategories.
+  ///
+  /// In tr, this message translates to:
+  /// **'TÜMÜ'**
+  String get allCategories;
 }
 
 class _AppLocalizationsDelegate

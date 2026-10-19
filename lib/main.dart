@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'repositories/local_timer_repository.dart';
+import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
 import 'services/notification_service.dart';
 import 'services/sound_service.dart';
@@ -46,6 +46,7 @@ class MyTimerApp extends StatefulWidget {
 
 class _MyTimerAppState extends State<MyTimerApp> {
   late Locale _locale;
+  bool _showSplash = true;
 
   @override
   void initState() {
@@ -65,16 +66,8 @@ class _MyTimerAppState extends State<MyTimerApp> {
       title: 'MyTimer',
       debugShowCheckedModeBanner: false,
       locale: _locale,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('tr'),
-        Locale('en'),
-      ],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
@@ -98,9 +91,22 @@ class _MyTimerAppState extends State<MyTimerApp> {
           iconTheme: IconThemeData(color: Colors.white),
         ),
       ),
-      home: SplashScreen(
-        currentLocale: _locale,
-        onLocaleChanged: _setLocale,
+      home: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        child: _showSplash
+            ? SplashScreen(
+                key: const ValueKey('splash'),
+                onFinish: () {
+                  setState(() {
+                    _showSplash = false;
+                  });
+                },
+              )
+            : HomeScreen(
+                key: ValueKey('home_${_locale.languageCode}'),
+                currentLocale: _locale,
+                onLocaleChanged: _setLocale,
+              ),
       ),
     );
   }

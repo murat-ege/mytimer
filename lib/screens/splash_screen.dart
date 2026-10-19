@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  final Locale currentLocale;
-  final ValueChanged<Locale> onLocaleChanged;
+  final VoidCallback onFinish;
 
   const SplashScreen({
     super.key,
-    required this.currentLocale,
-    required this.onLocaleChanged,
+    required this.onFinish,
   });
 
   @override
@@ -44,24 +41,13 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animController.forward();
 
-    // Navigate to HomeScreen after splash duration
-    _timer = Timer(const Duration(milliseconds: 2000), _navigateToHome);
+    // Notify finish after splash duration
+    _timer = Timer(const Duration(milliseconds: 1800), _finishSplash);
   }
 
-  void _navigateToHome() {
+  void _finishSplash() {
     if (!mounted) return;
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 600),
-        pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(
-          currentLocale: widget.currentLocale,
-          onLocaleChanged: widget.onLocaleChanged,
-        ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-      ),
-    );
+    widget.onFinish();
   }
 
   @override
