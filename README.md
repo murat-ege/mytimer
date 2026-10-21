@@ -66,19 +66,11 @@ lib/
 ├── l10n/                 # Localization files (.arb) & generated localizations
 │   ├── app_en.arb
 │   └── app_tr.arb
-├── models/               # Domain models (CustomRoutine, IntervalStep, TimerSettings, TimerPhase)
+├── features/             # Feature-first modules (home, tabata, rounds, emom, hyrox, etc.)
+├── models/               # Domain models (CustomRoutine, IntervalStep, TimerSettings, WorkoutLog)
 ├── repositories/         # Data repositories & Hive CE storage layer
-├── screens/              # UI Screens
-│   ├── home_screen.dart
-│   ├── tabata_screen.dart
-│   ├── rounds_screen.dart
-│   ├── stopwatch_screen.dart
-│   ├── custom_routines_screen.dart
-│   ├── custom_routine_builder_screen.dart
-│   ├── timer_runner_screen.dart
-│   ├── settings_screen.dart
-│   └── splash_screen.dart
-├── services/             # Core system services (Sound, Notification, Wakelock)
+├── services/             # Core system services (Sound, Notification, Wakelock, VoiceCoach)
+├── shared/               # Shared reusable widgets (banners, sheets, steppers, buttons)
 └── main.dart             # Application entry point & theme configuration
 ```
 

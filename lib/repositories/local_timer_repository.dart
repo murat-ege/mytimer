@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import '../data/hyrox_data.dart';
 import '../models/custom_routine.dart';
 import '../models/timer_settings.dart';
 import 'timer_repository.dart';
@@ -45,6 +46,13 @@ class LocalTimerRepository implements TimerRepository {
         await prefs.setBool(_seededKey, true);
       } catch (e) {
         // Fallback if bundle load fails in background or test
+      }
+    }
+
+    // Ensure HYROX presets are always present
+    for (final hyrox in HyroxData.getHyroxPresets()) {
+      if (!box.containsKey(hyrox.id)) {
+        await box.put(hyrox.id, jsonEncode(hyrox.copyWith(isPreset: true).toJson()));
       }
     }
   }
@@ -101,16 +109,34 @@ class LocalTimerRepository implements TimerRepository {
     final box = await _getBox();
     final routineString = box.get(id);
 
+    String? deletedName;
     if (routineString != null) {
       try {
         final decoded = jsonDecode(routineString) as Map<String, dynamic>;
         final isPreset = decoded['isPreset'] as bool? ?? false;
         // Never allow deleting classic preset WODs
         if (isPreset) return;
+        deletedName = decoded['name'] as String?;
       } catch (_) {}
     }
 
     await box.delete(id);
+
+    // If any timer's last loaded routine was this deleted routine, clear it
+    final prefs = await SharedPreferences.getInstance();
+    const timerTypes = ['countdown', 'tabata', 'rounds', 'fortime', 'emom', 'amrap'];
+    for (final type in timerTypes) {
+      final key = 'last_loaded_routine_$type';
+      final jsonStr = prefs.getString(key);
+      if (jsonStr != null && jsonStr.isNotEmpty) {
+        try {
+          final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
+          if (decoded['id'] == id || (deletedName != null && decoded['name'] == deletedName)) {
+            await prefs.remove(key);
+          }
+        } catch (_) {}
+      }
+    }
   }
 
   @override
@@ -131,6 +157,41 @@ class LocalTimerRepository implements TimerRepository {
   Future<void> saveSettings(TimerSettings settings) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_settingsKey, jsonEncode(settings.toJson()));
+  }
+
+  @override
+  Future<void> saveLastLoadedRoutine(String timerType, CustomRoutine routine) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('last_loaded_routine_$timerType', jsonEncode(routine.toJson()));
+  }
+
+  @override
+  Future<CustomRoutine?> getLastLoadedRoutine(String timerType) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString('last_loaded_routine_$timerType');
+    if (jsonString == null || jsonString.isEmpty) return null;
+    try {
+      final decoded = jsonDecode(jsonString) as Map<String, dynamic>;
+      final routine = CustomRoutine.fromJson(decoded);
+
+      // Verify that this routine still exists in storage
+      // If deleted, remove cached last loaded routine and return null
+      final box = await _getBox();
+      if (!box.containsKey(routine.id)) {
+        await prefs.remove('last_loaded_routine_$timerType');
+        return null;
+      }
+
+      return routine;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> clearLastLoadedRoutine(String timerType) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('last_loaded_routine_$timerType');
   }
 
   @override

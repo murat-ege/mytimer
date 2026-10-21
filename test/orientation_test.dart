@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mytimer/l10n/generated/app_localizations.dart';
 import 'package:mytimer/models/custom_routine.dart';
-import 'package:mytimer/screens/timer_runner_screen.dart';
+import 'package:mytimer/features/timer_runner/timer_runner_screen.dart';
 
 void main() {
   testWidgets('TimerRunnerScreen orientation toggle test', (tester) async {

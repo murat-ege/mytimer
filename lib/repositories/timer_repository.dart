@@ -7,5 +7,8 @@ abstract class TimerRepository {
   Future<void> deleteRoutine(String id);
   Future<TimerSettings> getSettings();
   Future<void> saveSettings(TimerSettings settings);
+  Future<void> saveLastLoadedRoutine(String timerType, CustomRoutine routine);
+  Future<CustomRoutine?> getLastLoadedRoutine(String timerType);
+  Future<void> clearLastLoadedRoutine(String timerType);
   Future<void> syncWithCloud(); // Hook for future backend integration
 }

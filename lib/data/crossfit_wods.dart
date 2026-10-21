@@ -1,6 +1,7 @@
 import '../models/custom_routine.dart';
 import '../models/interval_step.dart';
 import '../models/timer_phase.dart';
+import 'hyrox_data.dart';
 
 class CrossFitWodsData {
   static List<CustomRoutine> getAllWods() {
@@ -242,7 +243,7 @@ class CrossFitWodsData {
         name: 'Murph',
         category: 'Hero WOD',
         description: 'For Time (with 20/14 lb vest): 1 Mile Run, 100 Pull-ups, 200 Push-ups, 300 Squats, 1 Mile Run.',
-        prepSeconds: 15,
+        prepSeconds: 10,
         rounds: 1,
         restBetweenRoundsSeconds: 0,
         intervals: const [
@@ -400,6 +401,9 @@ class CrossFitWodsData {
         createdAt: now,
         updatedAt: now,
       ),
+
+      // ==================== HYROX ====================
+      ...HyroxData.getHyroxPresets(),
     ];
   }
 }

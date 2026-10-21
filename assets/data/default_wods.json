@@ -5,7 +5,7 @@
     "description": "21-15-9 Reps: Thruster (95/65 lb) and Pull-up. Fast and explosive!",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "fran_step",
@@ -25,7 +25,7 @@
     "description": "20 Min AMRAP: 5 Pull-ups, 10 Push-ups, 15 Air Squats. Continuous pace!",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "cindy_step",
@@ -45,7 +45,7 @@
     "description": "30 Clean & Jerks (135/95 lb) For Time. Max power & barbell speed.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "grace_step",
@@ -65,7 +65,7 @@
     "description": "3 Rounds: 400m Run, 21 Kettlebell Swings (24/16 kg), 12 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "helen_step",
@@ -85,7 +85,7 @@
     "description": "50-40-30-20-10 Reps: Double Unders and Sit-ups For Time.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "annie_step",
@@ -105,7 +105,7 @@
     "description": "21-15-9 Reps: Deadlift (225/155 lb) and Handstand Push-up (HSPU).",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "diane_step",
@@ -125,7 +125,7 @@
     "description": "150 Wall Ball Shots (20/14 lb) For Time. Leg and shoulder endurance.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "karen_step",
@@ -145,7 +145,7 @@
     "description": "EMOM 30 Min: Every minute 5 Pull-ups, 10 Push-ups, 15 Air Squats.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "chelsea_w",
@@ -171,7 +171,7 @@
     "description": "For Time: 100 Pull-ups, 100 Push-ups, 100 Sit-ups, 100 Squats.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "angie_step",
@@ -191,7 +191,7 @@
     "description": "5 Rounds: 400m Run, 15 Overhead Squats (95/65 lb).",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "nancy_step",
@@ -211,7 +211,7 @@
     "description": "5 Rounds: 400m Run, 30 Box Jumps (24/20 in), 30 Wall Balls.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "kelly_step",
@@ -231,7 +231,7 @@
     "description": "30 Snatches (135/95 lb) For Time. Sprint Olympic lifting WOD.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "isabel_step",
@@ -251,7 +251,7 @@
     "description": "For Time: 1000m Row, 50 Thrusters (45 lb bar), 30 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "jackie_row",
@@ -283,7 +283,7 @@
     "description": "5 Rounds: 800m Run, 30 KB Swings (32/24 kg), 30 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "eva_step",
@@ -303,7 +303,7 @@
     "description": "20 Min AMRAP: 5 HSPU, 10 Pistol Squats, 15 Pull-ups.",
     "category": "The Girls",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "mary_step",
@@ -323,7 +323,7 @@
     "description": "For Time (with 20/14 lb vest): 1 Mile Run, 100 Pull-ups, 200 Push-ups, 300 Squats, 1 Mile Run.",
     "category": "Hero WOD",
     "isPreset": true,
-    "prepSeconds": 15,
+    "prepSeconds": 0,
     "rounds": 1,
     "restBetweenRoundsSeconds": 0,
     "intervals": [
@@ -367,7 +367,7 @@
     "description": "5 Rounds: 12 Deadlifts, 9 Hang Power Cleans, 6 Push Jerks (155/105 lb).",
     "category": "Hero WOD",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "dt_step",
@@ -387,7 +387,7 @@
     "description": "20 Min AMRAP: 2 Muscle-ups, 4 HSPU, 8 KB Swings (32/24 kg).",
     "category": "Hero WOD",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "nate_step",
@@ -407,7 +407,7 @@
     "description": "3 Rounds: 30 Squat Cleans (95/65 lb), 30 Pull-ups, 800m Run.",
     "category": "Hero WOD",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "badger_step",
@@ -427,7 +427,7 @@
     "description": "100 Thrusters (135/95 lb) For Time. At the top of every minute: 5 Burpees.",
     "category": "Hero WOD",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "kalsu_b",
@@ -453,7 +453,7 @@
     "description": "3 Rounds: 1 min Wall Balls, 1 min SDHP, 1 min Box Jumps, 1 min Push Press, 1 min Row, 1 min Rest.",
     "category": "Benchmark",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "fgb_1",
@@ -497,7 +497,7 @@
     "description": "4 movements x 8 Tabata rounds (Pull-up, Push-up, Sit-up, Squat). 32 rounds total.",
     "category": "Benchmark",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "tse_w",
@@ -522,7 +522,7 @@
     "name": "Rowing 500m Repeats",
     "category": "Benchmark",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "row_w",
@@ -547,7 +547,7 @@
     "name": "CrossFit 5x5 Strength",
     "category": "Benchmark",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "str_w",
@@ -572,7 +572,7 @@
     "name": "HIIT 30s / 30s",
     "category": "Benchmark",
     "isPreset": true,
-    "prepSeconds": 10,
+    "prepSeconds": 0,
     "intervals": [
       {
         "id": "hiit_w",

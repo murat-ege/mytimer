@@ -122,10 +122,16 @@ abstract class AppLocalizations {
   /// **'STOPWATCH'**
   String get stopwatch;
 
+  /// No description provided for @countdown.
+  ///
+  /// In en, this message translates to:
+  /// **'COUNTDOWN'**
+  String get countdown;
+
   /// No description provided for @custom.
   ///
   /// In en, this message translates to:
-  /// **'CUSTOM'**
+  /// **'CUSTOM & WODS'**
   String get custom;
 
   /// No description provided for @settings.
@@ -275,7 +281,7 @@ abstract class AppLocalizations {
   /// No description provided for @sound.
   ///
   /// In en, this message translates to:
-  /// **'Audio Cues'**
+  /// **'Audio'**
   String get sound;
 
   /// No description provided for @vibration.
@@ -317,7 +323,7 @@ abstract class AppLocalizations {
   /// No description provided for @customRoutines.
   ///
   /// In en, this message translates to:
-  /// **'Saved WODs & Timers'**
+  /// **'Custom'**
   String get customRoutines;
 
   /// No description provided for @createNewRoutine.
@@ -401,7 +407,7 @@ abstract class AppLocalizations {
   /// No description provided for @cloudSyncNotice.
   ///
   /// In en, this message translates to:
-  /// **'Your timers are stored locally on your device.'**
+  /// **'Your timers and workout logs are stored locally on your device.'**
   String get cloudSyncNotice;
 
   /// No description provided for @lapTimes.
@@ -464,12 +470,6 @@ abstract class AppLocalizations {
   /// **'AUDIO TEST'**
   String get soundTest;
 
-  /// No description provided for @countdown.
-  ///
-  /// In en, this message translates to:
-  /// **'Countdown'**
-  String get countdown;
-
   /// No description provided for @appLanguage.
   ///
   /// In en, this message translates to:
@@ -485,7 +485,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutDesc.
   ///
   /// In en, this message translates to:
-  /// **'Engineered for CrossFit, HIIT, and functional fitness workouts.'**
+  /// **'Engineered for CrossFit, HIIT, functional fitness, and WOD competitions.'**
   String get aboutDesc;
 
   /// No description provided for @seconds.
@@ -499,6 +499,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'min'**
   String get minutes;
+
+  /// No description provided for @hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Hours'**
+  String get hours;
+
+  /// No description provided for @hoursShort.
+  ///
+  /// In en, this message translates to:
+  /// **'h'**
+  String get hoursShort;
 
   /// No description provided for @totalRoundsStat.
   ///
@@ -703,6 +715,450 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Custom'**
   String get categoryCustom;
+
+  /// No description provided for @tabataAcronym.
+  ///
+  /// In en, this message translates to:
+  /// **'20s Work / 10s Rest'**
+  String get tabataAcronym;
+
+  /// No description provided for @tabataDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'High-Intensity Interval Training: 20 seconds maximum effort followed by 10 seconds rest.'**
+  String get tabataDesc;
+
+  /// No description provided for @roundsAcronym.
+  ///
+  /// In en, this message translates to:
+  /// **'Interval Training'**
+  String get roundsAcronym;
+
+  /// No description provided for @roundsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Structured work and rest interval rounds designed for functional strength and conditioning.'**
+  String get roundsDesc;
+
+  /// No description provided for @emomAcronym.
+  ///
+  /// In en, this message translates to:
+  /// **'Every Minute On the Minute'**
+  String get emomAcronym;
+
+  /// No description provided for @emomDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Perform designated repetitions at the start of each minute. Any remaining time in the minute is your rest.'**
+  String get emomDesc;
+
+  /// No description provided for @amrapAcronym.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Rounds & Reps'**
+  String get amrapAcronym;
+
+  /// No description provided for @amrapDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete as many rounds or repetitions of the designated exercises as possible before the clock expires.'**
+  String get amrapDesc;
+
+  /// No description provided for @forTimeAcronym.
+  ///
+  /// In en, this message translates to:
+  /// **'Race Against The Clock'**
+  String get forTimeAcronym;
+
+  /// No description provided for @forTimeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the designated work and repetitions as fast as possible before reaching the maximum Time Cap.'**
+  String get forTimeDesc;
+
+  /// No description provided for @stopwatchAcronym.
+  ///
+  /// In en, this message translates to:
+  /// **'Count-Up Timer'**
+  String get stopwatchAcronym;
+
+  /// No description provided for @stopwatchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Precision count-up timer with split tracking and best/slowest split analysis.'**
+  String get stopwatchDesc;
+
+  /// No description provided for @countdownAcronym.
+  ///
+  /// In en, this message translates to:
+  /// **'Universal Timer'**
+  String get countdownAcronym;
+
+  /// No description provided for @countdownDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Universal countdown timer with custom hours, minutes, and seconds for any workout, challenge, or rest interval.'**
+  String get countdownDesc;
+
+  /// No description provided for @customSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hero WODs & Custom Routines'**
+  String get customSubtitle;
+
+  /// No description provided for @workoutLogSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'History, Whiteboard & CSV'**
+  String get workoutLogSubtitle;
+
+  /// No description provided for @workoutLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout Log'**
+  String get workoutLogs;
+
+  /// No description provided for @noLogsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No workout logs recorded yet.\nComplete any timer workout to see your history here!'**
+  String get noLogsYet;
+
+  /// No description provided for @exportAllCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Export All (CSV)'**
+  String get exportAllCsv;
+
+  /// No description provided for @clearAllLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All Logs'**
+  String get clearAllLogs;
+
+  /// No description provided for @clearLogsConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to permanently delete all workout logs? This action cannot be undone.'**
+  String get clearLogsConfirm;
+
+  /// No description provided for @attachPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach Photo'**
+  String get attachPhoto;
+
+  /// No description provided for @changePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Photo'**
+  String get changePhoto;
+
+  /// No description provided for @removePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Photo'**
+  String get removePhoto;
+
+  /// No description provided for @workoutNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout Notes'**
+  String get workoutNote;
+
+  /// No description provided for @workoutNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Score, weights, reps, scaling, or how you felt...'**
+  String get workoutNoteHint;
+
+  /// No description provided for @presets.
+  ///
+  /// In en, this message translates to:
+  /// **'Presets & Saved Timers'**
+  String get presets;
+
+  /// No description provided for @savePreset.
+  ///
+  /// In en, this message translates to:
+  /// **'Save As Custom Preset'**
+  String get savePreset;
+
+  /// No description provided for @presetNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Heavy Tabata, 12m EMOM, Murph Pace'**
+  String get presetNameHint;
+
+  /// No description provided for @defaultPreset.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard (Default)'**
+  String get defaultPreset;
+
+  /// No description provided for @restoreDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Defaults'**
+  String get restoreDefault;
+
+  /// No description provided for @presetSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Preset saved successfully'**
+  String get presetSaved;
+
+  /// No description provided for @voiceCoach.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get voiceCoach;
+
+  /// No description provided for @voiceCoachSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoken voice cues for countdown, intervals, and finish'**
+  String get voiceCoachSubtitle;
+
+  /// No description provided for @voiceCoachSelector.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Voice Coach (2 Male, 2 Female)'**
+  String get voiceCoachSelector;
+
+  /// No description provided for @testVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Voice Cue'**
+  String get testVoice;
+
+  /// No description provided for @audioTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout Audio Theme (10 Sound Packs)'**
+  String get audioTheme;
+
+  /// No description provided for @audioThemeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferred athletic sound pack:'**
+  String get audioThemeSubtitle;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @addTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Timer'**
+  String get addTimer;
+
+  /// No description provided for @allTimersAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'All timers are on the home screen'**
+  String get allTimersAdded;
+
+  /// No description provided for @resetLayout.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Layout'**
+  String get resetLayout;
+
+  /// No description provided for @editHomeScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Home Screen'**
+  String get editHomeScreen;
+
+  /// No description provided for @hyrox.
+  ///
+  /// In en, this message translates to:
+  /// **'HYROX'**
+  String get hyrox;
+
+  /// No description provided for @hyroxSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer Suit'**
+  String get hyroxSubtitle;
+
+  /// No description provided for @hyroxRaceSimulator.
+  ///
+  /// In en, this message translates to:
+  /// **'Race Simulator'**
+  String get hyroxRaceSimulator;
+
+  /// No description provided for @hyroxRaceSimulatorDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Full & Half HYROX race split timer with Roxzone tracking and target pace delta.'**
+  String get hyroxRaceSimulatorDesc;
+
+  /// No description provided for @hyroxCompromisedRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Compromised Running'**
+  String get hyroxCompromisedRun;
+
+  /// No description provided for @hyroxCompromisedRunDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternating running intervals and functional stations on heavy legs.'**
+  String get hyroxCompromisedRunDesc;
+
+  /// No description provided for @hyroxStationIntervals.
+  ///
+  /// In en, this message translates to:
+  /// **'Station P-EMOM & Intervals'**
+  String get hyroxStationIntervals;
+
+  /// No description provided for @hyroxStationIntervalsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Circuit interval timers cycling through all 8 HYROX functional stations.'**
+  String get hyroxStationIntervalsDesc;
+
+  /// No description provided for @hyroxDoublesTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Doubles & Relay (IGYG)'**
+  String get hyroxDoublesTimer;
+
+  /// No description provided for @hyroxDoublesTimerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Partner switch alerts (30s, 45s, 60s, 90s) for Doubles and Relay teams.'**
+  String get hyroxDoublesTimerDesc;
+
+  /// No description provided for @hyroxBenchmarkTests.
+  ///
+  /// In en, this message translates to:
+  /// **'Station Benchmark Tests'**
+  String get hyroxBenchmarkTests;
+
+  /// No description provided for @hyroxBenchmarkTestsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Individual station time trials with division weights and pace benchmarks.'**
+  String get hyroxBenchmarkTestsDesc;
+
+  /// No description provided for @hyroxStandardsGuide.
+  ///
+  /// In en, this message translates to:
+  /// **'Division Weights & Standards'**
+  String get hyroxStandardsGuide;
+
+  /// No description provided for @hyroxStandardsGuideDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Official weights, target heights, and movement rules for Open, Pro & Doubles.'**
+  String get hyroxStandardsGuideDesc;
+
+  /// No description provided for @roxzone.
+  ///
+  /// In en, this message translates to:
+  /// **'ROXZONE'**
+  String get roxzone;
+
+  /// No description provided for @roxzoneTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Roxzone Transition Splits'**
+  String get roxzoneTracking;
+
+  /// No description provided for @targetFinishTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Finish Time'**
+  String get targetFinishTime;
+
+  /// No description provided for @division.
+  ///
+  /// In en, this message translates to:
+  /// **'Division'**
+  String get division;
+
+  /// No description provided for @nextSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT SPLIT'**
+  String get nextSplit;
+
+  /// No description provided for @startRace.
+  ///
+  /// In en, this message translates to:
+  /// **'START RACE'**
+  String get startRace;
+
+  /// No description provided for @ahead.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahead'**
+  String get ahead;
+
+  /// No description provided for @behind.
+  ///
+  /// In en, this message translates to:
+  /// **'Behind'**
+  String get behind;
+
+  /// No description provided for @onPace.
+  ///
+  /// In en, this message translates to:
+  /// **'On Pace'**
+  String get onPace;
+
+  /// No description provided for @partnerA.
+  ///
+  /// In en, this message translates to:
+  /// **'PARTNER A'**
+  String get partnerA;
+
+  /// No description provided for @partnerB.
+  ///
+  /// In en, this message translates to:
+  /// **'PARTNER B'**
+  String get partnerB;
+
+  /// No description provided for @switchPartner.
+  ///
+  /// In en, this message translates to:
+  /// **'SWITCH PARTNER!'**
+  String get switchPartner;
+
+  /// No description provided for @switchInterval.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch Interval'**
+  String get switchInterval;
+
+  /// No description provided for @cooldownTime.
+  ///
+  /// In en, this message translates to:
+  /// **'COOLDOWN TIME'**
+  String get cooldownTime;
+
+  /// No description provided for @intervalSignal.
+  ///
+  /// In en, this message translates to:
+  /// **'INTERVAL SIGNAL'**
+  String get intervalSignal;
+
+  /// No description provided for @off.
+  ///
+  /// In en, this message translates to:
+  /// **'OFF'**
+  String get off;
+
+  /// No description provided for @everyMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'Every {count} min'**
+  String everyMinute(Object count);
 }
 
 class _AppLocalizationsDelegate

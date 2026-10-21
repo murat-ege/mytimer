@@ -8,6 +8,8 @@ class CustomRoutine {
   final String category;
   final bool isPreset;
   final int prepSeconds;
+  final int cooldownSeconds;
+  final int intervalSignalSeconds;
   final List<IntervalStep> intervals;
   final int rounds;
   final int restBetweenRoundsSeconds;
@@ -20,7 +22,9 @@ class CustomRoutine {
     this.description = '',
     this.category = 'CrossFit WOD',
     this.isPreset = false,
-    this.prepSeconds = 10,
+    this.prepSeconds = 0,
+    this.cooldownSeconds = 0,
+    this.intervalSignalSeconds = 0,
     required this.intervals,
     this.rounds = 1,
     this.restBetweenRoundsSeconds = 0,
@@ -32,7 +36,7 @@ class CustomRoutine {
     final intervalsSum = intervals.fold<int>(0, (sum, i) => sum + i.durationSeconds);
     final roundsTime = intervalsSum * rounds;
     final roundRestsTime = (rounds > 1) ? restBetweenRoundsSeconds * (rounds - 1) : 0;
-    return roundsTime + roundRestsTime;
+    return roundsTime + roundRestsTime + cooldownSeconds;
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +47,8 @@ class CustomRoutine {
       'category': category,
       'isPreset': isPreset,
       'prepSeconds': prepSeconds,
+      'cooldownSeconds': cooldownSeconds,
+      'intervalSignalSeconds': intervalSignalSeconds,
       'intervals': intervals.map((i) => i.toJson()).toList(),
       'rounds': rounds,
       'restBetweenRoundsSeconds': restBetweenRoundsSeconds,
@@ -58,7 +64,9 @@ class CustomRoutine {
       description: json['description'] as String? ?? '',
       category: json['category'] as String? ?? 'CrossFit WOD',
       isPreset: json['isPreset'] as bool? ?? false,
-      prepSeconds: json['prepSeconds'] as int? ?? 10,
+      prepSeconds: json['prepSeconds'] as int? ?? 0,
+      cooldownSeconds: json['cooldownSeconds'] as int? ?? 0,
+      intervalSignalSeconds: json['intervalSignalSeconds'] as int? ?? 0,
       intervals: (json['intervals'] as List<dynamic>)
           .map((i) => IntervalStep.fromJson(i as Map<String, dynamic>))
           .toList(),
@@ -76,6 +84,8 @@ class CustomRoutine {
     String? category,
     bool? isPreset,
     int? prepSeconds,
+    int? cooldownSeconds,
+    int? intervalSignalSeconds,
     List<IntervalStep>? intervals,
     int? rounds,
     int? restBetweenRoundsSeconds,
@@ -89,6 +99,8 @@ class CustomRoutine {
       category: category ?? this.category,
       isPreset: isPreset ?? this.isPreset,
       prepSeconds: prepSeconds ?? this.prepSeconds,
+      cooldownSeconds: cooldownSeconds ?? this.cooldownSeconds,
+      intervalSignalSeconds: intervalSignalSeconds ?? this.intervalSignalSeconds,
       intervals: intervals ?? this.intervals,
       rounds: rounds ?? this.rounds,
       restBetweenRoundsSeconds: restBetweenRoundsSeconds ?? this.restBetweenRoundsSeconds,
@@ -103,6 +115,7 @@ class CustomRoutine {
     int restSeconds = 10,
     int rounds = 8,
     int prepSeconds = 10,
+    int cooldownSeconds = 0,
   }) {
     final now = DateTime.now();
     return CustomRoutine(
@@ -110,6 +123,7 @@ class CustomRoutine {
       name: 'TABATA',
       description: '20s Work / 10s Rest x 8 Rounds',
       prepSeconds: prepSeconds,
+      cooldownSeconds: cooldownSeconds,
       intervals: [
         IntervalStep(
           id: 'step_work',
@@ -137,12 +151,14 @@ class CustomRoutine {
     int restSeconds = 30,
     int rounds = 5,
     int prepSeconds = 10,
+    int cooldownSeconds = 0,
   }) {
     final now = DateTime.now();
     return CustomRoutine(
       id: 'rounds_${now.millisecondsSinceEpoch}',
       name: name,
       prepSeconds: prepSeconds,
+      cooldownSeconds: cooldownSeconds,
       intervals: [
         IntervalStep(
           id: 'step_round_work',

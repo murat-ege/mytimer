@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'repositories/local_timer_repository.dart';
-import 'screens/home_screen.dart';
-import 'screens/splash_screen.dart';
+import 'features/home/home_screen.dart';
+import 'features/splash/splash_screen.dart';
 import 'services/notification_service.dart';
 import 'services/sound_service.dart';
+import 'services/voice_coach_service.dart';
+import 'shared/theme/app_typography.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +33,18 @@ void main() async {
   // Load saved settings
   final repository = LocalTimerRepository();
   final settings = await repository.getSettings();
+
+  // Apply sound and voice settings
+  SoundService().soundEnabled = settings.soundEnabled;
+  SoundService().vibrationEnabled = settings.vibrationEnabled;
+  SoundService().currentThemeId = settings.audioThemeId;
+
+  await VoiceCoachService().init();
+  await VoiceCoachService().updateConfig(
+    enabled: settings.voiceCoachEnabled,
+    voiceId: settings.voiceCoachId,
+    lang: settings.languageCode,
+  );
 
   runApp(MyTimerApp(initialLocale: Locale(settings.languageCode)));
 }
@@ -78,19 +92,29 @@ class _MyTimerAppState extends State<MyTimerApp> {
           surface: Color(0xFF1E1E1E),
           error: Color(0xFFFF3D00),
         ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF121212),
+        textTheme: AppTypography.createTextTheme(),
+        appBarTheme: AppBarTheme(
+          backgroundColor: const Color(0xFF121212),
           elevation: 0,
+          scrolledUnderElevation: 0,
+          surfaceTintColor: Colors.transparent,
           centerTitle: true,
-          titleTextStyle: TextStyle(
+          titleTextStyle: AppTypography.athleticHeader(
             color: Colors.white,
             fontSize: 20,
-            fontWeight: FontWeight.w900,
             letterSpacing: 1.5,
           ),
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
       ),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.noScaling,
+          ),
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       home: AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
         child: _showSplash

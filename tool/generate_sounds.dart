@@ -89,40 +89,12 @@ void main() {
     outDir.createSync(recursive: true);
   }
 
-  // 1. Countdown Beep (Short 880 Hz beep - 120ms)
-  final countdownBytes = createWav(segments: [
-    ToneSegment(880, 120),
-  ]);
-  File('assets/sounds/beep_countdown.wav').writeAsBytesSync(countdownBytes);
-
-  // 2. Work / Start Beep (High intense 1760 Hz beep - 500ms)
-  final workBytes = createWav(segments: [
-    ToneSegment(1760, 500),
-  ]);
-  File('assets/sounds/beep_work.wav').writeAsBytesSync(workBytes);
-
-  // 3. Rest Beep (Medium 600 Hz beep - 300ms)
-  final restBytes = createWav(segments: [
-    ToneSegment(600, 350),
-  ]);
-  File('assets/sounds/beep_rest.wav').writeAsBytesSync(restBytes);
-
-  // 4. Workout Completed Beep (Victory fanfare/chime: 3 quick ascending tones)
-  final completeBytes = createWav(segments: [
-    ToneSegment(880, 150),
-    ToneSegment(0, 50),
-    ToneSegment(1174.66, 150), // D6
-    ToneSegment(0, 50),
-    ToneSegment(1760, 500), // A6 long
-  ]);
-  File('assets/sounds/beep_complete.wav').writeAsBytesSync(completeBytes);
-
-  // 5. Silent track for background keep-alive
+  // Silent track for background keep-alive
   final silentBytes = createWav(segments: [
     ToneSegment(0, 1000),
   ]);
   File('assets/sounds/silent.wav').writeAsBytesSync(silentBytes);
 
   // ignore: avoid_print
-  print('Sound assets generated successfully in assets/sounds!');
+  print('Silent sound asset generated successfully in assets/sounds!');
 }

@@ -22,7 +22,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stopwatch => 'STOPWATCH';
 
   @override
-  String get custom => 'CUSTOM';
+  String get countdown => 'COUNTDOWN';
+
+  @override
+  String get custom => 'CUSTOM & WODS';
 
   @override
   String get settings => 'SETTINGS';
@@ -97,7 +100,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeCap => 'TIME CAP';
 
   @override
-  String get sound => 'Audio Cues';
+  String get sound => 'Audio';
 
   @override
   String get vibration => 'Haptic Feedback';
@@ -118,7 +121,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forTimeTitle => 'FOR TIME';
 
   @override
-  String get customRoutines => 'Saved WODs & Timers';
+  String get customRoutines => 'Custom';
 
   @override
   String get createNewRoutine => 'Create New Timer';
@@ -161,7 +164,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cloudSyncNotice =>
-      'Your timers are stored locally on your device.';
+      'Your timers and workout logs are stored locally on your device.';
 
   @override
   String get lapTimes => 'Splits & Lap Times';
@@ -194,9 +197,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get soundTest => 'AUDIO TEST';
 
   @override
-  String get countdown => 'Countdown';
-
-  @override
   String get appLanguage => 'App Language';
 
   @override
@@ -204,13 +204,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutDesc =>
-      'Engineered for CrossFit, HIIT, and functional fitness workouts.';
+      'Engineered for CrossFit, HIIT, functional fitness, and WOD competitions.';
 
   @override
   String get seconds => 's';
 
   @override
   String get minutes => 'min';
+
+  @override
+  String get hours => 'Hours';
+
+  @override
+  String get hoursShort => 'h';
 
   @override
   String get totalRoundsStat => 'ROUNDS';
@@ -324,4 +330,245 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get categoryCustom => 'Custom';
+
+  @override
+  String get tabataAcronym => '20s Work / 10s Rest';
+
+  @override
+  String get tabataDesc =>
+      'High-Intensity Interval Training: 20 seconds maximum effort followed by 10 seconds rest.';
+
+  @override
+  String get roundsAcronym => 'Interval Training';
+
+  @override
+  String get roundsDesc =>
+      'Structured work and rest interval rounds designed for functional strength and conditioning.';
+
+  @override
+  String get emomAcronym => 'Every Minute On the Minute';
+
+  @override
+  String get emomDesc =>
+      'Perform designated repetitions at the start of each minute. Any remaining time in the minute is your rest.';
+
+  @override
+  String get amrapAcronym => 'Max Rounds & Reps';
+
+  @override
+  String get amrapDesc =>
+      'Complete as many rounds or repetitions of the designated exercises as possible before the clock expires.';
+
+  @override
+  String get forTimeAcronym => 'Race Against The Clock';
+
+  @override
+  String get forTimeDesc =>
+      'Complete the designated work and repetitions as fast as possible before reaching the maximum Time Cap.';
+
+  @override
+  String get stopwatchAcronym => 'Count-Up Timer';
+
+  @override
+  String get stopwatchDesc =>
+      'Precision count-up timer with split tracking and best/slowest split analysis.';
+
+  @override
+  String get countdownAcronym => 'Universal Timer';
+
+  @override
+  String get countdownDesc =>
+      'Universal countdown timer with custom hours, minutes, and seconds for any workout, challenge, or rest interval.';
+
+  @override
+  String get customSubtitle => 'Hero WODs & Custom Routines';
+
+  @override
+  String get workoutLogSubtitle => 'History, Whiteboard & CSV';
+
+  @override
+  String get workoutLogs => 'Workout Log';
+
+  @override
+  String get noLogsYet =>
+      'No workout logs recorded yet.\nComplete any timer workout to see your history here!';
+
+  @override
+  String get exportAllCsv => 'Export All (CSV)';
+
+  @override
+  String get clearAllLogs => 'Clear All Logs';
+
+  @override
+  String get clearLogsConfirm =>
+      'Are you sure you want to permanently delete all workout logs? This action cannot be undone.';
+
+  @override
+  String get attachPhoto => 'Attach Photo';
+
+  @override
+  String get changePhoto => 'Change Photo';
+
+  @override
+  String get removePhoto => 'Remove Photo';
+
+  @override
+  String get workoutNote => 'Workout Notes';
+
+  @override
+  String get workoutNoteHint =>
+      'Score, weights, reps, scaling, or how you felt...';
+
+  @override
+  String get presets => 'Presets & Saved Timers';
+
+  @override
+  String get savePreset => 'Save As Custom Preset';
+
+  @override
+  String get presetNameHint => 'e.g., Heavy Tabata, 12m EMOM, Murph Pace';
+
+  @override
+  String get defaultPreset => 'Standard (Default)';
+
+  @override
+  String get restoreDefault => 'Restore Defaults';
+
+  @override
+  String get presetSaved => 'Preset saved successfully';
+
+  @override
+  String get voiceCoach => 'Voice';
+
+  @override
+  String get voiceCoachSubtitle =>
+      'Spoken voice cues for countdown, intervals, and finish';
+
+  @override
+  String get voiceCoachSelector => 'Select Voice Coach (2 Male, 2 Female)';
+
+  @override
+  String get testVoice => 'Test Voice Cue';
+
+  @override
+  String get audioTheme => 'Workout Audio Theme (10 Sound Packs)';
+
+  @override
+  String get audioThemeSubtitle => 'Choose your preferred athletic sound pack:';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get addTimer => 'Add Timer';
+
+  @override
+  String get allTimersAdded => 'All timers are on the home screen';
+
+  @override
+  String get resetLayout => 'Reset Layout';
+
+  @override
+  String get editHomeScreen => 'Edit Home Screen';
+
+  @override
+  String get hyrox => 'HYROX';
+
+  @override
+  String get hyroxSubtitle => 'Timer Suit';
+
+  @override
+  String get hyroxRaceSimulator => 'Race Simulator';
+
+  @override
+  String get hyroxRaceSimulatorDesc =>
+      'Full & Half HYROX race split timer with Roxzone tracking and target pace delta.';
+
+  @override
+  String get hyroxCompromisedRun => 'Compromised Running';
+
+  @override
+  String get hyroxCompromisedRunDesc =>
+      'Alternating running intervals and functional stations on heavy legs.';
+
+  @override
+  String get hyroxStationIntervals => 'Station P-EMOM & Intervals';
+
+  @override
+  String get hyroxStationIntervalsDesc =>
+      'Circuit interval timers cycling through all 8 HYROX functional stations.';
+
+  @override
+  String get hyroxDoublesTimer => 'Doubles & Relay (IGYG)';
+
+  @override
+  String get hyroxDoublesTimerDesc =>
+      'Partner switch alerts (30s, 45s, 60s, 90s) for Doubles and Relay teams.';
+
+  @override
+  String get hyroxBenchmarkTests => 'Station Benchmark Tests';
+
+  @override
+  String get hyroxBenchmarkTestsDesc =>
+      'Individual station time trials with division weights and pace benchmarks.';
+
+  @override
+  String get hyroxStandardsGuide => 'Division Weights & Standards';
+
+  @override
+  String get hyroxStandardsGuideDesc =>
+      'Official weights, target heights, and movement rules for Open, Pro & Doubles.';
+
+  @override
+  String get roxzone => 'ROXZONE';
+
+  @override
+  String get roxzoneTracking => 'Roxzone Transition Splits';
+
+  @override
+  String get targetFinishTime => 'Target Finish Time';
+
+  @override
+  String get division => 'Division';
+
+  @override
+  String get nextSplit => 'NEXT SPLIT';
+
+  @override
+  String get startRace => 'START RACE';
+
+  @override
+  String get ahead => 'Ahead';
+
+  @override
+  String get behind => 'Behind';
+
+  @override
+  String get onPace => 'On Pace';
+
+  @override
+  String get partnerA => 'PARTNER A';
+
+  @override
+  String get partnerB => 'PARTNER B';
+
+  @override
+  String get switchPartner => 'SWITCH PARTNER!';
+
+  @override
+  String get switchInterval => 'Switch Interval';
+
+  @override
+  String get cooldownTime => 'COOLDOWN TIME';
+
+  @override
+  String get intervalSignal => 'INTERVAL SIGNAL';
+
+  @override
+  String get off => 'OFF';
+
+  @override
+  String everyMinute(Object count) {
+    return 'Every $count min';
+  }
 }
