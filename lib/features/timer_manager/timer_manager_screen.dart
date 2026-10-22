@@ -5,6 +5,8 @@ import 'package:uuid/uuid.dart';
 import '../../data/timer_presets_data.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../models/custom_routine.dart';
+import '../../models/interval_step.dart';
+import '../../models/timer_phase.dart';
 import '../../repositories/local_timer_repository.dart';
 import '../../shared/utils/home_timer_helper.dart';
 import 'widgets/edit_preset_sheet.dart';
@@ -285,11 +287,17 @@ class _TimerManagerScreenState extends State<TimerManagerScreen> {
       if (norm.contains('amrap')) return 'amrap';
       if (norm.contains('fortime')) return 'fortime';
       if (norm.contains('countdown')) return 'countdown';
+      if (norm.contains('hyrox')) return 'hyrox';
     }
     return null;
   }
 
   Future<void> _createPresetForType(String cat) async {
+    if (cat == 'hyrox') {
+      await _editPresetDetails(_buildDefaultHyroxRoutine(), isNew: true);
+      return;
+    }
+
     final defaultPreset = TimerPresetsData.getDefaultTimerPresets()
         .firstWhere((p) => p.category.toLowerCase().replaceAll(' ', '').replaceAll('_', '').contains(cat));
 
@@ -302,6 +310,33 @@ class _TimerManagerScreenState extends State<TimerManagerScreen> {
     );
 
     await _editPresetDetails(newCustom, isNew: true);
+  }
+
+  /// Builds a default HYROX interval timer modeled after the Compromised Run
+  /// workout: prep, N rounds of work, rest between rounds and a cooldown.
+  CustomRoutine _buildDefaultHyroxRoutine() {
+    final now = DateTime.now();
+    return CustomRoutine(
+      id: const Uuid().v4(),
+      name: 'HYROX Interval (Custom)',
+      description: 'Run + Station blocks with recovery between rounds',
+      category: 'HYROX',
+      isPreset: false,
+      prepSeconds: 10,
+      rounds: 4,
+      restBetweenRoundsSeconds: 60,
+      cooldownSeconds: 0,
+      intervals: const [
+        IntervalStep(
+          id: 'hyrox_step_work',
+          name: 'HYROX WORK',
+          durationSeconds: 300,
+          phase: TimerPhase.work,
+        ),
+      ],
+      createdAt: now,
+      updatedAt: now,
+    );
   }
 
   Future<void> _createNewPreset() async {
@@ -382,7 +417,7 @@ class _TimerManagerScreenState extends State<TimerManagerScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${routine.name} silindi'),
+            content: Text(l10n?.timerDeleted(routine.name) ?? '${routine.name} deleted'),
             duration: const Duration(seconds: 2),
           ),
         );

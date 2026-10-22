@@ -8,17 +8,21 @@ class TimerSettings {
   final String audioThemeId; // one of the 10 audio themes
   final bool confirmTimerExit;
   final bool autoStartTimer;
+  final bool use24HourFormat; // true for 24h, false for 12h (AM/PM)
+  final bool autoSaveWorkoutLog; // true: automatically save log without dialog, false: show finish modal
 
   const TimerSettings({
     this.soundEnabled = true,
     this.vibrationEnabled = true,
     this.wakelockEnabled = true,
     this.languageCode = 'en',
-    this.voiceCoachEnabled = true,
+    this.voiceCoachEnabled = false,
     this.voiceCoachId = 'male_1',
-    this.audioThemeId = 'classic_beeps',
+    this.audioThemeId = 'beep_and_go',
     this.confirmTimerExit = false,
     this.autoStartTimer = false,
+    this.use24HourFormat = true,
+    this.autoSaveWorkoutLog = true,
   });
 
   Map<String, dynamic> toJson() {
@@ -32,6 +36,8 @@ class TimerSettings {
       'audioThemeId': audioThemeId,
       'confirmTimerExit': confirmTimerExit,
       'autoStartTimer': autoStartTimer,
+      'use24HourFormat': use24HourFormat,
+      'autoSaveWorkoutLog': autoSaveWorkoutLog,
     };
   }
 
@@ -41,11 +47,13 @@ class TimerSettings {
       vibrationEnabled: json['vibrationEnabled'] as bool? ?? true,
       wakelockEnabled: json['wakelockEnabled'] as bool? ?? true,
       languageCode: json['languageCode'] as String? ?? 'en',
-      voiceCoachEnabled: json['voiceCoachEnabled'] as bool? ?? true,
+      voiceCoachEnabled: json['voiceCoachEnabled'] as bool? ?? false,
       voiceCoachId: json['voiceCoachId'] as String? ?? 'male_1',
-      audioThemeId: json['audioThemeId'] as String? ?? 'classic_beeps',
+      audioThemeId: json['audioThemeId'] as String? ?? 'beep_and_go',
       confirmTimerExit: json['confirmTimerExit'] as bool? ?? false,
       autoStartTimer: json['autoStartTimer'] as bool? ?? false,
+      use24HourFormat: json['use24HourFormat'] as bool? ?? true,
+      autoSaveWorkoutLog: json['autoSaveWorkoutLog'] as bool? ?? true,
     );
   }
 
@@ -59,6 +67,8 @@ class TimerSettings {
     String? audioThemeId,
     bool? confirmTimerExit,
     bool? autoStartTimer,
+    bool? use24HourFormat,
+    bool? autoSaveWorkoutLog,
   }) {
     return TimerSettings(
       soundEnabled: soundEnabled ?? this.soundEnabled,
@@ -70,6 +80,8 @@ class TimerSettings {
       audioThemeId: audioThemeId ?? this.audioThemeId,
       confirmTimerExit: confirmTimerExit ?? this.confirmTimerExit,
       autoStartTimer: autoStartTimer ?? this.autoStartTimer,
+      use24HourFormat: use24HourFormat ?? this.use24HourFormat,
+      autoSaveWorkoutLog: autoSaveWorkoutLog ?? this.autoSaveWorkoutLog,
     );
   }
 }

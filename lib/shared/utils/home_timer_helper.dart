@@ -77,35 +77,32 @@ class HomeFolderMeta {
 
 class HomeTimerHelper {
   static const String orderPrefKey = 'home_timer_order_v1';
-  static const String folderOrderPrefKey = 'home_folder_order_v2';
-  static const String folderItemsPrefix = 'home_folder_items_v2_';
+  static const String folderOrderPrefKey = 'home_folder_order_v3';
+  static const String folderItemsPrefix = 'home_folder_items_v3_';
   static const String presetPrefix = 'preset:';
 
   /// Legacy list kept for backward compatibility
   static const List<String> defaultOrder = [
     'tabata',
-    'rounds',
     'emom',
     'amrap',
     'for_time',
     'crossfit',
     'hyrox',
+    'rounds',
     'stopwatch',
     'countdown',
     'workout_log',
   ];
 
-  /// 9 Standard Main Folders
+  /// 6 Standard Main Folders shown on initial setup and layout reset
   static const List<String> defaultFolderOrder = [
     'tabata',
-    'rounds',
     'emom',
     'amrap',
     'for_time',
     'crossfit',
     'hyrox',
-    'stopwatch',
-    'countdown',
   ];
 
   static final Map<String, HomeFolderMeta> folderDefinitions = {
@@ -283,6 +280,8 @@ class HomeTimerHelper {
           'hyrox',
           'preset:hyrox_half_sim',
           'preset:hyrox_compromised_4x1k',
+          'preset:hyrox_station_pemom',
+          'preset:hyrox_wallball_test',
         ];
       case 'stopwatch':
         return ['stopwatch'];
@@ -322,19 +321,38 @@ class HomeTimerHelper {
   }
 
   /// Returns the items order for a specific folder
-  static Future<List<String>> getFolderItems(String folderId) async {
+  static Future<List<String>> getFolderItems(String folderId, {List<CustomRoutine>? routines}) async {
     if (folderId == 'stopwatch') {
       return ['stopwatch'];
     }
+    List<String> items;
     try {
       final prefs = await SharedPreferences.getInstance();
       final list = prefs.getStringList('$folderItemsPrefix$folderId');
       if (list != null) {
-        final cleaned = list.where((id) => !_removedBaseTimerIds.contains(id)).toList();
-        return cleaned;
+        items = list.where((id) => !_removedBaseTimerIds.contains(id)).toList();
+      } else {
+        items = List<String>.from(getDefaultItemsForFolder(folderId));
+      }
+    } catch (_) {
+      items = List<String>.from(getDefaultItemsForFolder(folderId));
+    }
+
+    // Ensure custom routines created for this category are included in the folder
+    try {
+      final allRoutines = routines ?? await LocalTimerRepository().getRoutines();
+      final customForFolder = allRoutines.where(
+        (r) => !r.isPreset && getFolderIdForCategory(r.category) == folderId,
+      );
+      for (final r in customForFolder) {
+        final key = getPresetId(r.id);
+        if (!items.contains(key) && !items.contains(r.id)) {
+          items.add(key);
+        }
       }
     } catch (_) {}
-    return List<String>.from(getDefaultItemsForFolder(folderId));
+
+    return items;
   }
 
   /// Saves the items order for a specific folder
@@ -344,6 +362,51 @@ class HomeTimerHelper {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setStringList('$folderItemsPrefix$folderId', items);
     } catch (_) {}
+  }
+
+  /// Resets the home folder order and folder contents to the default setup:
+  /// 1. Home screen shows [tabata, emom, amrap, for_time, crossfit, hyrox] in order.
+  /// 2. Folders contain their default presets (CrossFit has top 5 WODs: Fran, Cindy, Grace, Helen, Murph).
+  /// 3. Any custom timers belonging to a category are placed inside their respective folder.
+  static Future<List<String>> resetToDefaultLayout({List<CustomRoutine>? routines}) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      // 1. Reset folder order
+      final newFolderOrder = List<String>.from(defaultFolderOrder);
+      await prefs.setStringList(folderOrderPrefKey, newFolderOrder);
+      await prefs.setStringList(orderPrefKey, newFolderOrder);
+
+      // Fetch custom routines
+      final allRoutines = routines ?? await LocalTimerRepository().getRoutines();
+      final nonPresets = allRoutines.where((r) => !r.isPreset).toList();
+
+      // 2. Reset each folder's items to its default presets + custom routines
+      for (final folderId in folderDefinitions.keys) {
+        if (folderId == 'stopwatch') {
+          await prefs.setStringList('$folderItemsPrefix$folderId', ['stopwatch']);
+          continue;
+        }
+
+        final items = List<String>.from(getDefaultItemsForFolder(folderId));
+
+        // Add any custom routines belonging to this folder
+        for (final r in nonPresets) {
+          if (getFolderIdForCategory(r.category) == folderId) {
+            final key = getPresetId(r.id);
+            if (!items.contains(key) && !items.contains(r.id)) {
+              items.add(key);
+            }
+          }
+        }
+
+        await prefs.setStringList('$folderItemsPrefix$folderId', items);
+      }
+
+      return newFolderOrder;
+    } catch (_) {
+      return List<String>.from(defaultFolderOrder);
+    }
   }
 
   /// Legacy getOrder method supporting legacy consumers while reflecting folder items

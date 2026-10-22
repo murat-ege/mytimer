@@ -51,7 +51,6 @@ class TimerPresetsData {
         restBetweenRoundsSeconds: 60,
         intervals: const [
           IntervalStep(id: 'rounds_step_work', name: 'ROUND', durationSeconds: 180, phase: TimerPhase.work),
-          IntervalStep(id: 'rounds_step_rest', name: 'REST', durationSeconds: 60, phase: TimerPhase.rest),
         ],
         createdAt: now,
         updatedAt: now,
@@ -67,7 +66,6 @@ class TimerPresetsData {
         restBetweenRoundsSeconds: 120,
         intervals: const [
           IntervalStep(id: '5x5_step_work', name: 'INTERVAL', durationSeconds: 300, phase: TimerPhase.work),
-          IntervalStep(id: '5x5_step_rest', name: 'REST', durationSeconds: 120, phase: TimerPhase.rest),
         ],
         createdAt: now,
         updatedAt: now,

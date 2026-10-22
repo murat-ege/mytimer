@@ -54,11 +54,21 @@ class _EditPresetSheetState extends State<EditPresetSheet> {
   late int _workSeconds;
   late int _restSeconds;
 
+  /// Rounds and HYROX interval timers use a single work step plus rest
+  /// between rounds (no rest after the last round), mirroring the
+  /// Compromised Run structure.
+  late final bool _usesRoundRest;
+
   @override
   void initState() {
     super.initState();
     _nameCtrl = TextEditingController(text: widget.routine.name);
     _noteCtrl = TextEditingController(text: widget.routine.description);
+
+    final cat = widget.routine.category.toLowerCase();
+    final isRoundsType = cat.contains('round');
+    _usesRoundRest = isRoundsType ||
+        (cat.contains('hyrox') && widget.routine.intervals.length <= 1);
 
     _rounds = widget.routine.rounds;
     _prepSeconds = widget.routine.prepSeconds;
@@ -66,9 +76,18 @@ class _EditPresetSheetState extends State<EditPresetSheet> {
     _workSeconds = widget.routine.intervals.isNotEmpty
         ? widget.routine.intervals.first.durationSeconds
         : 20;
-    _restSeconds = widget.routine.intervals.length > 1
-        ? widget.routine.intervals[1].durationSeconds
-        : widget.routine.restBetweenRoundsSeconds;
+    if (_usesRoundRest) {
+      // Legacy Rounds timers may still carry a REST step instead.
+      _restSeconds = widget.routine.restBetweenRoundsSeconds > 0
+          ? widget.routine.restBetweenRoundsSeconds
+          : (widget.routine.intervals.length > 1
+              ? widget.routine.intervals[1].durationSeconds
+              : 0);
+    } else {
+      _restSeconds = widget.routine.intervals.length > 1
+          ? widget.routine.intervals[1].durationSeconds
+          : widget.routine.restBetweenRoundsSeconds;
+    }
   }
 
   @override
@@ -103,7 +122,8 @@ class _EditPresetSheetState extends State<EditPresetSheet> {
       ),
     ];
 
-    if (hasRest && _restSeconds > 0) {
+    final addRestStep = !_usesRoundRest && hasRest && _restSeconds > 0;
+    if (addRestStep) {
       intervals.add(
         IntervalStep(
           id: widget.routine.intervals.length > 1
@@ -124,7 +144,10 @@ class _EditPresetSheetState extends State<EditPresetSheet> {
       rounds: _rounds,
       prepSeconds: _prepSeconds,
       cooldownSeconds: _cooldownSeconds,
-      restBetweenRoundsSeconds: _restSeconds,
+      // Rest lives either in a REST step or between rounds — never both.
+      restBetweenRoundsSeconds: _usesRoundRest
+          ? _restSeconds
+          : (addRestStep ? 0 : widget.routine.restBetweenRoundsSeconds),
       intervals: intervals,
       updatedAt: DateTime.now(),
     );
@@ -145,7 +168,7 @@ class _EditPresetSheetState extends State<EditPresetSheet> {
     final isForTime = cat.contains('fortime');
     final isCountdown = cat.contains('countdown');
 
-    final hasRest = isTabata || isRounds || _restSeconds > 0;
+    final hasRest = isTabata || isRounds || _usesRoundRest || _restSeconds > 0;
     final hasRounds = !isAmrap && !isForTime && !isCountdown;
 
     return Padding(
@@ -330,14 +353,22 @@ class _EditPresetSheetState extends State<EditPresetSheet> {
                     valueText: _formatSecs(_workSeconds),
                     color: color,
                     onMinus: () {
-                      final step = (isAmrap || isForTime) ? 60 : (_workSeconds > 60 ? 15 : 5);
+                      final step = (isAmrap || isForTime)
+                          ? 60
+                          : (_usesRoundRest && _workSeconds > 60)
+                              ? 30
+                              : (_workSeconds > 60 ? 15 : 5);
                       if (_workSeconds > step) {
                         setState(() => _workSeconds -= step);
                         HapticFeedback.lightImpact();
                       }
                     },
                     onPlus: () {
-                      final step = (isAmrap || isForTime) ? 60 : (_workSeconds >= 60 ? 15 : 5);
+                      final step = (isAmrap || isForTime)
+                          ? 60
+                          : (_usesRoundRest && _workSeconds >= 60)
+                              ? 30
+                              : (_workSeconds >= 60 ? 15 : 5);
                       setState(() => _workSeconds += step);
                       HapticFeedback.lightImpact();
                     },

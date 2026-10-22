@@ -91,8 +91,9 @@ class WorkoutController extends ChangeNotifier {
         }
       }
 
-      // Rest between rounds if any
-      if (r < routine.rounds && routine.restBetweenRoundsSeconds > 0) {
+      // Rest between rounds if any (skipped when the round already ends with
+      // a REST step, otherwise the athlete would rest twice in a row).
+      if (r < routine.rounds && routine.restBetweenRoundsSeconds > 0 && !routine.endsWithRestStep) {
         _segments.add(
           ExecutionSegment(
             title: 'REST BETWEEN ROUNDS',
@@ -390,6 +391,31 @@ class WorkoutController extends ChangeNotifier {
     _updateNotification(force: true);
   }
 
+  Future<WorkoutLog> recordCurrentLog() async {
+    if (_recordedLog != null) return _recordedLog!;
+
+    final duration = _totalElapsedSeconds > 0
+        ? _totalElapsedSeconds
+        : _totalWorkoutSeconds;
+
+    final log = WorkoutLog(
+      id: const Uuid().v4(),
+      timerType: routine.category.toLowerCase(),
+      title: routine.name,
+      defaultDefinition: routine.description.isNotEmpty
+          ? routine.description
+          : '${routine.rounds} Rounds • ${_buildSummary()}',
+      userNote: '',
+      totalDurationSeconds: duration,
+      completedAt: DateTime.now(),
+      completedRounds: routine.rounds,
+      totalRounds: routine.rounds,
+    );
+    _recordedLog = log;
+    await _logRepository.saveLog(log);
+    return log;
+  }
+
   void _finishWorkout() async {
     _timer?.cancel();
     _isRunning = false;
@@ -407,25 +433,7 @@ class WorkoutController extends ChangeNotifier {
       roundInfo: 'Well done! ${routine.name} complete.',
     );
 
-    // Automatically log this completed workout session
-    final log = WorkoutLog(
-      id: const Uuid().v4(),
-      timerType: routine.category.toLowerCase(),
-      title: routine.name,
-      defaultDefinition: routine.description.isNotEmpty
-          ? routine.description
-          : '${routine.rounds} Rounds • ${_buildSummary()}',
-      userNote: '',
-      totalDurationSeconds: _totalElapsedSeconds > 0
-          ? _totalElapsedSeconds
-          : _totalWorkoutSeconds,
-      completedAt: DateTime.now(),
-      completedRounds: routine.rounds,
-      totalRounds: routine.rounds,
-    );
-    _recordedLog = log;
-    await _logRepository.saveLog(log);
-
+    await recordCurrentLog();
     notifyListeners();
   }
 

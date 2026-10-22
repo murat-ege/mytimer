@@ -79,16 +79,24 @@ void main() {
   });
 
   group('SystemDateFormatter Tests', () {
-    test('Formats date and time strings consistently', () {
+    test('Formats date and time strings consistently in 24h and 12h formats', () {
       final dt = DateTime(2026, 10, 21, 14, 5, 9);
-      final formatted = SystemDateFormatter.formatDateTime(dt);
-      expect(formatted.isNotEmpty, true);
+      final formatted24 = SystemDateFormatter.formatDateTime(dt, use24Hour: true);
+      expect(formatted24.isNotEmpty, true);
+      expect(formatted24.contains('14:05'), true);
+
+      final formatted12 = SystemDateFormatter.formatDateTime(dt, use24Hour: false);
+      expect(formatted12.isNotEmpty, true);
+      expect(formatted12.contains('2:05') || formatted12.contains('PM'), true);
+
+      final time24 = SystemDateFormatter.formatTime(dt, use24Hour: true);
+      expect(time24, '14:05');
+
+      final time12 = SystemDateFormatter.formatTime(dt, use24Hour: false);
+      expect(time12.contains('2:05') || time12.contains('PM'), true);
 
       final dateOnly = SystemDateFormatter.formatDate(dt);
       expect(dateOnly.isNotEmpty, true);
-
-      final timeOnly = SystemDateFormatter.formatTime(dt);
-      expect(timeOnly.isNotEmpty, true);
     });
   });
 
@@ -113,12 +121,19 @@ void main() {
   });
 
   group('TimerSettings Tests', () {
-    test('Default language is English and voice/theme defaults exist', () {
+    test('Default setup settings match user configuration', () {
       const settings = TimerSettings();
-      expect(settings.languageCode, 'en');
-      expect(settings.voiceCoachEnabled, true);
-      expect(settings.voiceCoachId, 'male_1');
-      expect(settings.audioThemeId, 'classic_beeps');
+      expect(settings.soundEnabled, isTrue);
+      expect(settings.audioThemeId, equals('beep_and_go'));
+      expect(settings.voiceCoachEnabled, isFalse);
+      expect(settings.vibrationEnabled, isTrue);
+      expect(settings.wakelockEnabled, isTrue);
+      expect(settings.confirmTimerExit, isFalse);
+      expect(settings.autoStartTimer, isFalse);
+      expect(settings.use24HourFormat, isTrue); // default is 24h
+      expect(settings.autoSaveWorkoutLog, isTrue); // default is true
+      expect(settings.languageCode, equals('en'));
+      expect(settings.voiceCoachId, equals('male_1'));
     });
 
     test('Serialization and deserialization preserves audioThemeId and voiceCoachId', () {
@@ -129,6 +144,7 @@ void main() {
         voiceCoachEnabled: true,
         voiceCoachId: 'female_2',
         audioThemeId: 'arena_horn',
+        autoSaveWorkoutLog: false,
       );
 
       final json = original.toJson();
@@ -137,6 +153,7 @@ void main() {
       expect(restored.languageCode, 'tr');
       expect(restored.voiceCoachId, 'female_2');
       expect(restored.audioThemeId, 'arena_horn');
+      expect(restored.autoSaveWorkoutLog, isFalse);
     });
   });
 }

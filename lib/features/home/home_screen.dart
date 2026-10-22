@@ -116,12 +116,14 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  void _resetToDefault() {
-    setState(() {
-      _folderOrder = List.from(HomeTimerHelper.defaultFolderOrder);
-    });
-    _saveFolderOrder();
-    HapticFeedback.heavyImpact();
+  Future<void> _resetToDefault() async {
+    final newOrder = await HomeTimerHelper.resetToDefaultLayout(routines: _routines);
+    if (mounted) {
+      setState(() {
+        _folderOrder = newOrder;
+      });
+      HapticFeedback.heavyImpact();
+    }
   }
 
   void _openSettings(BuildContext context) async {
@@ -150,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen>
     final folder = HomeTimerHelper.folderDefinitions[folderId];
     if (folder == null) return;
 
-    final itemIds = await HomeTimerHelper.getFolderItems(folderId);
+    final itemIds = await HomeTimerHelper.getFolderItems(folderId, routines: _routines);
     final resolvedItems = itemIds
         .map((id) => HomeTimerHelper.resolveFolderItem(
               folderId: folderId,

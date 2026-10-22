@@ -179,7 +179,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quit => 'ÇIK';
 
   @override
-  String get createRoutine => 'YENİ TİMER OLUŞTUR';
+  String get createRoutine => 'YENİ SAYAÇ OLUŞTUR';
 
   @override
   String get editTimer => 'Sayacı Düzenle';
@@ -242,13 +242,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Tüm antrenman geçmişini kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.';
 
   @override
-  String get attachPhoto => 'Görsel Yükle';
-
-  @override
-  String get changePhoto => 'Görseli Değiştir';
-
-  @override
-  String get removePhoto => 'Görseli Kaldır';
+  String get addWorkoutNote => 'ANTRENMAN NOTU EKLE';
 
   @override
   String get workoutNote => 'Antrenman Notu';
@@ -479,6 +473,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get timerCannotBeDeleted => 'Yerleşik sayaç (Silinemez)';
 
   @override
+  String timerDeleted(String name) {
+    return '$name silindi';
+  }
+
+  @override
   String get searchTimersHint => 'Sayaç ara...';
 
   @override
@@ -506,4 +505,83 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get allTimersAndWod => 'Tüm Sayaçlar & WOD';
+
+  @override
+  String get openSourceLicenseTitle => 'Açık Kaynak ve MIT Lisansı';
+
+  @override
+  String get openSourceLicenseDesc =>
+      'MyTimer tamamen ücretsiz ve açık kaynaklıdır. Orijinal telif hakkı ve lisans bildirimini korumak şartıyla, herkes kaynak kodunu alabilir, geliştirebilir ve MIT Lisansı koşulları altında özgürce kullanabilir ve dağıtabilir.';
+
+  @override
+  String get trademarkDisclaimerTitle => 'Ticari Marka Bildirimi';
+
+  @override
+  String get trademarkDisclaimerDesc =>
+      'CrossFit®, CrossFit, LLCnin; HYROX®, World Series of Fitness GmbHnin tescilli ticari markalarıdır. MyTimer bağımsız bir açık kaynak projesidir ve bu kuruluşlarla hiçbir resmi bağlantısı, sponsorluğu veya onayı bulunmamaktadır.';
+
+  @override
+  String get timeFormat => 'Saat Formatı';
+
+  @override
+  String get timeFormatSubtitle =>
+      'Saatleri 24 saat (14:30) veya 12 saat (2:30 PM) düzeninde göster';
+
+  @override
+  String get timeFormat24 => '24 Saat (24h)';
+
+  @override
+  String get timeFormat12 => '12 Saat (AM/PM)';
+
+  @override
+  String get workoutHistory => 'Antrenman Geçmişi';
+
+  @override
+  String get viewHistory => 'Geçmişi Gör';
+
+  @override
+  String get history => 'Geçmiş';
+
+  @override
+  String get pastPerformanceSubtitle => 'Antrenman Geçmişi & Performans';
+
+  @override
+  String completedTimes(int count) {
+    return '$count Kez Yapıldı';
+  }
+
+  @override
+  String get noWorkoutHistory =>
+      'Bu antrenman için henüz kaydedilmiş geçmiş bulunmuyor.';
+
+  @override
+  String get latestTag => 'SON';
+
+  @override
+  String previousWorkouts(String name, int count) {
+    return 'Önceki $name Kayıtların ($count)';
+  }
+
+  @override
+  String get viewAll => 'Tümünü Gör >';
+
+  @override
+  String lastCompleted(String dateTime, String duration) {
+    return 'Son: $dateTime • $duration';
+  }
+
+  @override
+  String noteLabel(String note) {
+    return 'Not: $note';
+  }
+
+  @override
+  String get close => 'KAPAT';
+
+  @override
+  String get autoSaveWorkoutLog => 'Antrenman Günlüğünü Otomatik Kaydet';
+
+  @override
+  String get autoSaveWorkoutLogSubtitle =>
+      'Bitişte onay diyaloğu göstermeden otomatik kaydeder (varsayılan: açık)';
 }

@@ -32,10 +32,16 @@ class CustomRoutine {
     required this.updatedAt,
   });
 
+  /// Whether each round already ends with a REST step. In that case
+  /// [restBetweenRoundsSeconds] is ignored to avoid resting twice in a row.
+  bool get endsWithRestStep =>
+      intervals.isNotEmpty && intervals.last.phase == TimerPhase.rest;
+
   int get totalDurationSeconds {
     final intervalsSum = intervals.fold<int>(0, (sum, i) => sum + i.durationSeconds);
     final roundsTime = intervalsSum * rounds;
-    final roundRestsTime = (rounds > 1) ? restBetweenRoundsSeconds * (rounds - 1) : 0;
+    final roundRestsTime =
+        (rounds > 1 && !endsWithRestStep) ? restBetweenRoundsSeconds * (rounds - 1) : 0;
     return roundsTime + roundRestsTime + cooldownSeconds;
   }
 

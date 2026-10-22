@@ -30,6 +30,7 @@ class SelectPresetTypeSheet extends StatelessWidget {
       {'cat': 'amrap', 'name': 'AMRAP', 'desc': '12 Min Time Cap'},
       {'cat': 'fortime', 'name': 'For Time', 'desc': '15 Min Cap'},
       {'cat': 'countdown', 'name': l10n?.countdownTypeOption ?? 'Countdown', 'desc': '5 Min Standard Countdown'},
+      {'cat': 'hyrox', 'name': 'HYROX', 'desc': '5 Min Work / 1 Min Rest • 4 Rounds'},
     ];
 
     return SafeArea(

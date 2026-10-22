@@ -1,11 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../models/workout_log.dart';
 import '../../repositories/workout_log_repository.dart';
 import '../../services/system_date_formatter.dart';
 import '../../services/workout_log_exporter.dart';
+import 'widgets/workout_history_modal.dart';
 import 'widgets/workout_log_card.dart';
 
 class WorkoutLogScreen extends StatefulWidget {
@@ -17,7 +16,6 @@ class WorkoutLogScreen extends StatefulWidget {
 
 class _WorkoutLogScreenState extends State<WorkoutLogScreen> {
   final WorkoutLogRepository _repository = WorkoutLogRepository();
-  final ImagePicker _imagePicker = ImagePicker();
 
   List<WorkoutLog> _logs = [];
   bool _isLoading = true;
@@ -71,128 +69,6 @@ class _WorkoutLogScreenState extends State<WorkoutLogScreen> {
       default:
         return const Color(0xFF00BFA5);
     }
-  }
-
-  Future<void> _pickImage(WorkoutLog log, ImageSource source) async {
-    try {
-      final picked = await _imagePicker.pickImage(
-        source: source,
-        maxWidth: 1600,
-        maxHeight: 1600,
-        imageQuality: 85,
-      );
-      if (picked != null) {
-        final updated = log.copyWith(imagePath: picked.path);
-        await _repository.saveLog(updated);
-        _loadLogs();
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Photo attached to workout!')),
-          );
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to attach photo: $e')),
-        );
-      }
-    }
-  }
-
-  void _showImageOptions(WorkoutLog log) {
-    final l10n = AppLocalizations.of(context);
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: const Color(0xFF1E1E1E),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                log.imagePath != null ? (l10n?.changePhoto ?? 'Change Photo') : (l10n?.attachPhoto ?? 'Attach Photo (Whiteboard / Score)'),
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              const SizedBox(height: 16),
-              ListTile(
-                leading: const Icon(Icons.camera_alt, color: Color(0xFF00E676)),
-                title: const Text('Take Photo (Camera)', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.of(ctx).pop();
-                  _pickImage(log, ImageSource.camera);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.photo_library, color: Color(0xFF00E5FF)),
-                title: const Text('Choose from Gallery', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.of(ctx).pop();
-                  _pickImage(log, ImageSource.gallery);
-                },
-              ),
-              if (log.imagePath != null)
-                ListTile(
-                  leading: const Icon(Icons.delete_outline, color: Colors.redAccent),
-                  title: Text(l10n?.removePhoto ?? 'Remove Photo', style: const TextStyle(color: Colors.redAccent)),
-                  onTap: () async {
-                    Navigator.of(ctx).pop();
-                    final updated = log.copyWith(imagePath: '');
-                    await _repository.saveLog(updated);
-                    _loadLogs();
-                  },
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showFullImage(String path, String title) {
-    showDialog(
-      context: context,
-      builder: (ctx) => Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white, size: 28),
-                  onPressed: () => Navigator.of(ctx).pop(),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.file(
-                File(path),
-                fit: BoxFit.contain,
-                errorBuilder: (_, _, _) => Container(
-                  padding: const EdgeInsets.all(32),
-                  color: const Color(0xFF1E1E1E),
-                  child: const Text('Image file no longer available on device', style: TextStyle(color: Colors.white54)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   void _editNote(WorkoutLog log) {
@@ -411,11 +287,13 @@ class _WorkoutLogScreenState extends State<WorkoutLogScreen> {
                             return WorkoutLogCard(
                               log: log,
                               typeColor: _getTimerColor(log.timerType),
-                              onPhotoOptions: () => _showImageOptions(log),
                               onEditNote: () => _editNote(log),
                               onExport: () => _exportSingleCsv(log),
                               onDelete: () => _deleteSingleLog(log),
-                              onShowFullImage: _showFullImage,
+                              onViewHistory: () => WorkoutHistoryModal.show(
+                                context: context,
+                                workoutTitle: log.title,
+                              ),
                             );
                           },
                         ),

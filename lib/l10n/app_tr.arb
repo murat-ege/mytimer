@@ -75,9 +75,7 @@
   "exportAllCsv": "Tümünü Export Al (CSV)",
   "clearAllLogs": "Tüm Logları Temizle",
   "clearLogsConfirm": "Tüm antrenman geçmişini kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
-  "attachPhoto": "Görsel Yükle",
-  "changePhoto": "Görseli Değiştir",
-  "removePhoto": "Görseli Kaldır",
+  "addWorkoutNote": "ANTRENMAN NOTU EKLE",
   "workoutNote": "Antrenman Notu",
   "workoutNoteHint": "Skor, ağırlıklar, tekrar sayıları veya antrenman notu...",
   "presets": "Sayaçlar & Rutinler",
@@ -164,6 +162,14 @@
   "customTimerWillBeUpdated": "Özel sayaç güncellenecek",
   "builtInPresetsProtected": "Yerleşik standart sayaçlar korunmaktadır ve silinemez. Dilerseniz ana ekrandan kaldırabilirsiniz.",
   "timerCannotBeDeleted": "Yerleşik sayaç (Silinemez)",
+  "timerDeleted": "{name} silindi",
+  "@timerDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "searchTimersHint": "Sayaç ara...",
   "newTimer": "Yeni Sayaç",
   "addCategoryTimer": "{category} Ekle",
@@ -179,5 +185,61 @@
   "audioCapsule": "SES",
   "coachCapsule": "KOÇ",
   "roundsShort": "Tur",
-  "allTimersAndWod": "Tüm Sayaçlar & WOD"
+  "allTimersAndWod": "Tüm Sayaçlar & WOD",
+  "openSourceLicenseTitle": "Açık Kaynak ve MIT Lisansı",
+  "openSourceLicenseDesc": "MyTimer tamamen ücretsiz ve açık kaynaklıdır. Orijinal telif hakkı ve lisans bildirimini korumak şartıyla, herkes kaynak kodunu alabilir, geliştirebilir ve MIT Lisansı koşulları altında özgürce kullanabilir ve dağıtabilir.",
+  "trademarkDisclaimerTitle": "Ticari Marka Bildirimi",
+  "trademarkDisclaimerDesc": "CrossFit®, CrossFit, LLC'nin; HYROX®, World Series of Fitness GmbH'nin tescilli ticari markalarıdır. MyTimer bağımsız bir açık kaynak projesidir ve bu kuruluşlarla hiçbir resmi bağlantısı, sponsorluğu veya onayı bulunmamaktadır.",
+  "timeFormat": "Saat Formatı",
+  "timeFormatSubtitle": "Saatleri 24 saat (14:30) veya 12 saat (2:30 PM) düzeninde göster",
+  "timeFormat24": "24 Saat (24h)",
+  "timeFormat12": "12 Saat (AM/PM)",
+  "workoutHistory": "Antrenman Geçmişi",
+  "viewHistory": "Geçmişi Gör",
+  "history": "Geçmiş",
+  "pastPerformanceSubtitle": "Antrenman Geçmişi & Performans",
+  "completedTimes": "{count} Kez Yapıldı",
+  "@completedTimes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noWorkoutHistory": "Bu antrenman için henüz kaydedilmiş geçmiş bulunmuyor.",
+  "latestTag": "SON",
+  "previousWorkouts": "Önceki {name} Kayıtların ({count})",
+  "@previousWorkouts": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "viewAll": "Tümünü Gör >",
+  "lastCompleted": "Son: {dateTime} • {duration}",
+  "@lastCompleted": {
+    "placeholders": {
+      "dateTime": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "noteLabel": "Not: {note}",
+  "@noteLabel": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "close": "KAPAT",
+  "autoSaveWorkoutLog": "Antrenman Günlüğünü Otomatik Kaydet",
+  "autoSaveWorkoutLogSubtitle": "Bitişte onay diyaloğu göstermeden otomatik kaydeder (varsayılan: açık)"
 }

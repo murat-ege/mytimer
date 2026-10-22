@@ -241,13 +241,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Are you sure you want to permanently delete all workout logs? This action cannot be undone.';
 
   @override
-  String get attachPhoto => 'Attach Photo';
-
-  @override
-  String get changePhoto => 'Change Photo';
-
-  @override
-  String get removePhoto => 'Remove Photo';
+  String get addWorkoutNote => 'ADD WORKOUT NOTE';
 
   @override
   String get workoutNote => 'Workout Notes';
@@ -477,6 +471,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timerCannotBeDeleted => 'Built-in timer (Cannot be deleted)';
 
   @override
+  String timerDeleted(String name) {
+    return '$name deleted';
+  }
+
+  @override
   String get searchTimersHint => 'Search timers...';
 
   @override
@@ -504,4 +503,83 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get allTimersAndWod => 'All Timers & WOD';
+
+  @override
+  String get openSourceLicenseTitle => 'Open Source & MIT License';
+
+  @override
+  String get openSourceLicenseDesc =>
+      'MyTimer is completely free and open-source. Anyone is free to obtain the source code, modify it, and distribute it under the terms of the MIT License, provided that the original copyright notice and permission notice are preserved.';
+
+  @override
+  String get trademarkDisclaimerTitle => 'Trademark Notice';
+
+  @override
+  String get trademarkDisclaimerDesc =>
+      'CrossFit® is a registered trademark of CrossFit, LLC. HYROX® is a registered trademark of World Series of Fitness GmbH. MyTimer is an independent community open-source project and is not affiliated with, endorsed by, or sponsored by these entities.';
+
+  @override
+  String get timeFormat => 'Time Format';
+
+  @override
+  String get timeFormatSubtitle =>
+      'Display hours in 24-hour (14:30) or 12-hour (2:30 PM) format';
+
+  @override
+  String get timeFormat24 => '24-Hour (24h)';
+
+  @override
+  String get timeFormat12 => '12-Hour (AM/PM)';
+
+  @override
+  String get workoutHistory => 'Workout History';
+
+  @override
+  String get viewHistory => 'View History';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get pastPerformanceSubtitle => 'Workout History & Performance';
+
+  @override
+  String completedTimes(int count) {
+    return 'Completed $count times';
+  }
+
+  @override
+  String get noWorkoutHistory =>
+      'No past history recorded for this workout yet.';
+
+  @override
+  String get latestTag => 'LATEST';
+
+  @override
+  String previousWorkouts(String name, int count) {
+    return 'Previous $name Sessions ($count)';
+  }
+
+  @override
+  String get viewAll => 'View All >';
+
+  @override
+  String lastCompleted(String dateTime, String duration) {
+    return 'Last: $dateTime • $duration';
+  }
+
+  @override
+  String noteLabel(String note) {
+    return 'Note: $note';
+  }
+
+  @override
+  String get close => 'CLOSE';
+
+  @override
+  String get autoSaveWorkoutLog => 'Auto-Save Workout Log';
+
+  @override
+  String get autoSaveWorkoutLogSubtitle =>
+      'Automatically save workout without showing dialog on finish (default: on)';
 }

@@ -34,6 +34,19 @@ class WorkoutLogRepository {
     return logs;
   }
 
+  Future<List<WorkoutLog>> getLogsByWorkoutName(String name) async {
+    final all = await getLogs();
+    final cleanTarget = _cleanTitle(name);
+    return all.where((log) => _cleanTitle(log.title) == cleanTarget).toList();
+  }
+
+  static String _cleanTitle(String title) {
+    return title
+        .replaceAll(RegExp(r'\s*\((Test|Erken Bitiş|Erken Çıkış)[^)]*\)', caseSensitive: false), '')
+        .trim()
+        .toLowerCase();
+  }
+
   Future<void> saveLog(WorkoutLog log) async {
     final box = await _getBox();
     await box.put(log.id, jsonEncode(log.toJson()));

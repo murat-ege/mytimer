@@ -7,6 +7,7 @@ import 'features/home/home_screen.dart';
 import 'features/splash/splash_screen.dart';
 import 'services/notification_service.dart';
 import 'services/sound_service.dart';
+import 'services/system_date_formatter.dart';
 import 'services/voice_coach_service.dart';
 import 'shared/theme/app_typography.dart';
 
@@ -33,6 +34,9 @@ void main() async {
   // Load saved settings
   final repository = LocalTimerRepository();
   final settings = await repository.getSettings();
+
+  // Apply time format preference
+  SystemDateFormatter.use24HourFormat = settings.use24HourFormat;
 
   // Apply sound and voice settings
   SoundService().soundEnabled = settings.soundEnabled;

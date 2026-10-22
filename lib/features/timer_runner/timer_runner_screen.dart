@@ -27,6 +27,7 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
   final LocalTimerRepository _timerRepository = LocalTimerRepository();
   bool _confirmTimerExit = false;
   bool _hasShownFinishModal = false;
+  bool _autoSaveWorkoutLog = true;
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
       if (mounted) {
         setState(() {
           _confirmTimerExit = s.confirmTimerExit;
+          _autoSaveWorkoutLog = s.autoSaveWorkoutLog;
         });
         if (s.autoStartTimer &&
             !_controller.isRunning &&
@@ -81,9 +83,11 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
       setState(() {});
       if (_controller.isFinished && !_hasShownFinishModal) {
         _hasShownFinishModal = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _showFinishModal();
-        });
+        if (!_autoSaveWorkoutLog) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _showFinishModal();
+          });
+        }
       }
     }
   }
@@ -490,14 +494,20 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
         // Sub-Row: Audio / Voice Coach / Rotation Capsule
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TimerUtilityControls(
-                primaryColor: primaryColor,
-                onToggleOrientation: _toggleOrientation,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TimerUtilityControls(
+                    primaryColor: primaryColor,
+                    onToggleOrientation: _toggleOrientation,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
 
@@ -630,7 +640,7 @@ class _TimerRunnerScreenState extends State<TimerRunnerScreen> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
                     icon: const Icon(Icons.notes, size: 20),
-                    label: const Text('ADD WORKOUT NOTE & PHOTO', style: TextStyle(fontWeight: FontWeight.w900)),
+                    label: Text(l10n?.addWorkoutNote ?? 'ADD WORKOUT NOTE', style: const TextStyle(fontWeight: FontWeight.w900)),
                     onPressed: _showFinishModal,
                   ),
                 ],

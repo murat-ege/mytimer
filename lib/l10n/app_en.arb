@@ -75,9 +75,7 @@
   "exportAllCsv": "Export All (CSV)",
   "clearAllLogs": "Clear All Logs",
   "clearLogsConfirm": "Are you sure you want to permanently delete all workout logs? This action cannot be undone.",
-  "attachPhoto": "Attach Photo",
-  "changePhoto": "Change Photo",
-  "removePhoto": "Remove Photo",
+  "addWorkoutNote": "ADD WORKOUT NOTE",
   "workoutNote": "Workout Notes",
   "workoutNoteHint": "Score, weights, reps, scaling, or how you felt...",
   "presets": "Timers & Routines",
@@ -164,6 +162,14 @@
   "customTimerWillBeUpdated": "Custom timer will be updated",
   "builtInPresetsProtected": "Built-in standard timers are protected and cannot be deleted. You can unpin them from the home screen.",
   "timerCannotBeDeleted": "Built-in timer (Cannot be deleted)",
+  "timerDeleted": "{name} deleted",
+  "@timerDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "searchTimersHint": "Search timers...",
   "newTimer": "New Timer",
   "addCategoryTimer": "Add {category}",
@@ -179,5 +185,61 @@
   "audioCapsule": "AUDIO",
   "coachCapsule": "COACH",
   "roundsShort": "Rnds",
-  "allTimersAndWod": "All Timers & WOD"
+  "allTimersAndWod": "All Timers & WOD",
+  "openSourceLicenseTitle": "Open Source & MIT License",
+  "openSourceLicenseDesc": "MyTimer is completely free and open-source. Anyone is free to obtain the source code, modify it, and distribute it under the terms of the MIT License, provided that the original copyright notice and permission notice are preserved.",
+  "trademarkDisclaimerTitle": "Trademark Notice",
+  "trademarkDisclaimerDesc": "CrossFit® is a registered trademark of CrossFit, LLC. HYROX® is a registered trademark of World Series of Fitness GmbH. MyTimer is an independent community open-source project and is not affiliated with, endorsed by, or sponsored by these entities.",
+  "timeFormat": "Time Format",
+  "timeFormatSubtitle": "Display hours in 24-hour (14:30) or 12-hour (2:30 PM) format",
+  "timeFormat24": "24-Hour (24h)",
+  "timeFormat12": "12-Hour (AM/PM)",
+  "workoutHistory": "Workout History",
+  "viewHistory": "View History",
+  "history": "History",
+  "pastPerformanceSubtitle": "Workout History & Performance",
+  "completedTimes": "Completed {count} times",
+  "@completedTimes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noWorkoutHistory": "No past history recorded for this workout yet.",
+  "latestTag": "LATEST",
+  "previousWorkouts": "Previous {name} Sessions ({count})",
+  "@previousWorkouts": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "viewAll": "View All >",
+  "lastCompleted": "Last: {dateTime} • {duration}",
+  "@lastCompleted": {
+    "placeholders": {
+      "dateTime": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "noteLabel": "Note: {note}",
+  "@noteLabel": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "close": "CLOSE",
+  "autoSaveWorkoutLog": "Auto-Save Workout Log",
+  "autoSaveWorkoutLogSubtitle": "Automatically save workout without showing dialog on finish (default: on)"
 }

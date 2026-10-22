@@ -1,31 +1,29 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../../models/workout_log.dart';
 import '../../../services/system_date_formatter.dart';
 
 class WorkoutLogCard extends StatelessWidget {
   final WorkoutLog log;
   final Color typeColor;
-  final VoidCallback onPhotoOptions;
   final VoidCallback onEditNote;
   final VoidCallback onExport;
   final VoidCallback onDelete;
-  final void Function(String path, String title) onShowFullImage;
+  final VoidCallback? onViewHistory;
 
   const WorkoutLogCard({
     super.key,
     required this.log,
     required this.typeColor,
-    required this.onPhotoOptions,
     required this.onEditNote,
     required this.onExport,
     required this.onDelete,
-    required this.onShowFullImage,
+    this.onViewHistory,
   });
 
   @override
   Widget build(BuildContext context) {
-    final hasImage = log.imagePath != null && log.imagePath!.isNotEmpty && File(log.imagePath!).existsSync();
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -74,22 +72,23 @@ class WorkoutLogCard extends StatelessWidget {
                   icon: const Icon(Icons.more_vert, color: Colors.white54, size: 20),
                   color: const Color(0xFF262626),
                   onSelected: (val) {
-                    if (val == 'photo') onPhotoOptions();
+                    if (val == 'history' && onViewHistory != null) onViewHistory!();
                     if (val == 'note') onEditNote();
                     if (val == 'export') onExport();
                     if (val == 'delete') onDelete();
                   },
                   itemBuilder: (_) => [
-                    PopupMenuItem(
-                      value: 'photo',
-                      child: Row(
-                        children: [
-                          Icon(hasImage ? Icons.image : Icons.add_a_photo_outlined, color: typeColor, size: 18),
-                          const SizedBox(width: 8),
-                          Text(hasImage ? 'Change Photo' : 'Attach Photo', style: const TextStyle(color: Colors.white)),
-                        ],
+                    if (onViewHistory != null)
+                      PopupMenuItem(
+                        value: 'history',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.history_rounded, color: Color(0xFF00E676), size: 18),
+                            const SizedBox(width: 8),
+                            Text(l10n?.viewHistory ?? 'View History', style: const TextStyle(color: Colors.white)),
+                          ],
+                        ),
                       ),
-                    ),
                     const PopupMenuItem(
                       value: 'note',
                       child: Row(
@@ -127,14 +126,47 @@ class WorkoutLogCard extends StatelessWidget {
 
             const SizedBox(height: 8),
 
-            // Workout Title
-            Text(
-              log.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w900,
-              ),
+            // Workout Title with History quick tap
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: onViewHistory,
+                    child: Text(
+                      log.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ),
+                if (onViewHistory != null)
+                  InkWell(
+                    onTap: onViewHistory,
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.06),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.history_rounded, size: 14, color: Color(0xFF00E676)),
+                          const SizedBox(width: 4),
+                          Text(
+                            l10n?.history ?? 'History',
+                            style: const TextStyle(color: Color(0xFF00E676), fontSize: 11, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
             ),
 
             if (log.defaultDefinition.isNotEmpty) ...[
@@ -208,60 +240,6 @@ class WorkoutLogCard extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-              ),
-            ],
-
-            // Attached Photo thumbnail if present
-            if (hasImage) ...[
-              const SizedBox(height: 12),
-              GestureDetector(
-                onTap: () => onShowFullImage(log.imagePath!, log.title),
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.file(
-                        File(log.imagePath!),
-                        height: 130,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, _, _) => const SizedBox(),
-                      ),
-                    ),
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.6),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.fullscreen, color: Colors.white, size: 18),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ] else ...[
-              const SizedBox(height: 8),
-              InkWell(
-                onTap: onPhotoOptions,
-                borderRadius: BorderRadius.circular(8),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.add_photo_alternate_outlined, color: typeColor.withValues(alpha: 0.7), size: 16),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Attach whiteboard / workout photo',
-                        style: TextStyle(color: typeColor.withValues(alpha: 0.8), fontSize: 12, fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ],

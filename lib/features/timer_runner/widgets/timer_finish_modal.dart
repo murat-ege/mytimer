@@ -1,11 +1,11 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../l10n/generated/app_localizations.dart';
 import '../../../models/custom_routine.dart';
 import '../../../models/workout_log.dart';
 import '../../../repositories/workout_log_repository.dart';
+import '../../../services/system_date_formatter.dart';
+import '../../workout_log/widgets/workout_history_modal.dart';
 import '../../workout_log/workout_log_screen.dart';
 
 class TimerFinishModal extends StatefulWidget {
@@ -44,9 +44,7 @@ class TimerFinishModal extends StatefulWidget {
 
 class _TimerFinishModalState extends State<TimerFinishModal> {
   late final TextEditingController _noteCtrl;
-  final ImagePicker _imagePicker = ImagePicker();
   final WorkoutLogRepository _logRepository = WorkoutLogRepository();
-  String? _localPhotoPath;
 
   @override
   void initState() {
@@ -125,56 +123,94 @@ class _TimerFinishModalState extends State<TimerFinishModal> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
               ),
             ),
-            const SizedBox(height: 12),
+            FutureBuilder<List<WorkoutLog>>(
+              future: _logRepository.getLogsByWorkoutName(widget.routine.name),
+              builder: (context, snapshot) {
+                final pastLogs = (snapshot.data ?? []).where((l) => l.id != widget.log.id).toList();
+                if (pastLogs.isEmpty) return const SizedBox.shrink();
 
-            // Photo button / Preview
-            if (_localPhotoPath != null)
-              Stack(
-                children: [
-                  ClipRRect(
+                final latest = pastLogs.first;
+                return Container(
+                  margin: const EdgeInsets.only(top: 14),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.file(
-                      File(_localPhotoPath!),
-                      height: 100,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    border: Border.all(color: Colors.white12),
                   ),
-                  Positioned(
-                    top: 6,
-                    right: 6,
-                    child: GestureDetector(
-                      onTap: () => setState(() => _localPhotoPath = null),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
-                        child: const Icon(Icons.close, color: Colors.white, size: 18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.history_rounded, size: 16, color: Color(0xFF00E676)),
+                              const SizedBox(width: 6),
+                              Text(
+                                l10n?.previousWorkouts(widget.routine.name, pastLogs.length) ??
+                                    'Previous ${widget.routine.name} (${pastLogs.length})',
+                                style: const TextStyle(
+                                  color: Color(0xFF00E676),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              WorkoutHistoryModal.show(
+                                context: context,
+                                workoutTitle: widget.routine.name,
+                              );
+                            },
+                            child: Text(
+                              l10n?.viewAll ?? 'View All >',
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                      const SizedBox(height: 6),
+                      Text(
+                        l10n != null
+                            ? l10n.lastCompleted(
+                                SystemDateFormatter.formatDateTime(latest.completedAt),
+                                latest.formattedDuration,
+                              )
+                            : 'Last: ${SystemDateFormatter.formatDateTime(latest.completedAt)} • ${latest.formattedDuration}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      if (latest.userNote.isNotEmpty) ...[
+                        const SizedBox(height: 3),
+                        Text(
+                          l10n != null
+                              ? l10n.noteLabel(latest.userNote)
+                              : 'Note: ${latest.userNote}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white60,
+                            fontSize: 11,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                ],
-              )
-            else
-              OutlinedButton.icon(
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Color(0xFF00E5FF)),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                ),
-                icon: const Icon(Icons.add_a_photo_outlined, color: Color(0xFF00E5FF)),
-                label: Text(l10n?.attachPhoto ?? 'Attach Whiteboard / Score Photo', style: const TextStyle(color: Color(0xFF00E5FF))),
-                onPressed: () async {
-                  try {
-                    final picked = await _imagePicker.pickImage(source: ImageSource.gallery, imageQuality: 85);
-                    if (picked != null) {
-                      setState(() {
-                        _localPhotoPath = picked.path;
-                      });
-                    }
-                  } catch (_) {}
-                },
-              ),
-
+                );
+              },
+            ),
             const SizedBox(height: 18),
             Row(
               children: [
@@ -189,7 +225,6 @@ class _TimerFinishModalState extends State<TimerFinishModal> {
                     onPressed: () async {
                       final updated = log.copyWith(
                         userNote: _noteCtrl.text.trim(),
-                        imagePath: _localPhotoPath ?? log.imagePath,
                       );
                       final rootNav = Navigator.of(context);
                       await _logRepository.saveLog(updated);
@@ -211,7 +246,6 @@ class _TimerFinishModalState extends State<TimerFinishModal> {
                   onPressed: () async {
                     final updated = log.copyWith(
                       userNote: _noteCtrl.text.trim(),
-                      imagePath: _localPhotoPath ?? log.imagePath,
                     );
                     final rootNav = Navigator.of(context);
                     await _logRepository.saveLog(updated);

@@ -548,23 +548,11 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to permanently delete all workout logs? This action cannot be undone.'**
   String get clearLogsConfirm;
 
-  /// No description provided for @attachPhoto.
+  /// No description provided for @addWorkoutNote.
   ///
   /// In en, this message translates to:
-  /// **'Attach Photo'**
-  String get attachPhoto;
-
-  /// No description provided for @changePhoto.
-  ///
-  /// In en, this message translates to:
-  /// **'Change Photo'**
-  String get changePhoto;
-
-  /// No description provided for @removePhoto.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove Photo'**
-  String get removePhoto;
+  /// **'ADD WORKOUT NOTE'**
+  String get addWorkoutNote;
 
   /// No description provided for @workoutNote.
   ///
@@ -998,6 +986,12 @@ abstract class AppLocalizations {
   /// **'Built-in timer (Cannot be deleted)'**
   String get timerCannotBeDeleted;
 
+  /// No description provided for @timerDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} deleted'**
+  String timerDeleted(String name);
+
   /// No description provided for @searchTimersHint.
   ///
   /// In en, this message translates to:
@@ -1051,6 +1045,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All Timers & WOD'**
   String get allTimersAndWod;
+
+  /// No description provided for @openSourceLicenseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Source & MIT License'**
+  String get openSourceLicenseTitle;
+
+  /// No description provided for @openSourceLicenseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'MyTimer is completely free and open-source. Anyone is free to obtain the source code, modify it, and distribute it under the terms of the MIT License, provided that the original copyright notice and permission notice are preserved.'**
+  String get openSourceLicenseDesc;
+
+  /// No description provided for @trademarkDisclaimerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Trademark Notice'**
+  String get trademarkDisclaimerTitle;
+
+  /// No description provided for @trademarkDisclaimerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'CrossFit® is a registered trademark of CrossFit, LLC. HYROX® is a registered trademark of World Series of Fitness GmbH. MyTimer is an independent community open-source project and is not affiliated with, endorsed by, or sponsored by these entities.'**
+  String get trademarkDisclaimerDesc;
+
+  /// No description provided for @timeFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Format'**
+  String get timeFormat;
+
+  /// No description provided for @timeFormatSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display hours in 24-hour (14:30) or 12-hour (2:30 PM) format'**
+  String get timeFormatSubtitle;
+
+  /// No description provided for @timeFormat24.
+  ///
+  /// In en, this message translates to:
+  /// **'24-Hour (24h)'**
+  String get timeFormat24;
+
+  /// No description provided for @timeFormat12.
+  ///
+  /// In en, this message translates to:
+  /// **'12-Hour (AM/PM)'**
+  String get timeFormat12;
+
+  /// No description provided for @workoutHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout History'**
+  String get workoutHistory;
+
+  /// No description provided for @viewHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'View History'**
+  String get viewHistory;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @pastPerformanceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout History & Performance'**
+  String get pastPerformanceSubtitle;
+
+  /// No description provided for @completedTimes.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed {count} times'**
+  String completedTimes(int count);
+
+  /// No description provided for @noWorkoutHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No past history recorded for this workout yet.'**
+  String get noWorkoutHistory;
+
+  /// No description provided for @latestTag.
+  ///
+  /// In en, this message translates to:
+  /// **'LATEST'**
+  String get latestTag;
+
+  /// No description provided for @previousWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous {name} Sessions ({count})'**
+  String previousWorkouts(String name, int count);
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View All >'**
+  String get viewAll;
+
+  /// No description provided for @lastCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Last: {dateTime} • {duration}'**
+  String lastCompleted(String dateTime, String duration);
+
+  /// No description provided for @noteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: {note}'**
+  String noteLabel(String note);
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'CLOSE'**
+  String get close;
+
+  /// No description provided for @autoSaveWorkoutLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Save Workout Log'**
+  String get autoSaveWorkoutLog;
+
+  /// No description provided for @autoSaveWorkoutLogSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically save workout without showing dialog on finish (default: on)'**
+  String get autoSaveWorkoutLogSubtitle;
 }
 
 class _AppLocalizationsDelegate

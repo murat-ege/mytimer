@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../l10n/generated/app_localizations.dart';
 import '../../../models/custom_routine.dart';
+import '../../workout_log/widgets/workout_history_modal.dart';
 
 class WorkoutInfoDialog extends StatelessWidget {
   final CustomRoutine routine;
@@ -16,6 +18,7 @@ class WorkoutInfoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return AlertDialog(
       backgroundColor: const Color(0xFF1E1E1E),
       title: Text(
@@ -55,6 +58,17 @@ class WorkoutInfoDialog extends StatelessWidget {
         ],
       ),
       actions: [
+        TextButton.icon(
+          icon: const Icon(Icons.history_rounded, size: 18, color: Colors.white70),
+          label: Text(
+            l10n?.history.toUpperCase() ?? 'HISTORY',
+            style: const TextStyle(color: Colors.white70),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+            WorkoutHistoryModal.show(context: context, workoutTitle: routine.name);
+          },
+        ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('OK', style: TextStyle(color: Color(0xFF00E676))),

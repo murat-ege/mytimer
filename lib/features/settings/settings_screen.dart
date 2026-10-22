@@ -4,6 +4,7 @@ import '../../models/timer_settings.dart';
 import '../../repositories/local_timer_repository.dart';
 import '../../services/audio_theme_generator.dart';
 import '../../services/sound_service.dart';
+import '../../services/system_date_formatter.dart';
 import '../../services/voice_coach_service.dart';
 import '../../services/wakelock_service.dart';
 import 'widgets/settings_section_header.dart';
@@ -53,6 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _voiceCoach.voiceEnabled = s.voiceCoachEnabled;
       _voiceCoach.currentVoiceId = s.voiceCoachId;
       _voiceCoach.languageCode = s.languageCode;
+      SystemDateFormatter.use24HourFormat = s.use24HourFormat;
     }
   }
 
@@ -60,6 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() => _settings = newSettings);
     await _repository.saveSettings(newSettings);
 
+    SystemDateFormatter.use24HourFormat = newSettings.use24HourFormat;
     _soundService.soundEnabled = newSettings.soundEnabled;
     _soundService.vibrationEnabled = newSettings.vibrationEnabled;
     _soundService.currentThemeId = newSettings.audioThemeId;
@@ -316,6 +319,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _updateSettings(_settings.copyWith(autoStartTimer: val));
                   },
                 ),
+                SettingsSwitchTile(
+                  title: l10n?.autoSaveWorkoutLog ?? 'Auto-Save Workout Log',
+                  subtitle: l10n?.autoSaveWorkoutLogSubtitle ??
+                      'Automatically save workout without showing dialog on finish (default: on)',
+                  value: _settings.autoSaveWorkoutLog,
+                  icon: Icons.bookmark_added_rounded,
+                  onChanged: (val) {
+                    _updateSettings(_settings.copyWith(autoSaveWorkoutLog: val));
+                  },
+                ),
 
                 const SizedBox(height: 20),
 
@@ -433,6 +446,82 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
 
+                const SizedBox(height: 12),
+
+                // TIME FORMAT (24h vs AM/PM, default: 24h)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E1E1E),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n?.timeFormat ?? 'Time Format',
+                              style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              _settings.use24HourFormat
+                                  ? (l10n?.timeFormat24 ?? '24-Hour (24h)')
+                                  : (l10n?.timeFormat12 ?? '12-Hour (AM/PM)'),
+                              style: const TextStyle(color: Colors.white54, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SegmentedButton<bool>(
+                        segments: [
+                          ButtonSegment<bool>(
+                            value: true,
+                            label: Text(
+                              '24h',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 13,
+                                color: _settings.use24HourFormat ? Colors.black : Colors.white70,
+                              ),
+                            ),
+                          ),
+                          ButtonSegment<bool>(
+                            value: false,
+                            label: Text(
+                              'AM/PM',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12,
+                                color: !_settings.use24HourFormat ? Colors.black : Colors.white70,
+                              ),
+                            ),
+                          ),
+                        ],
+                        selected: {_settings.use24HourFormat},
+                        showSelectedIcon: false,
+                        onSelectionChanged: (val) {
+                          final is24 = val.first;
+                          SystemDateFormatter.use24HourFormat = is24;
+                          _updateSettings(_settings.copyWith(use24HourFormat: is24));
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.resolveWith((states) {
+                            if (states.contains(WidgetState.selected)) {
+                              return const Color(0xFF00E676);
+                            }
+                            return const Color(0xFF141414);
+                          }),
+                          side: const WidgetStatePropertyAll(BorderSide(color: Colors.white12)),
+                          visualDensity: VisualDensity.compact,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 const SizedBox(height: 24),
 
                 // 5. ABOUT
@@ -453,16 +542,95 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'MyTimer Pro • WOD Edition v1.0.0',
+                              'MyTimer • WOD & Hyrox Edition v1.0.0',
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 6),
+                      const Text(
+                        'Created by Murat Ege',
+                        style: TextStyle(color: Color(0xFF00E676), fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(height: 6),
                       Text(
-                        l10n?.aboutDesc ?? 'Engineered for CrossFit, HIIT, functional fitness, and WOD competitions.',
+                        l10n?.aboutDesc ?? 'Engineered for CrossFit, Hyrox, HIIT, functional fitness, and WOD competitions.',
                         style: const TextStyle(color: Colors.white70, fontSize: 13, height: 1.4),
+                      ),
+                      const SizedBox(height: 12),
+                      // Open Source & MIT License Section
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF141414),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: const Color(0xFF00E676).withValues(alpha: 0.25)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.code_rounded, color: Color(0xFF00E676), size: 16),
+                                const SizedBox(width: 6),
+                                Expanded(
+                                  child: Text(
+                                    l10n?.openSourceLicenseTitle ?? 'Open Source & MIT License',
+                                    style: const TextStyle(
+                                      color: Color(0xFF00E676),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              l10n?.openSourceLicenseDesc ??
+                                  'MyTimer is completely free and open-source. Anyone is free to obtain the source code, modify it, and distribute it under the terms of the MIT License, provided that the original copyright notice and permission notice are preserved.',
+                              style: const TextStyle(color: Colors.white70, fontSize: 11, height: 1.4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      // Trademark Disclaimer Section
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF141414),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.white10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.gavel_rounded, color: Colors.white38, size: 16),
+                                const SizedBox(width: 6),
+                                Expanded(
+                                  child: Text(
+                                    l10n?.trademarkDisclaimerTitle ?? 'Trademark Notice',
+                                    style: const TextStyle(
+                                      color: Colors.white60,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              l10n?.trademarkDisclaimerDesc ??
+                                  'CrossFit® is a registered trademark of CrossFit, LLC. HYROX® is a registered trademark of World Series of Fitness GmbH. MyTimer is an independent community open-source project and is not affiliated with, endorsed by, or sponsored by these entities.',
+                              style: const TextStyle(color: Colors.white38, fontSize: 10.5, height: 1.35),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 12),
                       Row(
@@ -472,7 +640,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Expanded(
                             child: Text(
                               l10n?.cloudSyncNotice ?? 'All timers and workout logs are stored locally on your device.',
-                              style: const TextStyle(color: Colors.white54, fontSize: 12),
+                              style: const TextStyle(color: Colors.white54, fontSize: 11),
                             ),
                           ),
                         ],
