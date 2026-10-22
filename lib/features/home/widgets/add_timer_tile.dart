@@ -13,62 +13,82 @@ class AddTimerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
-    return SizedBox.expand(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: onTap,
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            color: const Color(0xFF1C1C1C),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: const Color(0xFF00E676).withValues(alpha: 0.35),
-              style: BorderStyle.solid,
-              width: 1.2,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.35),
-                blurRadius: 8,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF00E676).withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: const Color(0xFF00E676).withValues(alpha: 0.35),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cardH = constraints.maxHeight;
+        final isCompact = cardH < 130;
+        final badgeSize = isCompact
+            ? (cardH * 0.28).clamp(28.0, 34.0)
+            : 38.0;
+        final iconSize = isCompact ? (badgeSize * 0.55).clamp(16.0, 20.0) : 22.0;
+        final fontSize = isCompact ? (cardH * 0.125).clamp(11.5, 13.5) : 14.5;
+        final spacing = isCompact ? 5.0 : 8.0;
+        final borderRadiusVal = isCompact ? 16.0 : 20.0;
+
+        return SizedBox.expand(
+          child: InkWell(
+            borderRadius: BorderRadius.circular(borderRadiusVal),
+            onTap: onTap,
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                color: const Color(0xFF1C1C1C),
+                borderRadius: BorderRadius.circular(borderRadiusVal),
+                border: Border.all(
+                  color: const Color(0xFF00E676).withValues(alpha: 0.35),
+                  style: BorderStyle.solid,
+                  width: 1.2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.35),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
                   ),
-                ),
-                child: const Icon(
-                  Icons.add_rounded,
-                  color: Color(0xFF00E676),
-                  size: 22,
-                ),
+                ],
               ),
-              const SizedBox(height: 8),
-              Text(
-                l10n?.addTimer ?? 'Zamanlayıcı Ekle',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(0xFF00E676),
-                  fontSize: 14.5,
-                  fontWeight: FontWeight.w800,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: badgeSize,
+                    height: badgeSize,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00E676).withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(isCompact ? 10 : 12),
+                      border: Border.all(
+                        color: const Color(0xFF00E676).withValues(alpha: 0.35),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.add_rounded,
+                      color: const Color(0xFF00E676),
+                      size: iconSize,
+                    ),
+                  ),
+                  SizedBox(height: spacing),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        l10n?.addTimer ?? 'Add Timer',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: const Color(0xFF00E676),
+                          fontSize: fontSize,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

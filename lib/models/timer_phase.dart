@@ -32,30 +32,30 @@ extension TimerPhaseExtension on TimerPhase {
       case TimerPhase.prep:
         return const Color(0xFFFFB300); // Vivid Amber
       case TimerPhase.work:
-        return const Color(0xFF00E676); // High Voltage Green
+        return const Color(0xFF00E676); // High Voltage Athletic Green
       case TimerPhase.rest:
       case TimerPhase.restBetweenSets:
-        return const Color(0xFFFF3D00); // Vivid Deep Orange/Red
+        return const Color(0xFFFF2A42); // Vivid High-Impact Athletic Red
       case TimerPhase.cooldown:
         return const Color(0xFF00E5FF); // Bright Cyan
       case TimerPhase.finished:
-        return const Color(0xFF7C4DFF); // Deep Purple / Gold
+        return const Color(0xFF9D65FF); // Victory Purple
     }
   }
 
   Color get backgroundColor {
     switch (this) {
       case TimerPhase.prep:
-        return const Color(0xFF1E1700);
+        return const Color(0xFF281900); // Recognizable Dark Amber
       case TimerPhase.work:
-        return const Color(0xFF021B0E);
+        return const Color(0xFF052B16); // Recognizable Athletic Emerald Green
       case TimerPhase.rest:
       case TimerPhase.restBetweenSets:
-        return const Color(0xFF240700);
+        return const Color(0xFF33080C); // Recognizable Athletic Crimson Red
       case TimerPhase.cooldown:
-        return const Color(0xFF001920);
+        return const Color(0xFF00222B); // Dark Cyan
       case TimerPhase.finished:
-        return const Color(0xFF150A2E);
+        return const Color(0xFF1A0A33); // Dark Violet
     }
   }
 }

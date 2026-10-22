@@ -6,6 +6,8 @@ class TimerSettings {
   final bool voiceCoachEnabled;
   final String voiceCoachId; // 'male_1', 'male_2', 'female_1', 'female_2'
   final String audioThemeId; // one of the 10 audio themes
+  final bool confirmTimerExit;
+  final bool autoStartTimer;
 
   const TimerSettings({
     this.soundEnabled = true,
@@ -15,6 +17,8 @@ class TimerSettings {
     this.voiceCoachEnabled = true,
     this.voiceCoachId = 'male_1',
     this.audioThemeId = 'classic_beeps',
+    this.confirmTimerExit = false,
+    this.autoStartTimer = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -26,6 +30,8 @@ class TimerSettings {
       'voiceCoachEnabled': voiceCoachEnabled,
       'voiceCoachId': voiceCoachId,
       'audioThemeId': audioThemeId,
+      'confirmTimerExit': confirmTimerExit,
+      'autoStartTimer': autoStartTimer,
     };
   }
 
@@ -38,6 +44,8 @@ class TimerSettings {
       voiceCoachEnabled: json['voiceCoachEnabled'] as bool? ?? true,
       voiceCoachId: json['voiceCoachId'] as String? ?? 'male_1',
       audioThemeId: json['audioThemeId'] as String? ?? 'classic_beeps',
+      confirmTimerExit: json['confirmTimerExit'] as bool? ?? false,
+      autoStartTimer: json['autoStartTimer'] as bool? ?? false,
     );
   }
 
@@ -49,6 +57,8 @@ class TimerSettings {
     bool? voiceCoachEnabled,
     String? voiceCoachId,
     String? audioThemeId,
+    bool? confirmTimerExit,
+    bool? autoStartTimer,
   }) {
     return TimerSettings(
       soundEnabled: soundEnabled ?? this.soundEnabled,
@@ -58,6 +68,8 @@ class TimerSettings {
       voiceCoachEnabled: voiceCoachEnabled ?? this.voiceCoachEnabled,
       voiceCoachId: voiceCoachId ?? this.voiceCoachId,
       audioThemeId: audioThemeId ?? this.audioThemeId,
+      confirmTimerExit: confirmTimerExit ?? this.confirmTimerExit,
+      autoStartTimer: autoStartTimer ?? this.autoStartTimer,
     );
   }
 }

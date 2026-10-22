@@ -153,7 +153,7 @@ class AudioThemeGenerator {
       case SoundType.countdown:
         return _synthPureBeep(freq: 436, durationSec: 0.22, volume: 0.90);
       case SoundType.work:
-        return _synthHarmonicWorkBeep(durationSec: 0.70, volume: 0.95);
+        return _synthHarmonicWorkBeep(durationSec: 0.60, volume: 0.95);
       case SoundType.rest:
         return _synthPureBeep(freq: 654, durationSec: 0.40, volume: 0.85);
       case SoundType.complete:
@@ -173,8 +173,8 @@ class AudioThemeGenerator {
         return _synthGymBuzzer(freq: 460, durationSec: 0.16, volume: 0.85);
       case SoundType.work:
         return _synthSequence([
-          _Tone(freq: 420, dur: 0.12, wave: 'buzzer', volume: 0.9),
-          _Tone(freq: 420, dur: 0.45, wave: 'buzzer', volume: 0.95),
+          _Tone(freq: 580, dur: 0.12, wave: 'buzzer', volume: 0.9),
+          _Tone(freq: 580, dur: 0.45, wave: 'buzzer', volume: 0.95),
         ]);
       case SoundType.rest:
         return _synthGymBuzzer(freq: 330, durationSec: 0.35, volume: 0.8);
@@ -193,7 +193,7 @@ class AudioThemeGenerator {
       case SoundType.countdown:
         return _synthArenaHorn(freq: 196, durationSec: 0.18, volume: 0.8);
       case SoundType.work:
-        return _synthArenaHorn(freq: 185, durationSec: 0.70, volume: 0.95);
+        return _synthArenaHorn(freq: 246, durationSec: 0.70, volume: 0.95);
       case SoundType.rest:
         return _synthArenaHorn(freq: 155, durationSec: 0.40, volume: 0.8);
       case SoundType.complete:
@@ -212,8 +212,8 @@ class AudioThemeGenerator {
         return _synthFightBell(freq: 780, durationSec: 0.25, decay: 6.0, volume: 0.8);
       case SoundType.work:
         return _synthSequence([
-          _Tone(freq: 740, dur: 0.28, wave: 'bell', volume: 0.9),
-          _Tone(freq: 740, dur: 1.10, wave: 'bell', volume: 0.95),
+          _Tone(freq: 880, dur: 0.28, wave: 'bell', volume: 0.9),
+          _Tone(freq: 880, dur: 1.10, wave: 'bell', volume: 0.95),
         ]);
       case SoundType.rest:
         return _synthFightBell(freq: 620, durationSec: 0.80, decay: 3.5, volume: 0.85);
@@ -388,7 +388,7 @@ class AudioThemeGenerator {
   }
 
   static Uint8List _synthHarmonicWorkBeep({
-    double durationSec = 0.70,
+    double durationSec = 0.60,
     double volume = 0.95,
   }) {
     final numSamples = (durationSec * sampleRate).toInt();
@@ -399,14 +399,14 @@ class AudioThemeGenerator {
       final progress = i / numSamples;
       double env = 1.0;
       if (progress < 0.02) env = progress / 0.02; // crisp 15ms attack
-      if (progress > 0.82) env = (1.0 - progress) / 0.18; // smooth decay
+      if (progress > 0.80) env = (1.0 - progress) / 0.20; // smooth decay
 
-      // Fundamental 1032Hz + warm 516Hz sub-body + 2064Hz sparkle + 1548Hz harmonic fullness
-      final f1 = sin(2 * pi * 1032 * t);
-      final fSub = 0.30 * sin(2 * pi * 516 * t);
-      final fOct = 0.20 * sin(2 * pi * 2064 * t);
-      final fFifth = 0.15 * sin(2 * pi * 1548 * t);
-      final val = (f1 + fSub + fOct + fFifth) / 1.65;
+      // High, crisp, athletic GO tone: 1308 Hz fundamental (3x countdown 436 Hz)
+      // + 2616 Hz upper shimmer + 1744 Hz bright harmonic fullness
+      final f1 = sin(2 * pi * 1308 * t);
+      final f2 = 0.25 * sin(2 * pi * 2616 * t);
+      final f3 = 0.15 * sin(2 * pi * 1744 * t);
+      final val = (f1 + f2 + f3) / 1.40;
 
       samples[i] = (val * volume * env * 32767).toInt().clamp(-32768, 32767);
     }

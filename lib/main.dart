@@ -93,6 +93,13 @@ class _MyTimerAppState extends State<MyTimerApp> {
           error: Color(0xFFFF3D00),
         ),
         textTheme: AppTypography.createTextTheme(),
+        actionIconTheme: ActionIconThemeData(
+          backButtonIconBuilder: (BuildContext context) => const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+            size: 20,
+          ),
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFF121212),
           elevation: 0,

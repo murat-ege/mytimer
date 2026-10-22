@@ -8,6 +8,7 @@ import '../../services/voice_coach_service.dart';
 import '../../services/wakelock_service.dart';
 import 'widgets/settings_section_header.dart';
 import 'widgets/settings_switch_tile.dart';
+import '../timer_manager/timer_manager_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   final Locale currentLocale;
@@ -72,9 +73,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   @override
+  void dispose() {
+    _soundService.stopPreview();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final currentLang = widget.currentLocale.languageCode;
+    final currentLang = _settings.languageCode.isNotEmpty
+        ? _settings.languageCode
+        : widget.currentLocale.languageCode;
     final isTr = currentLang == 'tr';
 
     return Scaffold(
@@ -100,9 +109,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 // GENERAL SETTINGS
                 SettingsSectionHeader(title: l10n?.general ?? 'GENERAL'),
 
-                // 1. SES ANAHTARI (Audio Switch)
+                // 1. AUDIO SWITCH
                 SettingsSwitchTile(
-                  title: l10n?.sound ?? (isTr ? 'Ses' : 'Audio'),
+                  title: l10n?.sound ?? 'Audio',
                   subtitle: l10n?.soundSubtitle ?? 'Countdown beeps and interval transition signals',
                   value: _settings.soundEnabled,
                   icon: Icons.volume_up,
@@ -111,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
 
-                // 2. SES KOMBOSU (Audio Theme Combo)
+                // 2. AUDIO THEME COMBO
                 if (_settings.soundEnabled)
                   Container(
                     margin: const EdgeInsets.only(bottom: 12),
@@ -162,23 +171,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        IconButton(
-                          onPressed: () => _soundService.previewTheme(_settings.audioThemeId),
-                          icon: const Icon(Icons.play_circle_fill, color: Color(0xFF00E676), size: 28),
-                          tooltip: 'Listen Preview',
-                          style: IconButton.styleFrom(
-                            backgroundColor: const Color(0xFF00E676).withValues(alpha: 0.12),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                            padding: const EdgeInsets.all(12),
-                          ),
+                        ValueListenableBuilder<bool>(
+                          valueListenable: _soundService.isPlayingPreviewNotifier,
+                          builder: (context, isPlaying, _) {
+                            return IconButton(
+                              onPressed: () {
+                                if (isPlaying) {
+                                  _soundService.stopPreview();
+                                } else {
+                                  _soundService.previewTheme(_settings.audioThemeId);
+                                }
+                              },
+                              icon: Icon(
+                                isPlaying ? Icons.stop_circle_rounded : Icons.play_circle_fill,
+                                color: isPlaying ? const Color(0xFFFF5252) : const Color(0xFF00E676),
+                                size: 28,
+                              ),
+                              tooltip: isPlaying
+                                   ? (l10n?.stopPreview ?? 'Stop Preview')
+                                  : (l10n?.listenPreview ?? 'Listen 3-2-1 & GO Preview'),
+                              style: IconButton.styleFrom(
+                                backgroundColor: (isPlaying ? const Color(0xFFFF5252) : const Color(0xFF00E676)).withValues(alpha: 0.12),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                padding: const EdgeInsets.all(12),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
                   ),
 
-                // 3. SESLENDİRME ANAHTARI (Voice Switch)
+                // 3. VOICE COACH SWITCH
                 SettingsSwitchTile(
-                  title: l10n?.voiceCoach ?? (isTr ? 'Seslendirme' : 'Voice'),
+                  title: l10n?.voiceCoach ?? 'Voice Coach',
                   subtitle: l10n?.voiceCoachSubtitle ?? 'Spoken voice cues for countdown, intervals, and finish',
                   value: _settings.voiceCoachEnabled,
                   icon: Icons.record_voice_over_rounded,
@@ -187,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
 
-                // 4. SESLENDİRME KOMBOSU (Voice Coach Combo)
+                // 4. VOICE COACH COMBO
                 if (_settings.voiceCoachEnabled)
                   Container(
                     margin: const EdgeInsets.only(bottom: 12),
@@ -270,10 +296,102 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _updateSettings(_settings.copyWith(wakelockEnabled: val));
                   },
                 ),
+                SettingsSwitchTile(
+                  title: l10n?.confirmExitTitle ?? 'Confirm on Exit',
+                  subtitle: l10n?.confirmExitSubtitle ??
+                      'Ask for confirmation before leaving workout (default: off)',
+                  value: _settings.confirmTimerExit,
+                  icon: Icons.exit_to_app_rounded,
+                  onChanged: (val) {
+                    _updateSettings(_settings.copyWith(confirmTimerExit: val));
+                  },
+                ),
+                SettingsSwitchTile(
+                  title: l10n?.autoStartTitle ?? 'Auto-Start Timer',
+                  subtitle: l10n?.autoStartSubtitle ??
+                      'Automatically start timer when opened (default: off)',
+                  value: _settings.autoStartTimer,
+                  icon: Icons.play_circle_outline_rounded,
+                  onChanged: (val) {
+                    _updateSettings(_settings.copyWith(autoStartTimer: val));
+                  },
+                ),
 
                 const SizedBox(height: 20),
 
-                // 4. LANGUAGE (Item 0: English default)
+                // 4. TIMER MANAGER
+                SettingsSectionHeader(title: l10n?.timerManager.toUpperCase() ?? 'TIMER MANAGER'),
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const TimerManagerScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1E1E1E),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.white10),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF00E676).withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.dashboard_customize_rounded,
+                              color: Color(0xFF00E676),
+                              size: 22,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  l10n?.timerManager ?? 'Timer Manager',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  l10n?.timerManagerDesc ??
+                                      'Manage, pin to home, and delete saved timers',
+                                  style: const TextStyle(
+                                    color: Colors.white60,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(
+                            Icons.chevron_right_rounded,
+                            color: Colors.white54,
+                            size: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // 5. LANGUAGE (Item 0: English default)
                 SettingsSectionHeader(title: l10n?.language ?? 'LANGUAGE'),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

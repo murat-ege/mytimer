@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TimerRunnerControls extends StatelessWidget {
   final bool isRunning;
@@ -31,47 +32,67 @@ class TimerRunnerControls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 24, top: 12, left: 24, right: 24),
+      padding: const EdgeInsets.only(bottom: 24, top: 10, left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            onPressed: onReset,
-            icon: const Icon(Icons.refresh, color: Colors.white70, size: 36),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              onReset();
+            },
+            icon: const Icon(Icons.replay_rounded, color: Colors.white70, size: 32),
             tooltip: resetTooltip,
           ),
           IconButton(
-            onPressed: onSkipPrevious,
-            icon: const Icon(Icons.skip_previous, color: Colors.white70, size: 36),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              onSkipPrevious();
+            },
+            icon: const Icon(Icons.skip_previous_rounded, color: Colors.white70, size: 34),
             tooltip: skipTooltip,
           ),
           GestureDetector(
-            onTap: onPlayPause,
-            child: Container(
+            onTap: () {
+              HapticFeedback.mediumImpact();
+              onPlayPause();
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
               width: 84,
               height: 84,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: primaryColor,
                 boxShadow: [
-                  BoxShadow(color: primaryColor.withValues(alpha: 0.5), blurRadius: 20, spreadRadius: 2),
+                  BoxShadow(
+                    color: primaryColor.withValues(alpha: isRunning ? 0.60 : 0.35),
+                    blurRadius: isRunning ? 26 : 16,
+                    spreadRadius: isRunning ? 3 : 1,
+                  ),
                 ],
               ),
               child: Icon(
-                isRunning ? Icons.pause : Icons.play_arrow,
+                isRunning ? Icons.pause_rounded : Icons.play_arrow_rounded,
                 color: Colors.black,
-                size: 46,
+                size: 50,
               ),
             ),
           ),
           IconButton(
-            onPressed: onSkipNext,
-            icon: const Icon(Icons.skip_next, color: Colors.white70, size: 36),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              onSkipNext();
+            },
+            icon: const Icon(Icons.skip_next_rounded, color: Colors.white70, size: 34),
             tooltip: nextTooltip,
           ),
           IconButton(
-            onPressed: onExit,
-            icon: const Icon(Icons.stop_circle_outlined, color: Colors.white70, size: 36),
+            onPressed: () {
+              HapticFeedback.mediumImpact();
+              onExit();
+            },
+            icon: const Icon(Icons.stop_circle_rounded, color: Colors.white70, size: 34),
             tooltip: quitTooltip,
           ),
         ],

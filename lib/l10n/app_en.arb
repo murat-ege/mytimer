@@ -1,83 +1,53 @@
 {
   "@@locale": "en",
-  "appTitle": "MyTimer",
   "tabata": "TABATA",
   "rounds": "ROUNDS",
   "stopwatch": "STOPWATCH",
   "countdown": "COUNTDOWN",
   "custom": "CUSTOM & WODS",
   "settings": "SETTINGS",
-  
   "work": "WORK",
   "rest": "REST",
   "prep": "PREP",
   "cooldown": "COOLDOWN",
   "round": "ROUND",
-  "set": "SET",
   "completed": "TIME!",
-  "paused": "PAUSED",
-  "ready": "GET READY",
   "finished": "WORKOUT COMPLETE!",
-
   "start": "START",
   "pause": "PAUSE",
   "resume": "RESUME",
   "reset": "RESET",
   "skip": "SKIP",
   "lap": "SPLIT",
-
-  "workTime": "WORK TIME",
-  "restTime": "REST TIME",
-  "prepTime": "PREP TIME",
   "totalRounds": "TOTAL ROUNDS",
-  "totalSets": "TOTAL SETS",
   "restBetweenSets": "REST BETWEEN ROUNDS",
-  "timeCap": "TIME CAP",
   "sound": "Audio",
   "vibration": "Haptic Feedback",
   "keepScreenOn": "Keep Screen Awake",
   "language": "LANGUAGE",
-
   "emomTitle": "EMOM",
   "amrapTitle": "AMRAP",
   "forTimeTitle": "FOR TIME",
-  "customRoutines": "Custom",
-  "createNewRoutine": "Create New Timer",
   "routineName": "WOD / Timer Name",
   "routineNameHint": "e.g., Fran, Cindy, Murph, 21-15-9",
   "addInterval": "Add Interval",
-  "intervalName": "Interval / Movement Name",
-  "intervalDuration": "Duration (sec)",
-  "intervalType": "Interval Phase",
   "save": "SAVE",
   "cancel": "CANCEL",
   "delete": "DELETE",
   "edit": "EDIT",
-  "noCustomRoutines": "No custom timers yet. Tap + to build one!",
-  "confirmDelete": "Are you sure you want to delete this timer?",
   "cloudSyncNotice": "Your timers and workout logs are stored locally on your device.",
-
-  "lapTimes": "Splits & Lap Times",
-  "fastestLap": "Best Split",
-  "slowestLap": "Slowest Split",
   "totalTime": "TOTAL TIME",
   "roundTime": "Split Time",
-
   "general": "GENERAL",
   "soundSubtitle": "Countdown beeps and interval transition cues",
   "vibrationSubtitle": "Haptic pulses on interval transitions",
   "keepScreenOnSubtitle": "Screen stays awake during workouts",
-  "soundTest": "AUDIO TEST",
   "appLanguage": "App Language",
   "aboutTitle": "ABOUT",
   "aboutDesc": "Engineered for CrossFit, HIIT, functional fitness, and WOD competitions.",
   "seconds": "s",
   "minutes": "min",
   "hours": "Hours",
-  "hoursShort": "h",
-  "totalRoundsStat": "ROUNDS",
-  "workRestStat": "WORK / REST",
-  "startWorkout": "START WORKOUT",
   "searchWods": "Search WOD or Exercise...",
   "allCategories": "ALL",
   "next": "Next",
@@ -85,74 +55,21 @@
   "exitWorkoutMessage": "The workout will be stopped. Are you sure you want to quit?",
   "continueWorkout": "RESUME",
   "quit": "QUIT",
-
   "createRoutine": "CREATE TIMER",
-  "customizeWod": "CUSTOMIZE WOD",
-  "editTimer": "EDIT TIMER",
-  "customSuffix": " (Custom)",
-  "workoutsListed": "{count} workouts listed",
-  "@workoutsListed": {
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
+  "editTimer": "Edit Timer",
   "clearFilters": "Clear Filters",
-  "noWorkoutsFound": "No workouts found for \"{query}\"",
-  "@noWorkoutsFound": {
-    "placeholders": {
-      "query": { "type": "String" }
-    }
-  },
-  "showAllWods": "Show All WODs",
-  "customizeOrCopy": "Customize / Save Copy",
   "deleteTimerTitle": "Delete Timer?",
-  "deleteTimerConfirm": "{name} will be deleted. Are you sure?",
-  "@deleteTimerConfirm": {
-    "placeholders": {
-      "name": { "type": "String" }
-    }
-  },
-  "routineNameRequired": "Please enter a name",
-  "descriptionLabel": "Description (Optional)",
-  "descriptionHint": "Target movements, weights or notes",
-  "intervalSequence": "INTERVAL SEQUENCE",
-  "saveTimer": "SAVE TIMER",
-  "addAtLeastOneInterval": "Please add at least one interval!",
-  "addNewInterval": "Add New Interval",
-  "intervalPhaseLabel": "Phase",
+  "deleteTimerConfirm": "Are you sure you want to delete this timer? It will also be removed from the home screen.",
   "durationSec": "Duration (s):",
   "add": "ADD",
-  "roundsBadge": "{count} Rounds",
-  "@roundsBadge": {
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
-  "intervalsBadge": "{count} Intervals",
-  "@intervalsBadge": {
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
   "categoryCustom": "Custom",
-
   "tabataAcronym": "20s Work / 10s Rest",
-  "tabataDesc": "High-Intensity Interval Training: 20 seconds maximum effort followed by 10 seconds rest.",
   "roundsAcronym": "Interval Training",
-  "roundsDesc": "Structured work and rest interval rounds designed for functional strength and conditioning.",
   "emomAcronym": "Every Minute On the Minute",
-  "emomDesc": "Perform designated repetitions at the start of each minute. Any remaining time in the minute is your rest.",
-  "amrapAcronym": "Max Rounds & Reps",
-  "amrapDesc": "Complete as many rounds or repetitions of the designated exercises as possible before the clock expires.",
   "forTimeAcronym": "Race Against The Clock",
-  "forTimeDesc": "Complete the designated work and repetitions as fast as possible before reaching the maximum Time Cap.",
   "stopwatchAcronym": "Count-Up Timer",
-  "stopwatchDesc": "Precision count-up timer with split tracking and best/slowest split analysis.",
-  "countdownAcronym": "Universal Timer",
-  "countdownDesc": "Universal countdown timer with custom hours, minutes, and seconds for any workout, challenge, or rest interval.",
+  "countdownAcronym": "Countdown Timer",
   "customSubtitle": "Hero WODs & Custom Routines",
-  "workoutLogSubtitle": "History, Whiteboard & CSV",
-
   "workoutLogs": "Workout Log",
   "noLogsYet": "No workout logs recorded yet.\nComplete any timer workout to see your history here!",
   "exportAllCsv": "Export All (CSV)",
@@ -163,41 +80,26 @@
   "removePhoto": "Remove Photo",
   "workoutNote": "Workout Notes",
   "workoutNoteHint": "Score, weights, reps, scaling, or how you felt...",
-
-  "presets": "Presets & Saved Timers",
-  "savePreset": "Save As Custom Preset",
-  "presetNameHint": "e.g., Heavy Tabata, 12m EMOM, Murph Pace",
+  "presets": "Timers & Routines",
   "defaultPreset": "Standard (Default)",
-  "restoreDefault": "Restore Defaults",
-  "presetSaved": "Preset saved successfully",
-
+  "timerSaved": "Timer saved successfully",
   "voiceCoach": "Voice",
   "voiceCoachSubtitle": "Spoken voice cues for countdown, intervals, and finish",
-  "voiceCoachSelector": "Select Voice Coach (2 Male, 2 Female)",
   "testVoice": "Test Voice Cue",
-
-  "audioTheme": "Workout Audio Theme (10 Sound Packs)",
-  "audioThemeSubtitle": "Choose your preferred athletic sound pack:",
   "done": "Done",
   "addTimer": "Add Timer",
   "allTimersAdded": "All timers are on the home screen",
   "resetLayout": "Reset Layout",
   "editHomeScreen": "Edit Home Screen",
-
   "hyrox": "HYROX",
   "hyroxSubtitle": "Timer Suit",
   "hyroxRaceSimulator": "Race Simulator",
   "hyroxRaceSimulatorDesc": "Full & Half HYROX race split timer with Roxzone tracking and target pace delta.",
   "hyroxCompromisedRun": "Compromised Running",
-  "hyroxCompromisedRunDesc": "Alternating running intervals and functional stations on heavy legs.",
   "hyroxStationIntervals": "Station P-EMOM & Intervals",
-  "hyroxStationIntervalsDesc": "Circuit interval timers cycling through all 8 HYROX functional stations.",
   "hyroxDoublesTimer": "Doubles & Relay (IGYG)",
-  "hyroxDoublesTimerDesc": "Partner switch alerts (30s, 45s, 60s, 90s) for Doubles and Relay teams.",
   "hyroxBenchmarkTests": "Station Benchmark Tests",
-  "hyroxBenchmarkTestsDesc": "Individual station time trials with division weights and pace benchmarks.",
   "hyroxStandardsGuide": "Division Weights & Standards",
-  "hyroxStandardsGuideDesc": "Official weights, target heights, and movement rules for Open, Pro & Doubles.",
   "roxzone": "ROXZONE",
   "roxzoneTracking": "Roxzone Transition Splits",
   "targetFinishTime": "Target Finish Time",
@@ -211,8 +113,71 @@
   "partnerB": "PARTNER B",
   "switchPartner": "SWITCH PARTNER!",
   "switchInterval": "Switch Interval",
-  "cooldownTime": "COOLDOWN TIME",
-  "intervalSignal": "INTERVAL SIGNAL",
   "off": "OFF",
-  "everyMinute": "Every {count} min"
+  "savedTimers": "Saved Timers",
+  "pinToHome": "Pin to Home",
+  "unpinFromHome": "Unpin from Home",
+  "pinnedToHome": "Added to Home Screen",
+  "unpinnedFromHome": "Removed from Home Screen",
+  "noTimersAvailable": "No saved timers found yet.",
+  "standardTimers": "Timers",
+  "timerBadge": "TIMER",
+  "pinned": "Added",
+  "timerManager": "Timer Manager",
+  "timerManagerDesc": "Manage, edit and organize your workouts and timers",
+  "timerUpdated": "Timer updated successfully",
+  "openInTimer": "Open in Timer",
+  "confirmExitTitle": "Confirm on Exit",
+  "confirmExitSubtitle": "Ask for confirmation before leaving workout (default: off)",
+  "autoStartTitle": "Auto-Start Timer",
+  "autoStartSubtitle": "Automatically start timer when opened (default: off)",
+  "stopPreview": "Stop Preview",
+  "listenPreview": "Listen 3-2-1 & GO",
+  "editFolder": "Edit Folder",
+  "itemsCount": "{count} Items",
+  "@itemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timerParameters": "TIMER PARAMETERS",
+  "prepDuration": "Prep Duration",
+  "roundsCount": "Rounds",
+  "workDuration": "Work Duration",
+  "durationOrCap": "Duration / Cap",
+  "restDuration": "Rest Duration",
+  "cooldownDuration": "Cooldown",
+  "selectTimerType": "Select Timer Type",
+  "roundsTypeOption": "Rounds",
+  "countdownTypeOption": "Countdown",
+  "customCopySaved": "{name} saved as custom timer",
+  "@customCopySaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "willBeSavedAsCustomCopy": "Will be saved as a custom copy",
+  "customTimerWillBeUpdated": "Custom timer will be updated",
+  "builtInPresetsProtected": "Built-in standard timers are protected and cannot be deleted. You can unpin them from the home screen.",
+  "timerCannotBeDeleted": "Built-in timer (Cannot be deleted)",
+  "searchTimersHint": "Search timers...",
+  "newTimer": "New Timer",
+  "addCategoryTimer": "Add {category}",
+  "@addCategoryTimer": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "addTimerOrCustom": "Add Timer",
+  "addTimerOrCustomTooltip": "Add Timer",
+  "audioCapsule": "AUDIO",
+  "coachCapsule": "COACH",
+  "roundsShort": "Rnds",
+  "allTimersAndWod": "All Timers & WOD"
 }

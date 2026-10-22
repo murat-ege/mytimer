@@ -30,17 +30,34 @@ class AppTypography {
   /// Preconfigured with tabular figures so numbers don't jump during workouts.
   static TextStyle timerDigits({
     Color? color,
-    double fontSize = 110,
+    double fontSize = 130,
     FontWeight fontWeight = FontWeight.w900,
-    double letterSpacing = -1.5,
+    double letterSpacing = -2.0,
     List<Shadow>? shadows,
   }) {
-    return GoogleFonts.barlowCondensed(
+    return TextStyle(
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
       fontFeatures: const [FontFeature.tabularFigures()],
+      shadows: shadows,
+    );
+  }
+
+  /// High-visibility athletic banner style for WORK, REST, PREP.
+  static TextStyle athleticPhaseBadge({
+    Color? color,
+    double fontSize = 32,
+    FontWeight fontWeight = FontWeight.w900,
+    double letterSpacing = 3.5,
+    List<Shadow>? shadows,
+  }) {
+    return GoogleFonts.barlowSemiCondensed(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      letterSpacing: letterSpacing,
       shadows: shadows,
     );
   }

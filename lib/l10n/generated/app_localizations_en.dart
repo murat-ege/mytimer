@@ -10,9 +10,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'MyTimer';
-
-  @override
   String get tabata => 'TABATA';
 
   @override
@@ -46,16 +43,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get round => 'ROUND';
 
   @override
-  String get set => 'SET';
-
-  @override
   String get completed => 'TIME!';
-
-  @override
-  String get paused => 'PAUSED';
-
-  @override
-  String get ready => 'GET READY';
 
   @override
   String get finished => 'WORKOUT COMPLETE!';
@@ -79,25 +67,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lap => 'SPLIT';
 
   @override
-  String get workTime => 'WORK TIME';
-
-  @override
-  String get restTime => 'REST TIME';
-
-  @override
-  String get prepTime => 'PREP TIME';
-
-  @override
   String get totalRounds => 'TOTAL ROUNDS';
 
   @override
-  String get totalSets => 'TOTAL SETS';
-
-  @override
   String get restBetweenSets => 'REST BETWEEN ROUNDS';
-
-  @override
-  String get timeCap => 'TIME CAP';
 
   @override
   String get sound => 'Audio';
@@ -121,12 +94,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forTimeTitle => 'FOR TIME';
 
   @override
-  String get customRoutines => 'Custom';
-
-  @override
-  String get createNewRoutine => 'Create New Timer';
-
-  @override
   String get routineName => 'WOD / Timer Name';
 
   @override
@@ -134,15 +101,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addInterval => 'Add Interval';
-
-  @override
-  String get intervalName => 'Interval / Movement Name';
-
-  @override
-  String get intervalDuration => 'Duration (sec)';
-
-  @override
-  String get intervalType => 'Interval Phase';
 
   @override
   String get save => 'SAVE';
@@ -157,23 +115,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get edit => 'EDIT';
 
   @override
-  String get noCustomRoutines => 'No custom timers yet. Tap + to build one!';
-
-  @override
-  String get confirmDelete => 'Are you sure you want to delete this timer?';
-
-  @override
   String get cloudSyncNotice =>
       'Your timers and workout logs are stored locally on your device.';
-
-  @override
-  String get lapTimes => 'Splits & Lap Times';
-
-  @override
-  String get fastestLap => 'Best Split';
-
-  @override
-  String get slowestLap => 'Slowest Split';
 
   @override
   String get totalTime => 'TOTAL TIME';
@@ -194,9 +137,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keepScreenOnSubtitle => 'Screen stays awake during workouts';
 
   @override
-  String get soundTest => 'AUDIO TEST';
-
-  @override
   String get appLanguage => 'App Language';
 
   @override
@@ -214,18 +154,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hours => 'Hours';
-
-  @override
-  String get hoursShort => 'h';
-
-  @override
-  String get totalRoundsStat => 'ROUNDS';
-
-  @override
-  String get workRestStat => 'WORK / REST';
-
-  @override
-  String get startWorkout => 'START WORKOUT';
 
   @override
   String get searchWods => 'Search WOD or Exercise...';
@@ -253,64 +181,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createRoutine => 'CREATE TIMER';
 
   @override
-  String get customizeWod => 'CUSTOMIZE WOD';
-
-  @override
-  String get editTimer => 'EDIT TIMER';
-
-  @override
-  String get customSuffix => ' (Custom)';
-
-  @override
-  String workoutsListed(int count) {
-    return '$count workouts listed';
-  }
+  String get editTimer => 'Edit Timer';
 
   @override
   String get clearFilters => 'Clear Filters';
 
   @override
-  String noWorkoutsFound(String query) {
-    return 'No workouts found for \"$query\"';
-  }
-
-  @override
-  String get showAllWods => 'Show All WODs';
-
-  @override
-  String get customizeOrCopy => 'Customize / Save Copy';
-
-  @override
   String get deleteTimerTitle => 'Delete Timer?';
 
   @override
-  String deleteTimerConfirm(String name) {
-    return '$name will be deleted. Are you sure?';
-  }
-
-  @override
-  String get routineNameRequired => 'Please enter a name';
-
-  @override
-  String get descriptionLabel => 'Description (Optional)';
-
-  @override
-  String get descriptionHint => 'Target movements, weights or notes';
-
-  @override
-  String get intervalSequence => 'INTERVAL SEQUENCE';
-
-  @override
-  String get saveTimer => 'SAVE TIMER';
-
-  @override
-  String get addAtLeastOneInterval => 'Please add at least one interval!';
-
-  @override
-  String get addNewInterval => 'Add New Interval';
-
-  @override
-  String get intervalPhaseLabel => 'Phase';
+  String get deleteTimerConfirm =>
+      'Are you sure you want to delete this timer? It will also be removed from the home screen.';
 
   @override
   String get durationSec => 'Duration (s):';
@@ -319,72 +200,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add => 'ADD';
 
   @override
-  String roundsBadge(int count) {
-    return '$count Rounds';
-  }
-
-  @override
-  String intervalsBadge(int count) {
-    return '$count Intervals';
-  }
-
-  @override
   String get categoryCustom => 'Custom';
 
   @override
   String get tabataAcronym => '20s Work / 10s Rest';
 
   @override
-  String get tabataDesc =>
-      'High-Intensity Interval Training: 20 seconds maximum effort followed by 10 seconds rest.';
-
-  @override
   String get roundsAcronym => 'Interval Training';
-
-  @override
-  String get roundsDesc =>
-      'Structured work and rest interval rounds designed for functional strength and conditioning.';
 
   @override
   String get emomAcronym => 'Every Minute On the Minute';
 
   @override
-  String get emomDesc =>
-      'Perform designated repetitions at the start of each minute. Any remaining time in the minute is your rest.';
-
-  @override
-  String get amrapAcronym => 'Max Rounds & Reps';
-
-  @override
-  String get amrapDesc =>
-      'Complete as many rounds or repetitions of the designated exercises as possible before the clock expires.';
-
-  @override
   String get forTimeAcronym => 'Race Against The Clock';
-
-  @override
-  String get forTimeDesc =>
-      'Complete the designated work and repetitions as fast as possible before reaching the maximum Time Cap.';
 
   @override
   String get stopwatchAcronym => 'Count-Up Timer';
 
   @override
-  String get stopwatchDesc =>
-      'Precision count-up timer with split tracking and best/slowest split analysis.';
-
-  @override
-  String get countdownAcronym => 'Universal Timer';
-
-  @override
-  String get countdownDesc =>
-      'Universal countdown timer with custom hours, minutes, and seconds for any workout, challenge, or rest interval.';
+  String get countdownAcronym => 'Countdown Timer';
 
   @override
   String get customSubtitle => 'Hero WODs & Custom Routines';
-
-  @override
-  String get workoutLogSubtitle => 'History, Whiteboard & CSV';
 
   @override
   String get workoutLogs => 'Workout Log';
@@ -420,22 +257,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Score, weights, reps, scaling, or how you felt...';
 
   @override
-  String get presets => 'Presets & Saved Timers';
-
-  @override
-  String get savePreset => 'Save As Custom Preset';
-
-  @override
-  String get presetNameHint => 'e.g., Heavy Tabata, 12m EMOM, Murph Pace';
+  String get presets => 'Timers & Routines';
 
   @override
   String get defaultPreset => 'Standard (Default)';
 
   @override
-  String get restoreDefault => 'Restore Defaults';
-
-  @override
-  String get presetSaved => 'Preset saved successfully';
+  String get timerSaved => 'Timer saved successfully';
 
   @override
   String get voiceCoach => 'Voice';
@@ -445,16 +273,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Spoken voice cues for countdown, intervals, and finish';
 
   @override
-  String get voiceCoachSelector => 'Select Voice Coach (2 Male, 2 Female)';
-
-  @override
   String get testVoice => 'Test Voice Cue';
-
-  @override
-  String get audioTheme => 'Workout Audio Theme (10 Sound Packs)';
-
-  @override
-  String get audioThemeSubtitle => 'Choose your preferred athletic sound pack:';
 
   @override
   String get done => 'Done';
@@ -488,36 +307,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hyroxCompromisedRun => 'Compromised Running';
 
   @override
-  String get hyroxCompromisedRunDesc =>
-      'Alternating running intervals and functional stations on heavy legs.';
-
-  @override
   String get hyroxStationIntervals => 'Station P-EMOM & Intervals';
-
-  @override
-  String get hyroxStationIntervalsDesc =>
-      'Circuit interval timers cycling through all 8 HYROX functional stations.';
 
   @override
   String get hyroxDoublesTimer => 'Doubles & Relay (IGYG)';
 
   @override
-  String get hyroxDoublesTimerDesc =>
-      'Partner switch alerts (30s, 45s, 60s, 90s) for Doubles and Relay teams.';
-
-  @override
   String get hyroxBenchmarkTests => 'Station Benchmark Tests';
 
   @override
-  String get hyroxBenchmarkTestsDesc =>
-      'Individual station time trials with division weights and pace benchmarks.';
-
-  @override
   String get hyroxStandardsGuide => 'Division Weights & Standards';
-
-  @override
-  String get hyroxStandardsGuideDesc =>
-      'Official weights, target heights, and movement rules for Open, Pro & Doubles.';
 
   @override
   String get roxzone => 'ROXZONE';
@@ -559,16 +358,150 @@ class AppLocalizationsEn extends AppLocalizations {
   String get switchInterval => 'Switch Interval';
 
   @override
-  String get cooldownTime => 'COOLDOWN TIME';
-
-  @override
-  String get intervalSignal => 'INTERVAL SIGNAL';
-
-  @override
   String get off => 'OFF';
 
   @override
-  String everyMinute(Object count) {
-    return 'Every $count min';
+  String get savedTimers => 'Saved Timers';
+
+  @override
+  String get pinToHome => 'Pin to Home';
+
+  @override
+  String get unpinFromHome => 'Unpin from Home';
+
+  @override
+  String get pinnedToHome => 'Added to Home Screen';
+
+  @override
+  String get unpinnedFromHome => 'Removed from Home Screen';
+
+  @override
+  String get noTimersAvailable => 'No saved timers found yet.';
+
+  @override
+  String get standardTimers => 'Timers';
+
+  @override
+  String get timerBadge => 'TIMER';
+
+  @override
+  String get pinned => 'Added';
+
+  @override
+  String get timerManager => 'Timer Manager';
+
+  @override
+  String get timerManagerDesc =>
+      'Manage, edit and organize your workouts and timers';
+
+  @override
+  String get timerUpdated => 'Timer updated successfully';
+
+  @override
+  String get openInTimer => 'Open in Timer';
+
+  @override
+  String get confirmExitTitle => 'Confirm on Exit';
+
+  @override
+  String get confirmExitSubtitle =>
+      'Ask for confirmation before leaving workout (default: off)';
+
+  @override
+  String get autoStartTitle => 'Auto-Start Timer';
+
+  @override
+  String get autoStartSubtitle =>
+      'Automatically start timer when opened (default: off)';
+
+  @override
+  String get stopPreview => 'Stop Preview';
+
+  @override
+  String get listenPreview => 'Listen 3-2-1 & GO';
+
+  @override
+  String get editFolder => 'Edit Folder';
+
+  @override
+  String itemsCount(int count) {
+    return '$count Items';
   }
+
+  @override
+  String get timerParameters => 'TIMER PARAMETERS';
+
+  @override
+  String get prepDuration => 'Prep Duration';
+
+  @override
+  String get roundsCount => 'Rounds';
+
+  @override
+  String get workDuration => 'Work Duration';
+
+  @override
+  String get durationOrCap => 'Duration / Cap';
+
+  @override
+  String get restDuration => 'Rest Duration';
+
+  @override
+  String get cooldownDuration => 'Cooldown';
+
+  @override
+  String get selectTimerType => 'Select Timer Type';
+
+  @override
+  String get roundsTypeOption => 'Rounds';
+
+  @override
+  String get countdownTypeOption => 'Countdown';
+
+  @override
+  String customCopySaved(String name) {
+    return '$name saved as custom timer';
+  }
+
+  @override
+  String get willBeSavedAsCustomCopy => 'Will be saved as a custom copy';
+
+  @override
+  String get customTimerWillBeUpdated => 'Custom timer will be updated';
+
+  @override
+  String get builtInPresetsProtected =>
+      'Built-in standard timers are protected and cannot be deleted. You can unpin them from the home screen.';
+
+  @override
+  String get timerCannotBeDeleted => 'Built-in timer (Cannot be deleted)';
+
+  @override
+  String get searchTimersHint => 'Search timers...';
+
+  @override
+  String get newTimer => 'New Timer';
+
+  @override
+  String addCategoryTimer(String category) {
+    return 'Add $category';
+  }
+
+  @override
+  String get addTimerOrCustom => 'Add Timer';
+
+  @override
+  String get addTimerOrCustomTooltip => 'Add Timer';
+
+  @override
+  String get audioCapsule => 'AUDIO';
+
+  @override
+  String get coachCapsule => 'COACH';
+
+  @override
+  String get roundsShort => 'Rnds';
+
+  @override
+  String get allTimersAndWod => 'All Timers & WOD';
 }

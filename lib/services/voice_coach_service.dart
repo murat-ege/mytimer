@@ -258,13 +258,7 @@ class VoiceCoachService {
   }
 
   Future<void> speakIntervalSignal(int minutes) async {
-    // if (!voiceEnabled) return;
-    // if (minutes <= 0) return;
-    // if (languageCode == 'tr') {
-    //   await speak('$minutes dakika');
-    // } else {
-    //   await speak('$minutes minute${minutes > 1 ? 's' : ''}');
-    // }
+    // Minute interval announcements are currently disabled
     return;
   }
 
@@ -274,12 +268,7 @@ class VoiceCoachService {
   }
 
   Future<void> speakHalfway() async {
-    // if (!voiceEnabled) return;
-    // if (languageCode == 'tr') {
-    //   await speak('Yarı süre tamamlandı!');
-    // } else {
-    //   await speak('Half way there!');
-    // }
+    // Halfway announcement is currently disabled
     return;
   }
 

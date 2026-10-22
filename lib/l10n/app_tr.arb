@@ -1,83 +1,53 @@
 {
   "@@locale": "tr",
-  "appTitle": "MyTimer",
   "tabata": "TABATA",
   "rounds": "ROUNDS",
   "stopwatch": "KRONOMETRE",
   "countdown": "GERİ SAYIM",
   "custom": "WOD & ÖZEL",
   "settings": "AYARLAR",
-  
   "work": "ÇALIŞMA",
   "rest": "DİNLENME",
   "prep": "HAZIRLIK",
   "cooldown": "SOĞUMA",
   "round": "ROUND",
-  "set": "SET",
   "completed": "TAMAMLANDI!",
-  "paused": "DURAKLATILDI",
-  "ready": "HAZIRLAN",
   "finished": "ANTRENMAN TAMAMLANDI!",
-
   "start": "BAŞLAT",
   "pause": "DURAKLAT",
   "resume": "DEVAM ET",
   "reset": "SIFIRLA",
   "skip": "ATLA",
   "lap": "SPLİT",
-
-  "workTime": "ÇALIŞMA SÜRESİ",
-  "restTime": "DİNLENME SÜRESİ",
-  "prepTime": "HAZIRLANMA SÜRESİ",
   "totalRounds": "TOPLAM ROUND",
-  "totalSets": "TOPLAM SET",
   "restBetweenSets": "ROUND ARASI DİNLENME",
-  "timeCap": "TIME CAP",
   "sound": "Ses",
   "vibration": "Titreşim",
   "keepScreenOn": "Ekranı Açık Tut",
   "language": "DİL / LANGUAGE",
-
   "emomTitle": "EMOM",
   "amrapTitle": "AMRAP",
   "forTimeTitle": "FOR TIME",
-  "customRoutines": "Hero WOD Kütüphanesi & Özel Timerlar",
-  "createNewRoutine": "Yeni Timer Oluştur",
-  "routineName": "WOD / Timer Adı",
+  "routineName": "WOD / Sayaç Adı",
   "routineNameHint": "Örn: Fran, Cindy, Murph, 21-15-9",
   "addInterval": "İnterval Ekle",
-  "intervalName": "İnterval / Hareket Adı",
-  "intervalDuration": "Süre (sn)",
-  "intervalType": "İnterval Fazı",
   "save": "KAYDET",
   "cancel": "İPTAL",
   "delete": "SİL",
   "edit": "DÜZENLE",
-  "noCustomRoutines": "Henüz kayıtlı timer yok. + butonuna basarak ekleyin!",
-  "confirmDelete": "Bu timer''ı silmek istediğinize emin misiniz?",
-  "cloudSyncNotice": "Timerlarınız ve antrenman loglarınız cihazınızda saklanır.",
-
-  "lapTimes": "Split & Tur Zamanları",
-  "fastestLap": "En Hızlı Split",
-  "slowestLap": "En Yavaş Split",
+  "cloudSyncNotice": "Sayaçlarınız ve antrenman loglarınız cihazınızda saklanır.",
   "totalTime": "TOPLAM SÜRE",
   "roundTime": "Split Süresi",
-
   "general": "GENEL",
   "soundSubtitle": "Geri sayım ve interval geçiş bip sesleri",
   "vibrationSubtitle": "Aralık geçişlerinde haptik titreşim bildirimi",
   "keepScreenOnSubtitle": "Antrenman boyunca ekran kapanmaz",
-  "soundTest": "SES TESTİ",
   "appLanguage": "Uygulama Dili",
   "aboutTitle": "HAKKINDA",
   "aboutDesc": "CrossFit, HIIT, fonksiyonel fitness ve WOD müsabakaları için tasarlandı.",
   "seconds": "sn",
   "minutes": "dk",
   "hours": "Saat",
-  "hoursShort": "sa",
-  "totalRoundsStat": "ROUND SAYISI",
-  "workRestStat": "ÇALIŞMA / DİNLENME",
-  "startWorkout": "ANTRENMANI BAŞLAT",
   "searchWods": "WOD veya Egzersiz Ara...",
   "allCategories": "TÜMÜ",
   "next": "Sıradaki",
@@ -85,76 +55,23 @@
   "exitWorkoutMessage": "Antrenman sonlandırılacak. Çıkmak istediğinize emin misiniz?",
   "continueWorkout": "DEVAM ET",
   "quit": "ÇIK",
-
-  "createRoutine": "YENİ TİMER OLUŞTUR",
-  "customizeWod": "WOD''U ÖZELLEŞTİR",
-  "editTimer": "TİMER DÜZENLE",
-  "customSuffix": " (Özel)",
-  "workoutsListed": "{count} antrenman listeleniyor",
-  "@workoutsListed": {
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
+  "createRoutine": "YENİ SAYAÇ OLUŞTUR",
+  "editTimer": "Sayacı Düzenle",
   "clearFilters": "Filtreleri Temizle",
-  "noWorkoutsFound": "\"{query}\" için antrenman bulunamadı",
-  "@noWorkoutsFound": {
-    "placeholders": {
-      "query": { "type": "String" }
-    }
-  },
-  "showAllWods": "Tüm WOD''ları Göster",
-  "customizeOrCopy": "Özelleştir / Yeni İsimle Kaydet",
-  "deleteTimerTitle": "Timer Silinsin mi?",
-  "deleteTimerConfirm": "{name} silinecektir. Onaylıyor musunuz?",
-  "@deleteTimerConfirm": {
-    "placeholders": {
-      "name": { "type": "String" }
-    }
-  },
-  "routineNameRequired": "Lütfen bir ad girin",
-  "descriptionLabel": "Açıklama (İsteğe bağlı)",
-  "descriptionHint": "Hedeflenen hareketler, ağırlık veya notlar",
-  "intervalSequence": "ARALIK SIRALAMASI",
-  "saveTimer": "TİMER''I KAYDET",
-  "addAtLeastOneInterval": "Lütfen en az bir aralık ekleyin!",
-  "addNewInterval": "Yeni Aralık Ekle",
-  "intervalPhaseLabel": "Tip",
+  "deleteTimerTitle": "Sayacı Sil?",
+  "deleteTimerConfirm": "Bu sayacı silmek istediğinizden emin misiniz? Ana ekrandan da kaldırılacaktır.",
   "durationSec": "Süre (sn):",
   "add": "EKLE",
-  "roundsBadge": "{count} Tur",
-  "@roundsBadge": {
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
-  "intervalsBadge": "{count} Aralık",
-  "@intervalsBadge": {
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
   "categoryCustom": "Özel",
-
   "tabataAcronym": "20sn Çalışma / 10sn Dinlenme",
-  "tabataDesc": "Yüksek Yoğunluklu Aralıklı Antrenman: 20 saniye maksimum efor, ardından 10 saniye dinlenme. Dr. Izumi Tabata protokolü.",
   "roundsAcronym": "İnterval Antrenmanı",
-  "roundsDesc": "Güç ve kondisyon için belirlenen tur sayısı boyunca çalışma ve dinlenme aralıkları.",
   "emomAcronym": "Her Dakika Başında",
-  "emomDesc": "Her dakikanın başında belirlenen tekrarları yapın; arta kalan sürede bir sonraki dakikaya kadar dinlenin.",
-  "amrapAcronym": "Maksimum Tur / Tekrar",
-  "amrapDesc": "Süre dolana kadar verilen egzersizleri mümkün olan en fazla tur veya tekrarla tamamlayın.",
   "forTimeAcronym": "Zamana Karşı Yarış",
-  "forTimeDesc": "Verilen işi ve tekrarları Time Cap (Maksimum Süre) dolmadan en hızlı sürede tamamlayın.",
-  "stopwatchAcronym": "İleri Sayım",
-  "stopwatchDesc": "Split ve tur zamanı kayıtlı, en hızlı ve en yavaş split analizi sunan hassas sayaç.",
-  "countdownAcronym": "Evrensel Sayaç",
-  "countdownDesc": "İstenen saat, dakika ve saniyeye göre sıfıra doğru geriye sayan evrensel sayaç.",
+  "stopwatchAcronym": "Kronometre",
+  "countdownAcronym": "Geri Sayım Sayacı",
   "customSubtitle": "Hero WOD & Özel Rutinler",
-  "workoutLogSubtitle": "Geçmiş, Whiteboard & CSV",
-
   "workoutLogs": "Workout Log",
-  "noLogsYet": "Henüz kayıtlı antrenman yok.\nHerhangi bir timer antrenmanını tamamladığınızda loglarınız burada listelenir!",
+  "noLogsYet": "Henüz kayıtlı antrenman yok.\nHerhangi bir antrenmanı tamamladığınızda loglarınız burada listelenir!",
   "exportAllCsv": "Tümünü Export Al (CSV)",
   "clearAllLogs": "Tüm Logları Temizle",
   "clearLogsConfirm": "Tüm antrenman geçmişini kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
@@ -163,41 +80,26 @@
   "removePhoto": "Görseli Kaldır",
   "workoutNote": "Antrenman Notu",
   "workoutNoteHint": "Skor, ağırlıklar, tekrar sayıları veya antrenman notu...",
-
-  "presets": "Kayıtlı Timerlar & Favoriler",
-  "savePreset": "Özelleştirilmiş Olarak Kaydet",
-  "presetNameHint": "Örn: Ağır Tabata, 12dk EMOM, Murph Temposu",
+  "presets": "Sayaçlar & Rutinler",
   "defaultPreset": "Standart (Varsayılan)",
-  "restoreDefault": "Varsayılana Sıfırla",
-  "presetSaved": "Özelleştirilmiş timer kaydedildi",
-
+  "timerSaved": "Sayaç başarıyla kaydedildi",
   "voiceCoach": "Seslendirme",
   "voiceCoachSubtitle": "Geri sayım, aralık geçişleri ve bitiş için sesli yönlendirmeler",
-  "voiceCoachSelector": "Antrenman Koçu Sesi (2 Erkek, 2 Kadın)",
   "testVoice": "Seslendirmeyi Test Et",
-
-  "audioTheme": "Antrenman Ses Teması (10 Farklı Audio)",
-  "audioThemeSubtitle": "Tercih ettiğiniz atletik ses temasını seçin:",
   "done": "Bitti",
   "addTimer": "Zamanlayıcı Ekle",
   "allTimersAdded": "Tüm zamanlayıcılar ana ekranda",
   "resetLayout": "Varsayılan Dizilime Dön",
   "editHomeScreen": "Ana Ekranı Düzenle",
-
   "hyrox": "HYROX",
   "hyroxSubtitle": "Yarış Simülatörü & Testler",
   "hyroxRaceSimulator": "Yarış Simülatörü",
   "hyroxRaceSimulatorDesc": "Roxzone geçiş takipli ve hedef tempo analizi sunan Tam ve Yarı HYROX yarış sayacı.",
   "hyroxCompromisedRun": "Compromised Running (Koşu + İstasyon)",
-  "hyroxCompromisedRunDesc": "Yorgun bacaklarla koşu ve fonksiyonel istasyon blokları arasında dönüşümlü antrenman.",
   "hyroxStationIntervals": "İstasyon P-EMOM & İntervalleri",
-  "hyroxStationIntervalsDesc": "8 HYROX istasyonu arasında tur atan devre ve süre aralıklı interval sayacı.",
   "hyroxDoublesTimer": "Doubles & Bayrak (IGYG Değişim)",
-  "hyroxDoublesTimerDesc": "Çiftler (Doubles) ve bayrak takımları için partner değişim uyarıcısı (30sn, 45sn, 60sn).",
   "hyroxBenchmarkTests": "İstasyon Benchmark Testleri",
-  "hyroxBenchmarkTestsDesc": "Kategori ağırlıkları ve elit süre hedefleriyle tekil istasyon zaman denemeleri.",
   "hyroxStandardsGuide": "Kategori Ağırlıkları & Standartlar",
-  "hyroxStandardsGuideDesc": "Open, Pro ve Doubles kategorileri için resmi ağırlıklar, hedef yükseklikleri ve kurallar.",
   "roxzone": "ROXZONE",
   "roxzoneTracking": "Roxzone Geçiş Turları",
   "targetFinishTime": "Hedef Bitiş Süresi",
@@ -211,8 +113,71 @@
   "partnerB": "PARTNER B",
   "switchPartner": "PARTNER DEĞİŞ!",
   "switchInterval": "Değişim Aralığı",
-  "cooldownTime": "SOĞUMA SÜRESİ",
-  "intervalSignal": "ARALIK SİNYALİ",
   "off": "KAPALI",
-  "everyMinute": "{count} dakikada bir"
+  "savedTimers": "Kayıtlı Sayaçlar",
+  "pinToHome": "Ana Ekrana Ekle",
+  "unpinFromHome": "Ana Ekrandan Kaldır",
+  "pinnedToHome": "Ana ekrana eklendi",
+  "unpinnedFromHome": "Ana ekrandan kaldırıldı",
+  "noTimersAvailable": "Henüz kayıtlı sayaç bulunamadı.",
+  "standardTimers": "Zamanlayıcılar",
+  "timerBadge": "SAYAÇ",
+  "pinned": "Eklendi",
+  "timerManager": "SAYAÇ YÖNETİCİSİ",
+  "timerManagerDesc": "Sayaçlarınızı ve rutinlerinizi yönetin, düzenleyin ve organize edin",
+  "timerUpdated": "Sayaç başarıyla güncellendi",
+  "openInTimer": "Sayaç Aç",
+  "confirmExitTitle": "Çıkış Onayı",
+  "confirmExitSubtitle": "Geri tuşuna basıldığında onay sorar (varsayılan: kapalı)",
+  "autoStartTitle": "Otomatik Başlat",
+  "autoStartSubtitle": "Sayaç ekranı açıldığında otomatik başlar (varsayılan: kapalı)",
+  "stopPreview": "Önizlemeyi Durdur",
+  "listenPreview": "3-2-1 ve BAŞLAT",
+  "editFolder": "Klasörü Düzenle",
+  "itemsCount": "{count} İkon",
+  "@itemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timerParameters": "ZAMANLAYICI PARAMETRELERİ",
+  "prepDuration": "Hazırlık Süresi (Prep)",
+  "roundsCount": "Tur Sayısı (Rounds)",
+  "workDuration": "Çalışma Süresi (Work)",
+  "durationOrCap": "Süre / Limit (Cap)",
+  "restDuration": "Dinlenme Süresi (Rest)",
+  "cooldownDuration": "Soğuma Süresi (Cooldown)",
+  "selectTimerType": "Sayaç Tipi Seçin",
+  "roundsTypeOption": "Rounds (Boks/MMA)",
+  "countdownTypeOption": "Geri Sayım",
+  "customCopySaved": "{name} özel sayaç olarak kaydedildi",
+  "@customCopySaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "willBeSavedAsCustomCopy": "Standart şablon kopyası olarak kaydedilecek",
+  "customTimerWillBeUpdated": "Özel sayaç güncellenecek",
+  "builtInPresetsProtected": "Yerleşik standart sayaçlar korunmaktadır ve silinemez. Dilerseniz ana ekrandan kaldırabilirsiniz.",
+  "timerCannotBeDeleted": "Yerleşik sayaç (Silinemez)",
+  "searchTimersHint": "Sayaç ara...",
+  "newTimer": "Yeni Sayaç",
+  "addCategoryTimer": "{category} Ekle",
+  "@addCategoryTimer": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "addTimerOrCustom": "Sayaç Ekle",
+  "addTimerOrCustomTooltip": "Sayaç Ekle",
+  "audioCapsule": "SES",
+  "coachCapsule": "KOÇ",
+  "roundsShort": "Tur",
+  "allTimersAndWod": "Tüm Sayaçlar & WOD"
 }

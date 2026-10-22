@@ -5,6 +5,7 @@ import '../../models/custom_routine.dart';
 import '../../models/interval_step.dart';
 import '../../models/timer_phase.dart';
 import '../../repositories/local_timer_repository.dart';
+import '../../shared/utils/home_timer_helper.dart';
 import '../timer_runner/timer_runner_screen.dart';
 
 class HyroxCompromisedScreen extends StatefulWidget {
@@ -93,10 +94,11 @@ class _HyroxCompromisedScreenState extends State<HyroxCompromisedScreen> {
     final l10n = AppLocalizations.of(context);
     final routine = _buildRoutine();
     await _repository.saveRoutine(routine);
+    await HomeTimerHelper.pin(routine.id, category: routine.category);
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(l10n?.presetSaved ?? 'Saved to Custom Timers!'),
+          content: Text('${routine.name} ${l10n?.pinnedToHome.toLowerCase() ?? 'ana ekrana eklendi'}'),
           backgroundColor: const Color(0xFF00E676),
         ),
       );

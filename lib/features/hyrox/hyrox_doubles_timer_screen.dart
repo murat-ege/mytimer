@@ -430,13 +430,13 @@ class _HyroxDoublesTimerScreenState extends State<HyroxDoublesTimerScreen> {
               child: TextFormField(
                 initialValue: _partnerAName,
                 style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                decoration: const InputDecoration(
-                  labelText: 'PARTNER 1 NAME',
-                  labelStyle: TextStyle(color: _partnerAColor, fontWeight: FontWeight.bold),
+                decoration: InputDecoration(
+                  labelText: l10n?.partnerA ?? 'PARTNER A',
+                  labelStyle: const TextStyle(color: _partnerAColor, fontWeight: FontWeight.bold),
                   filled: true,
-                  fillColor: Color(0xFF1E1E1E),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: _partnerAColor)),
+                  fillColor: const Color(0xFF1E1E1E),
+                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+                  focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: _partnerAColor)),
                 ),
                 onChanged: (val) => _partnerAName = val.trim().isEmpty ? 'Partner A' : val.trim(),
               ),
@@ -446,13 +446,13 @@ class _HyroxDoublesTimerScreenState extends State<HyroxDoublesTimerScreen> {
               child: TextFormField(
                 initialValue: _partnerBName,
                 style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                decoration: const InputDecoration(
-                  labelText: 'PARTNER 2 NAME',
-                  labelStyle: TextStyle(color: _partnerBColor, fontWeight: FontWeight.bold),
+                decoration: InputDecoration(
+                  labelText: l10n?.partnerB ?? 'PARTNER B',
+                  labelStyle: const TextStyle(color: _partnerBColor, fontWeight: FontWeight.bold),
                   filled: true,
-                  fillColor: Color(0xFF1E1E1E),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: _partnerBColor)),
+                  fillColor: const Color(0xFF1E1E1E),
+                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+                  focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: _partnerBColor)),
                 ),
                 onChanged: (val) => _partnerBName = val.trim().isEmpty ? 'Partner B' : val.trim(),
               ),

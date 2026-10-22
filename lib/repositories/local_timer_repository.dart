@@ -4,8 +4,10 @@ import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import '../data/hyrox_data.dart';
+import '../data/timer_presets_data.dart';
 import '../models/custom_routine.dart';
 import '../models/timer_settings.dart';
+import '../shared/utils/home_timer_helper.dart';
 import 'timer_repository.dart';
 
 class LocalTimerRepository implements TimerRepository {
@@ -55,6 +57,11 @@ class LocalTimerRepository implements TimerRepository {
         await box.put(hyrox.id, jsonEncode(hyrox.copyWith(isPreset: true).toJson()));
       }
     }
+
+    // Ensure standard base timer presets (Tabata, EMOM, Rounds, AMRAP, For Time, Countdown) are always present & updated
+    for (final preset in TimerPresetsData.getDefaultTimerPresets()) {
+      await box.put(preset.id, jsonEncode(preset.copyWith(isPreset: true).toJson()));
+    }
   }
 
   @override
@@ -91,9 +98,9 @@ class LocalTimerRepository implements TimerRepository {
         id: const Uuid().v4(),
         name: routine.name.endsWith('(Custom)') || routine.name.endsWith('(Özel)')
             ? routine.name
-            : '${routine.name} (Custom)',
+            : (routine.name.contains('(') ? routine.name : '${routine.name} (Custom)'),
         isPreset: false,
-        category: 'Custom',
+        category: routine.category,
         updatedAt: DateTime.now(),
       );
       await box.put(customCopy.id, jsonEncode(customCopy.toJson()));
@@ -121,6 +128,9 @@ class LocalTimerRepository implements TimerRepository {
     }
 
     await box.delete(id);
+
+    // If pinned to home screen, remove it from home order
+    await HomeTimerHelper.unpin(id);
 
     // If any timer's last loaded routine was this deleted routine, clear it
     final prefs = await SharedPreferences.getInstance();

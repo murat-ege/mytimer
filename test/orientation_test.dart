@@ -32,7 +32,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // In portrait, find the lock portrait button
-    final orientationBtn = find.byIcon(Icons.screen_lock_portrait);
+    final orientationBtn = find.byIcon(Icons.screen_lock_portrait_rounded);
     expect(orientationBtn, findsOneWidget);
 
     // Tap to toggle to landscape
@@ -44,7 +44,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // In landscape, verify lock landscape icon is present and no overflow
-    final landscapeBtn = find.byIcon(Icons.screen_lock_landscape);
+    final landscapeBtn = find.byIcon(Icons.screen_lock_landscape_rounded);
     expect(landscapeBtn, findsOneWidget);
 
     // Tap to toggle back to portrait
@@ -54,6 +54,6 @@ void main() {
     tester.view.physicalSize = const Size(360, 800);
     await tester.pumpAndSettle();
 
-    expect(find.byIcon(Icons.screen_lock_portrait), findsOneWidget);
+    expect(find.byIcon(Icons.screen_lock_portrait_rounded), findsOneWidget);
   });
 }

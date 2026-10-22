@@ -1,24 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:mytimer/l10n/generated/app_localizations.dart';
-import 'package:mytimer/features/tabata/tabata_screen.dart';
-import 'package:mytimer/features/rounds/rounds_screen.dart';
-import 'package:mytimer/features/emom/emom_screen.dart';
-import 'package:mytimer/features/amrap/amrap_screen.dart';
-import 'package:mytimer/features/for_time/for_time_screen.dart';
-import 'package:mytimer/features/hyrox/hyrox_home_screen.dart';
-import 'package:mytimer/features/stopwatch/stopwatch_screen.dart';
-import 'package:mytimer/features/countdown/countdown_screen.dart';
-import 'package:mytimer/features/custom_routines/custom_routines_screen.dart';
+import 'package:mytimer/models/custom_routine.dart';
+import 'package:mytimer/repositories/local_timer_repository.dart';
+import 'package:mytimer/shared/utils/home_timer_helper.dart';
+import 'package:mytimer/features/timer_manager/timer_manager_screen.dart';
 import 'package:mytimer/features/workout_log/workout_log_screen.dart';
 import 'package:mytimer/features/settings/settings_screen.dart';
 
 import 'widgets/home_timer_card.dart';
 import 'widgets/add_timer_tile.dart';
 import 'widgets/add_timer_bottom_sheet.dart';
+import 'widgets/folder_modal.dart';
 
 export 'widgets/home_timer_card.dart' show TimerCatalogItem, HomeTimerCard;
 
@@ -38,22 +32,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  static const String _prefKey = 'home_timer_order_v1';
+  final LocalTimerRepository _repository = LocalTimerRepository();
 
-  static const List<String> _defaultOrder = [
-    'tabata',
-    'rounds',
-    'emom',
-    'amrap',
-    'for_time',
-    'hyrox',
-    'stopwatch',
-    'countdown',
-    'custom',
-    'workout_log',
-  ];
-
-  List<String> _timerOrder = List.from(_defaultOrder);
+  List<CustomRoutine> _routines = [];
+  List<String> _folderOrder = List.from(HomeTimerHelper.defaultFolderOrder);
   bool _isEditing = false;
 
   late AnimationController _jiggleController;
@@ -81,31 +63,21 @@ class _HomeScreenState extends State<HomeScreen>
 
   Future<void> _loadSavedOrder() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final saved = prefs.getStringList(_prefKey);
-      if (saved != null && saved.isNotEmpty) {
-        final valid = saved.where((id) => _catalog.containsKey(id)).toList();
-        if (!valid.contains('hyrox') && _catalog.containsKey('hyrox')) {
-          final customIdx = valid.indexOf('custom');
-          if (customIdx >= 0) {
-            valid.insert(customIdx, 'hyrox');
-          } else {
-            valid.add('hyrox');
-          }
-        }
-        if (valid.isNotEmpty) {
-          setState(() {
-            _timerOrder = valid;
-          });
-        }
+      final routines = await _repository.getRoutines();
+      final savedOrder = await HomeTimerHelper.getFolderOrder();
+
+      if (mounted) {
+        setState(() {
+          _routines = routines;
+          _folderOrder = savedOrder;
+        });
       }
     } catch (_) {}
   }
 
-  Future<void> _saveOrder() async {
+  Future<void> _saveFolderOrder() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setStringList(_prefKey, _timerOrder);
+      await HomeTimerHelper.saveFolderOrder(_folderOrder);
     } catch (_) {}
   }
 
@@ -122,38 +94,38 @@ class _HomeScreenState extends State<HomeScreen>
       _jiggleController.stop();
       _jiggleController.reset();
       HapticFeedback.lightImpact();
-      _saveOrder();
+      _saveFolderOrder();
     }
   }
 
-  void _removeTimer(String id) {
+  void _removeFolder(String id) {
     setState(() {
-      _timerOrder.remove(id);
+      _folderOrder.remove(id);
     });
-    _saveOrder();
+    _saveFolderOrder();
     HapticFeedback.mediumImpact();
   }
 
-  void _addTimer(String id) {
-    if (!_timerOrder.contains(id)) {
+  void _addFolder(String id) {
+    if (!_folderOrder.contains(id)) {
       setState(() {
-        _timerOrder.add(id);
+        _folderOrder.add(id);
       });
-      _saveOrder();
+      _saveFolderOrder();
       HapticFeedback.lightImpact();
     }
   }
 
   void _resetToDefault() {
     setState(() {
-      _timerOrder = List.from(_defaultOrder);
+      _folderOrder = List.from(HomeTimerHelper.defaultFolderOrder);
     });
-    _saveOrder();
+    _saveFolderOrder();
     HapticFeedback.heavyImpact();
   }
 
-  void _openSettings(BuildContext context) {
-    Navigator.of(context).push(
+  void _openSettings(BuildContext context) async {
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => SettingsScreen(
           currentLocale: widget.currentLocale ?? Localizations.localeOf(context),
@@ -161,117 +133,111 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
     );
+    if (mounted) {
+      _loadSavedOrder();
+    }
   }
 
-  void _openLog(BuildContext context) {
-    Navigator.of(context)
+  void _openLog(BuildContext context) async {
+    await Navigator.of(context)
         .push(MaterialPageRoute(builder: (_) => const WorkoutLogScreen()));
+    if (mounted) {
+      _loadSavedOrder();
+    }
   }
 
-  Map<String, TimerCatalogItem> get _catalog => {
-    'tabata': TimerCatalogItem(
-      id: 'tabata',
-      getTitle: (l10n) => l10n?.tabata ?? 'TABATA',
-      getSubtitle: (l10n) => l10n?.tabataAcronym ?? '20s Work / 10s Rest',
-      color: const Color(0xFF00E676),
-      gradientSecondColor: const Color(0xFF00BFA5),
-      icon: Icons.flash_on_rounded,
-      buildScreen: () => const TabataScreen(),
-    ),
-    'rounds': TimerCatalogItem(
-      id: 'rounds',
-      getTitle: (l10n) => l10n?.rounds ?? 'ROUNDS',
-      getSubtitle: (l10n) => l10n?.roundsAcronym ?? 'Interval Training',
-      color: const Color(0xFF2979FF),
-      gradientSecondColor: const Color(0xFF00B0FF),
-      icon: Icons.repeat_rounded,
-      buildScreen: () => const RoundsScreen(),
-    ),
-    'emom': TimerCatalogItem(
-      id: 'emom',
-      getTitle: (l10n) => l10n?.emomTitle ?? 'EMOM',
-      getSubtitle: (l10n) => l10n?.emomAcronym ?? 'Every Minute On the Minute',
-      color: const Color(0xFFFFD600),
-      gradientSecondColor: const Color(0xFFFF9100),
-      icon: Icons.timer_outlined,
-      buildScreen: () => const EmomScreen(),
-    ),
-    'amrap': TimerCatalogItem(
-      id: 'amrap',
-      getTitle: (l10n) => l10n?.amrapTitle ?? 'AMRAP',
-      getSubtitle: (l10n) => l10n?.amrapAcronym ?? 'As Many Rounds / Reps As Possible',
-      color: const Color(0xFFFF5722),
-      gradientSecondColor: const Color(0xFFFF1744),
-      icon: Icons.all_inclusive_rounded,
-      buildScreen: () => const AmrapScreen(),
-    ),
-    'for_time': TimerCatalogItem(
-      id: 'for_time',
-      getTitle: (l10n) => l10n?.forTimeTitle ?? 'FOR TIME',
-      getSubtitle: (l10n) =>
-          l10n?.forTimeAcronym ?? 'Race Against The Clock',
-      color: const Color(0xFF7C4DFF),
-      gradientSecondColor: const Color(0xFF651FFF),
-      icon: Icons.speed_rounded,
-      buildScreen: () => const ForTimeScreen(),
-    ),
-    'hyrox': TimerCatalogItem(
-      id: 'hyrox',
-      getTitle: (l10n) => l10n?.hyrox ?? 'HYROX',
-      getSubtitle: (l10n) =>
-          l10n?.hyroxSubtitle ?? 'Race Simulator, Intervals & Tests',
-      color: const Color(0xFFFFE600),
-      gradientSecondColor: const Color(0xFFFF9100),
-      icon: Icons.directions_run_rounded,
-      buildScreen: () => const HyroxHomeScreen(),
-    ),
-    'stopwatch': TimerCatalogItem(
-      id: 'stopwatch',
-      getTitle: (l10n) => l10n?.stopwatch ?? 'STOPWATCH',
-      getSubtitle: (l10n) =>
-          l10n?.stopwatchAcronym ?? 'Count-Up Timer with Splits',
-      color: const Color(0xFF00E5FF),
-      gradientSecondColor: const Color(0xFF0091EA),
-      icon: CupertinoIcons.stopwatch_fill,
-      buildScreen: () => const StopwatchScreen(),
-    ),
-    'countdown': TimerCatalogItem(
-      id: 'countdown',
-      getTitle: (l10n) => l10n?.countdown ?? 'COUNTDOWN',
-      getSubtitle: (l10n) => l10n?.countdownAcronym ?? 'Universal Timer',
-      color: const Color(0xFFFF4081),
-      gradientSecondColor: const Color(0xFFF50057),
-      icon: Icons.hourglass_bottom_rounded,
-      buildScreen: () => const CountdownScreen(),
-    ),
-    'custom': TimerCatalogItem(
-      id: 'custom',
-      getTitle: (l10n) => l10n?.custom ?? 'CUSTOM & WODS',
-      getSubtitle: (l10n) =>
-          l10n?.customSubtitle ?? 'Hero WODs & Custom Routines',
-      color: const Color(0xFF00BFA5),
-      gradientSecondColor: const Color(0xFF1DE9B6),
-      icon: Icons.fitness_center_rounded,
-      buildScreen: () => const CustomRoutinesScreen(),
-    ),
-    'workout_log': TimerCatalogItem(
-      id: 'workout_log',
-      getTitle: (l10n) => l10n?.workoutLogs ?? 'WORKOUT LOG',
-      getSubtitle: (l10n) =>
-          l10n?.workoutLogSubtitle ?? 'History, Whiteboard & CSV',
-      color: const Color(0xFFFF5252),
-      gradientSecondColor: const Color(0xFFFF1744),
-      icon: Icons.history_edu_rounded,
-      buildScreen: () => const WorkoutLogScreen(),
-    ),
-  };
+  void _openFolderModal(String folderId) async {
+    final folder = HomeTimerHelper.folderDefinitions[folderId];
+    if (folder == null) return;
 
-  void _showAddTimerBottomSheet() {
+    final itemIds = await HomeTimerHelper.getFolderItems(folderId);
+    final resolvedItems = itemIds
+        .map((id) => HomeTimerHelper.resolveFolderItem(
+              folderId: folderId,
+              itemId: id,
+              routines: _routines,
+            ))
+        .whereType<HomeFolderItem>()
+        .toList();
+
+    if (!mounted) return;
+
+    final result = await FolderModal.show(
+      context: context,
+      folder: folder,
+      items: resolvedItems,
+      isEditing: _isEditing,
+      jiggleAnimation: _jiggleAnimation,
+      onReorderIcons: (fId, fromId, toId) async {
+        final currentList = await HomeTimerHelper.getFolderItems(fId);
+        final fromIdx = currentList.indexOf(fromId);
+        final toIdx = currentList.indexOf(toId);
+        if (fromIdx != -1 && toIdx != -1 && fromIdx != toIdx) {
+          final moved = currentList.removeAt(fromIdx);
+          currentList.insert(toIdx, moved);
+          await HomeTimerHelper.saveFolderItems(fId, currentList);
+          if (mounted) {
+            _loadSavedOrder();
+          }
+        }
+      },
+      onUnpinItem: (fId, itemId) async {
+        final routineId = HomeTimerHelper.extractRoutineId(itemId);
+        await HomeTimerHelper.unpin(routineId);
+        if (mounted) {
+          _loadSavedOrder();
+        }
+      },
+      onToggleEditing: () => _toggleEditing(!_isEditing),
+    );
+
+    if (!mounted) return;
+
+    if (result is HomeFolderItem) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => result.buildScreen()),
+      );
+      if (mounted) {
+        _loadSavedOrder();
+      }
+    } else if (result is FolderAddPresetAction) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => TimerManagerScreen(initialCategory: result.categoryFilter),
+        ),
+      );
+      if (mounted) {
+        _loadSavedOrder();
+      }
+    } else {
+      _loadSavedOrder();
+    }
+  }
+
+  Map<String, TimerCatalogItem> get _folderCatalog {
+    final map = <String, TimerCatalogItem>{};
+    for (final entry in HomeTimerHelper.folderDefinitions.entries) {
+      final f = entry.value;
+      map[f.id] = TimerCatalogItem(
+        id: f.id,
+        getTitle: (l10n) => f.getTitle(l10n),
+        getSubtitle: (l10n) => f.getSubtitle(l10n),
+        color: f.color,
+        gradientSecondColor: f.gradientSecondColor,
+        icon: f.icon,
+        badgeText: f.getBadge(null),
+        buildScreen: () => const SizedBox.shrink(),
+      );
+    }
+    return map;
+  }
+
+  void _showAddFolderBottomSheet() {
     AddTimerBottomSheet.show(
       context,
-      catalog: _catalog,
-      currentTimerOrder: _timerOrder,
-      onAdd: _addTimer,
+      baseCatalog: _folderCatalog,
+      currentTimerOrder: _folderOrder,
+      onAdd: _addFolder,
       onResetToDefault: _resetToDefault,
     );
   }
@@ -279,8 +245,8 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final catalog = _catalog;
-    final activeItems = _timerOrder
+    final catalog = _folderCatalog;
+    final activeItems = _folderOrder
         .where((id) => catalog.containsKey(id))
         .map((id) => catalog[id]!)
         .toList();
@@ -303,8 +269,8 @@ class _HomeScreenState extends State<HomeScreen>
                     color: Color(0xFF00E676),
                     size: 28,
                   ),
-                  tooltip: l10n?.addTimer ?? 'Zamanlayıcı Ekle',
-                  onPressed: _showAddTimerBottomSheet,
+                  tooltip: l10n?.addTimer ?? 'Add Folder',
+                  onPressed: _showAddFolderBottomSheet,
                 )
               : Center(
                   child: Container(
@@ -329,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
           title: _isEditing
               ? Text(
-                  l10n?.editHomeScreen ?? 'DÜZENLE',
+                  l10n?.editHomeScreen ?? 'EDIT',
                   style: const TextStyle(
                     color: Color(0xFF00E676),
                     fontWeight: FontWeight.w900,
@@ -370,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen>
                   onPressed: () => _toggleEditing(false),
                   icon: const Icon(Icons.check_rounded, color: Color(0xFF00E676), size: 18),
                   label: Text(
-                    l10n?.done ?? 'Bitti',
+                    l10n?.done ?? 'Done',
                     style: const TextStyle(
                       color: Color(0xFF00E676),
                       fontWeight: FontWeight.w900,
@@ -397,7 +363,7 @@ class _HomeScreenState extends State<HomeScreen>
                       color: Colors.white70,
                       size: 20,
                     ),
-                    tooltip: l10n?.editHomeScreen ?? 'Ana Ekranı Düzenle',
+                    tooltip: l10n?.editHomeScreen ?? 'Edit Home Screen',
                     onPressed: () => _toggleEditing(true),
                   ),
                 ),
@@ -430,38 +396,38 @@ class _HomeScreenState extends State<HomeScreen>
         body: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              const crossAxisCount = 2;
-              const spacing = 12.0;
-              const horizontalPadding = 18.0;
-              const childAspectRatio = 1.125;
+              final layout = _HomeGridLayout.compute(
+                width: constraints.maxWidth,
+                height: constraints.maxHeight,
+              );
 
               final itemWidth =
                   (constraints.maxWidth -
-                      (horizontalPadding * 2) -
-                      (spacing * (crossAxisCount - 1))) /
-                  crossAxisCount;
-              final itemHeight = itemWidth / childAspectRatio;
+                      (layout.horizontalPadding * 2) -
+                      (layout.spacing * (layout.crossAxisCount - 1))) /
+                  layout.crossAxisCount;
+              final itemHeight = itemWidth / layout.childAspectRatio;
 
               final totalTiles =
                   activeItems.length + (_isEditing && hasHidden ? 1 : 0);
 
               return GridView.builder(
-                padding: const EdgeInsets.only(
-                  left: horizontalPadding,
-                  right: horizontalPadding,
-                  top: 12.0,
-                  bottom: 24.0,
+                padding: EdgeInsets.only(
+                  left: layout.horizontalPadding,
+                  right: layout.horizontalPadding,
+                  top: layout.topPadding,
+                  bottom: layout.bottomPadding,
                 ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  mainAxisSpacing: spacing,
-                  crossAxisSpacing: spacing,
-                  childAspectRatio: childAspectRatio,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: layout.crossAxisCount,
+                  mainAxisSpacing: layout.spacing,
+                  crossAxisSpacing: layout.spacing,
+                  childAspectRatio: layout.childAspectRatio,
                 ),
                 itemCount: totalTiles,
                 itemBuilder: (ctx, index) {
                   if (index >= activeItems.length) {
-                    return AddTimerTile(onTap: _showAddTimerBottomSheet);
+                    return AddTimerTile(onTap: _showAddFolderBottomSheet);
                   }
 
                   final item = activeItems[index];
@@ -470,16 +436,16 @@ class _HomeScreenState extends State<HomeScreen>
                     onWillAcceptWithDetails: (details) =>
                         details.data != item.id,
                     onAcceptWithDetails: (details) {
-                      final fromIndex = _timerOrder.indexOf(details.data);
-                      final toIndex = _timerOrder.indexOf(item.id);
+                      final fromIndex = _folderOrder.indexOf(details.data);
+                      final toIndex = _folderOrder.indexOf(item.id);
                       if (fromIndex != -1 &&
                           toIndex != -1 &&
                           fromIndex != toIndex) {
                         setState(() {
-                          final moved = _timerOrder.removeAt(fromIndex);
-                          _timerOrder.insert(toIndex, moved);
+                          final moved = _folderOrder.removeAt(fromIndex);
+                          _folderOrder.insert(toIndex, moved);
                         });
-                        _saveOrder();
+                        _saveFolderOrder();
                         HapticFeedback.lightImpact();
                       }
                     },
@@ -549,21 +515,15 @@ class _HomeScreenState extends State<HomeScreen>
                                         isEditing: _isEditing,
                                         onTap: () {},
                                         onLongPress: () {},
-                                        onRemove: () => _removeTimer(item.id),
+                                        onRemove: () => _removeFolder(item.id),
                                       ),
                                     )
                                   : HomeTimerCard(
                                       item: item,
                                       isEditing: false,
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (_) => item.buildScreen(),
-                                          ),
-                                        );
-                                      },
+                                      onTap: () => _openFolderModal(item.id),
                                       onLongPress: () => _toggleEditing(true),
-                                      onRemove: () => _removeTimer(item.id),
+                                      onRemove: () => _removeFolder(item.id),
                                     ),
                             ),
                           ),
@@ -578,5 +538,124 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
     );
+  }
+}
+
+/// Responsive layout configuration for Home Screen timer grid
+class _HomeGridLayout {
+  final int crossAxisCount;
+  final double childAspectRatio;
+  final double spacing;
+  final double horizontalPadding;
+  final double topPadding;
+  final double bottomPadding;
+
+  const _HomeGridLayout({
+    required this.crossAxisCount,
+    required this.childAspectRatio,
+    required this.spacing,
+    required this.horizontalPadding,
+    required this.topPadding,
+    required this.bottomPadding,
+  });
+
+  factory _HomeGridLayout.compute({
+    required double width,
+    required double height,
+  }) {
+    final isLandscape = width > height;
+
+    if (isLandscape) {
+      if (height < 520) {
+        final int columns;
+        if (width < 640) {
+          columns = 3;
+        } else if (width < 880) {
+          columns = 4;
+        } else {
+          columns = 5;
+        }
+
+        return _HomeGridLayout(
+          crossAxisCount: columns,
+          childAspectRatio: 1.42,
+          spacing: 10.0,
+          horizontalPadding: 16.0,
+          topPadding: 8.0,
+          bottomPadding: 16.0,
+        );
+      } else {
+        final int columns;
+        final double aspectRatio;
+        if (width < 900) {
+          columns = 3;
+          aspectRatio = 1.30;
+        } else if (width < 1180) {
+          columns = 4;
+          aspectRatio = 1.35;
+        } else {
+          columns = 5;
+          aspectRatio = 1.40;
+        }
+
+        return _HomeGridLayout(
+          crossAxisCount: columns,
+          childAspectRatio: aspectRatio,
+          spacing: 14.0,
+          horizontalPadding: 24.0,
+          topPadding: 12.0,
+          bottomPadding: 24.0,
+        );
+      }
+    } else {
+      if (width >= 800) {
+        return const _HomeGridLayout(
+          crossAxisCount: 4,
+          childAspectRatio: 1.25,
+          spacing: 14.0,
+          horizontalPadding: 24.0,
+          topPadding: 16.0,
+          bottomPadding: 28.0,
+        );
+      } else if (width >= 600) {
+        return const _HomeGridLayout(
+          crossAxisCount: 3,
+          childAspectRatio: 1.20,
+          spacing: 14.0,
+          horizontalPadding: 20.0,
+          topPadding: 14.0,
+          bottomPadding: 24.0,
+        );
+      } else {
+        if (width < 360) {
+          return const _HomeGridLayout(
+            crossAxisCount: 2,
+            childAspectRatio: 1.08,
+            spacing: 10.0,
+            horizontalPadding: 12.0,
+            topPadding: 10.0,
+            bottomPadding: 20.0,
+          );
+        } else if (height < 640) {
+          return const _HomeGridLayout(
+            crossAxisCount: 2,
+            childAspectRatio: 1.22,
+            spacing: 10.0,
+            horizontalPadding: 14.0,
+            topPadding: 10.0,
+            bottomPadding: 20.0,
+          );
+        } else {
+          return const _HomeGridLayout(
+            crossAxisCount: 2,
+            childAspectRatio: 1.13,
+            spacing: 12.0,
+            horizontalPadding: 18.0,
+            topPadding: 12.0,
+            bottomPadding: 24.0,
+          );
+        }
+      }
+    }
   }
 }

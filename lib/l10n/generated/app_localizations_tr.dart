@@ -10,9 +10,6 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get appTitle => 'MyTimer';
-
-  @override
   String get tabata => 'TABATA';
 
   @override
@@ -46,16 +43,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get round => 'ROUND';
 
   @override
-  String get set => 'SET';
-
-  @override
   String get completed => 'TAMAMLANDI!';
-
-  @override
-  String get paused => 'DURAKLATILDI';
-
-  @override
-  String get ready => 'HAZIRLAN';
 
   @override
   String get finished => 'ANTRENMAN TAMAMLANDI!';
@@ -79,25 +67,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lap => 'SPLİT';
 
   @override
-  String get workTime => 'ÇALIŞMA SÜRESİ';
-
-  @override
-  String get restTime => 'DİNLENME SÜRESİ';
-
-  @override
-  String get prepTime => 'HAZIRLANMA SÜRESİ';
-
-  @override
   String get totalRounds => 'TOPLAM ROUND';
 
   @override
-  String get totalSets => 'TOPLAM SET';
-
-  @override
   String get restBetweenSets => 'ROUND ARASI DİNLENME';
-
-  @override
-  String get timeCap => 'TIME CAP';
 
   @override
   String get sound => 'Ses';
@@ -121,28 +94,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get forTimeTitle => 'FOR TIME';
 
   @override
-  String get customRoutines => 'Hero WOD Kütüphanesi & Özel Timerlar';
-
-  @override
-  String get createNewRoutine => 'Yeni Timer Oluştur';
-
-  @override
-  String get routineName => 'WOD / Timer Adı';
+  String get routineName => 'WOD / Sayaç Adı';
 
   @override
   String get routineNameHint => 'Örn: Fran, Cindy, Murph, 21-15-9';
 
   @override
   String get addInterval => 'İnterval Ekle';
-
-  @override
-  String get intervalName => 'İnterval / Hareket Adı';
-
-  @override
-  String get intervalDuration => 'Süre (sn)';
-
-  @override
-  String get intervalType => 'İnterval Fazı';
 
   @override
   String get save => 'KAYDET';
@@ -157,24 +115,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get edit => 'DÜZENLE';
 
   @override
-  String get noCustomRoutines =>
-      'Henüz kayıtlı timer yok. + butonuna basarak ekleyin!';
-
-  @override
-  String get confirmDelete => 'Bu timer\'ı silmek istediğinize emin misiniz?';
-
-  @override
   String get cloudSyncNotice =>
-      'Timerlarınız ve antrenman loglarınız cihazınızda saklanır.';
-
-  @override
-  String get lapTimes => 'Split & Tur Zamanları';
-
-  @override
-  String get fastestLap => 'En Hızlı Split';
-
-  @override
-  String get slowestLap => 'En Yavaş Split';
+      'Sayaçlarınız ve antrenman loglarınız cihazınızda saklanır.';
 
   @override
   String get totalTime => 'TOPLAM SÜRE';
@@ -196,9 +138,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get keepScreenOnSubtitle => 'Antrenman boyunca ekran kapanmaz';
 
   @override
-  String get soundTest => 'SES TESTİ';
-
-  @override
   String get appLanguage => 'Uygulama Dili';
 
   @override
@@ -216,18 +155,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get hours => 'Saat';
-
-  @override
-  String get hoursShort => 'sa';
-
-  @override
-  String get totalRoundsStat => 'ROUND SAYISI';
-
-  @override
-  String get workRestStat => 'ÇALIŞMA / DİNLENME';
-
-  @override
-  String get startWorkout => 'ANTRENMANI BAŞLAT';
 
   @override
   String get searchWods => 'WOD veya Egzersiz Ara...';
@@ -255,64 +182,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get createRoutine => 'YENİ TİMER OLUŞTUR';
 
   @override
-  String get customizeWod => 'WOD\'U ÖZELLEŞTİR';
-
-  @override
-  String get editTimer => 'TİMER DÜZENLE';
-
-  @override
-  String get customSuffix => ' (Özel)';
-
-  @override
-  String workoutsListed(int count) {
-    return '$count antrenman listeleniyor';
-  }
+  String get editTimer => 'Sayacı Düzenle';
 
   @override
   String get clearFilters => 'Filtreleri Temizle';
 
   @override
-  String noWorkoutsFound(String query) {
-    return '\"$query\" için antrenman bulunamadı';
-  }
+  String get deleteTimerTitle => 'Sayacı Sil?';
 
   @override
-  String get showAllWods => 'Tüm WOD\'ları Göster';
-
-  @override
-  String get customizeOrCopy => 'Özelleştir / Yeni İsimle Kaydet';
-
-  @override
-  String get deleteTimerTitle => 'Timer Silinsin mi?';
-
-  @override
-  String deleteTimerConfirm(String name) {
-    return '$name silinecektir. Onaylıyor musunuz?';
-  }
-
-  @override
-  String get routineNameRequired => 'Lütfen bir ad girin';
-
-  @override
-  String get descriptionLabel => 'Açıklama (İsteğe bağlı)';
-
-  @override
-  String get descriptionHint => 'Hedeflenen hareketler, ağırlık veya notlar';
-
-  @override
-  String get intervalSequence => 'ARALIK SIRALAMASI';
-
-  @override
-  String get saveTimer => 'TİMER\'I KAYDET';
-
-  @override
-  String get addAtLeastOneInterval => 'Lütfen en az bir aralık ekleyin!';
-
-  @override
-  String get addNewInterval => 'Yeni Aralık Ekle';
-
-  @override
-  String get intervalPhaseLabel => 'Tip';
+  String get deleteTimerConfirm =>
+      'Bu sayacı silmek istediğinizden emin misiniz? Ana ekrandan da kaldırılacaktır.';
 
   @override
   String get durationSec => 'Süre (sn):';
@@ -321,79 +201,35 @@ class AppLocalizationsTr extends AppLocalizations {
   String get add => 'EKLE';
 
   @override
-  String roundsBadge(int count) {
-    return '$count Tur';
-  }
-
-  @override
-  String intervalsBadge(int count) {
-    return '$count Aralık';
-  }
-
-  @override
   String get categoryCustom => 'Özel';
 
   @override
   String get tabataAcronym => '20sn Çalışma / 10sn Dinlenme';
 
   @override
-  String get tabataDesc =>
-      'Yüksek Yoğunluklu Aralıklı Antrenman: 20 saniye maksimum efor, ardından 10 saniye dinlenme. Dr. Izumi Tabata protokolü.';
-
-  @override
   String get roundsAcronym => 'İnterval Antrenmanı';
-
-  @override
-  String get roundsDesc =>
-      'Güç ve kondisyon için belirlenen tur sayısı boyunca çalışma ve dinlenme aralıkları.';
 
   @override
   String get emomAcronym => 'Her Dakika Başında';
 
   @override
-  String get emomDesc =>
-      'Her dakikanın başında belirlenen tekrarları yapın; arta kalan sürede bir sonraki dakikaya kadar dinlenin.';
-
-  @override
-  String get amrapAcronym => 'Maksimum Tur / Tekrar';
-
-  @override
-  String get amrapDesc =>
-      'Süre dolana kadar verilen egzersizleri mümkün olan en fazla tur veya tekrarla tamamlayın.';
-
-  @override
   String get forTimeAcronym => 'Zamana Karşı Yarış';
 
   @override
-  String get forTimeDesc =>
-      'Verilen işi ve tekrarları Time Cap (Maksimum Süre) dolmadan en hızlı sürede tamamlayın.';
+  String get stopwatchAcronym => 'Kronometre';
 
   @override
-  String get stopwatchAcronym => 'İleri Sayım';
-
-  @override
-  String get stopwatchDesc =>
-      'Split ve tur zamanı kayıtlı, en hızlı ve en yavaş split analizi sunan hassas sayaç.';
-
-  @override
-  String get countdownAcronym => 'Evrensel Sayaç';
-
-  @override
-  String get countdownDesc =>
-      'İstenen saat, dakika ve saniyeye göre sıfıra doğru geriye sayan evrensel sayaç.';
+  String get countdownAcronym => 'Geri Sayım Sayacı';
 
   @override
   String get customSubtitle => 'Hero WOD & Özel Rutinler';
-
-  @override
-  String get workoutLogSubtitle => 'Geçmiş, Whiteboard & CSV';
 
   @override
   String get workoutLogs => 'Workout Log';
 
   @override
   String get noLogsYet =>
-      'Henüz kayıtlı antrenman yok.\nHerhangi bir timer antrenmanını tamamladığınızda loglarınız burada listelenir!';
+      'Henüz kayıtlı antrenman yok.\nHerhangi bir antrenmanı tamamladığınızda loglarınız burada listelenir!';
 
   @override
   String get exportAllCsv => 'Tümünü Export Al (CSV)';
@@ -422,22 +258,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Skor, ağırlıklar, tekrar sayıları veya antrenman notu...';
 
   @override
-  String get presets => 'Kayıtlı Timerlar & Favoriler';
-
-  @override
-  String get savePreset => 'Özelleştirilmiş Olarak Kaydet';
-
-  @override
-  String get presetNameHint => 'Örn: Ağır Tabata, 12dk EMOM, Murph Temposu';
+  String get presets => 'Sayaçlar & Rutinler';
 
   @override
   String get defaultPreset => 'Standart (Varsayılan)';
 
   @override
-  String get restoreDefault => 'Varsayılana Sıfırla';
-
-  @override
-  String get presetSaved => 'Özelleştirilmiş timer kaydedildi';
+  String get timerSaved => 'Sayaç başarıyla kaydedildi';
 
   @override
   String get voiceCoach => 'Seslendirme';
@@ -447,17 +274,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Geri sayım, aralık geçişleri ve bitiş için sesli yönlendirmeler';
 
   @override
-  String get voiceCoachSelector => 'Antrenman Koçu Sesi (2 Erkek, 2 Kadın)';
-
-  @override
   String get testVoice => 'Seslendirmeyi Test Et';
-
-  @override
-  String get audioTheme => 'Antrenman Ses Teması (10 Farklı Audio)';
-
-  @override
-  String get audioThemeSubtitle =>
-      'Tercih ettiğiniz atletik ses temasını seçin:';
 
   @override
   String get done => 'Bitti';
@@ -491,36 +308,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hyroxCompromisedRun => 'Compromised Running (Koşu + İstasyon)';
 
   @override
-  String get hyroxCompromisedRunDesc =>
-      'Yorgun bacaklarla koşu ve fonksiyonel istasyon blokları arasında dönüşümlü antrenman.';
-
-  @override
   String get hyroxStationIntervals => 'İstasyon P-EMOM & İntervalleri';
-
-  @override
-  String get hyroxStationIntervalsDesc =>
-      '8 HYROX istasyonu arasında tur atan devre ve süre aralıklı interval sayacı.';
 
   @override
   String get hyroxDoublesTimer => 'Doubles & Bayrak (IGYG Değişim)';
 
   @override
-  String get hyroxDoublesTimerDesc =>
-      'Çiftler (Doubles) ve bayrak takımları için partner değişim uyarıcısı (30sn, 45sn, 60sn).';
-
-  @override
   String get hyroxBenchmarkTests => 'İstasyon Benchmark Testleri';
 
   @override
-  String get hyroxBenchmarkTestsDesc =>
-      'Kategori ağırlıkları ve elit süre hedefleriyle tekil istasyon zaman denemeleri.';
-
-  @override
   String get hyroxStandardsGuide => 'Kategori Ağırlıkları & Standartlar';
-
-  @override
-  String get hyroxStandardsGuideDesc =>
-      'Open, Pro ve Doubles kategorileri için resmi ağırlıklar, hedef yükseklikleri ve kurallar.';
 
   @override
   String get roxzone => 'ROXZONE';
@@ -562,16 +359,151 @@ class AppLocalizationsTr extends AppLocalizations {
   String get switchInterval => 'Değişim Aralığı';
 
   @override
-  String get cooldownTime => 'SOĞUMA SÜRESİ';
-
-  @override
-  String get intervalSignal => 'ARALIK SİNYALİ';
-
-  @override
   String get off => 'KAPALI';
 
   @override
-  String everyMinute(Object count) {
-    return '$count dakikada bir';
+  String get savedTimers => 'Kayıtlı Sayaçlar';
+
+  @override
+  String get pinToHome => 'Ana Ekrana Ekle';
+
+  @override
+  String get unpinFromHome => 'Ana Ekrandan Kaldır';
+
+  @override
+  String get pinnedToHome => 'Ana ekrana eklendi';
+
+  @override
+  String get unpinnedFromHome => 'Ana ekrandan kaldırıldı';
+
+  @override
+  String get noTimersAvailable => 'Henüz kayıtlı sayaç bulunamadı.';
+
+  @override
+  String get standardTimers => 'Zamanlayıcılar';
+
+  @override
+  String get timerBadge => 'SAYAÇ';
+
+  @override
+  String get pinned => 'Eklendi';
+
+  @override
+  String get timerManager => 'SAYAÇ YÖNETİCİSİ';
+
+  @override
+  String get timerManagerDesc =>
+      'Sayaçlarınızı ve rutinlerinizi yönetin, düzenleyin ve organize edin';
+
+  @override
+  String get timerUpdated => 'Sayaç başarıyla güncellendi';
+
+  @override
+  String get openInTimer => 'Sayaç Aç';
+
+  @override
+  String get confirmExitTitle => 'Çıkış Onayı';
+
+  @override
+  String get confirmExitSubtitle =>
+      'Geri tuşuna basıldığında onay sorar (varsayılan: kapalı)';
+
+  @override
+  String get autoStartTitle => 'Otomatik Başlat';
+
+  @override
+  String get autoStartSubtitle =>
+      'Sayaç ekranı açıldığında otomatik başlar (varsayılan: kapalı)';
+
+  @override
+  String get stopPreview => 'Önizlemeyi Durdur';
+
+  @override
+  String get listenPreview => '3-2-1 ve BAŞLAT';
+
+  @override
+  String get editFolder => 'Klasörü Düzenle';
+
+  @override
+  String itemsCount(int count) {
+    return '$count İkon';
   }
+
+  @override
+  String get timerParameters => 'ZAMANLAYICI PARAMETRELERİ';
+
+  @override
+  String get prepDuration => 'Hazırlık Süresi (Prep)';
+
+  @override
+  String get roundsCount => 'Tur Sayısı (Rounds)';
+
+  @override
+  String get workDuration => 'Çalışma Süresi (Work)';
+
+  @override
+  String get durationOrCap => 'Süre / Limit (Cap)';
+
+  @override
+  String get restDuration => 'Dinlenme Süresi (Rest)';
+
+  @override
+  String get cooldownDuration => 'Soğuma Süresi (Cooldown)';
+
+  @override
+  String get selectTimerType => 'Sayaç Tipi Seçin';
+
+  @override
+  String get roundsTypeOption => 'Rounds (Boks/MMA)';
+
+  @override
+  String get countdownTypeOption => 'Geri Sayım';
+
+  @override
+  String customCopySaved(String name) {
+    return '$name özel sayaç olarak kaydedildi';
+  }
+
+  @override
+  String get willBeSavedAsCustomCopy =>
+      'Standart şablon kopyası olarak kaydedilecek';
+
+  @override
+  String get customTimerWillBeUpdated => 'Özel sayaç güncellenecek';
+
+  @override
+  String get builtInPresetsProtected =>
+      'Yerleşik standart sayaçlar korunmaktadır ve silinemez. Dilerseniz ana ekrandan kaldırabilirsiniz.';
+
+  @override
+  String get timerCannotBeDeleted => 'Yerleşik sayaç (Silinemez)';
+
+  @override
+  String get searchTimersHint => 'Sayaç ara...';
+
+  @override
+  String get newTimer => 'Yeni Sayaç';
+
+  @override
+  String addCategoryTimer(String category) {
+    return '$category Ekle';
+  }
+
+  @override
+  String get addTimerOrCustom => 'Sayaç Ekle';
+
+  @override
+  String get addTimerOrCustomTooltip => 'Sayaç Ekle';
+
+  @override
+  String get audioCapsule => 'SES';
+
+  @override
+  String get coachCapsule => 'KOÇ';
+
+  @override
+  String get roundsShort => 'Tur';
+
+  @override
+  String get allTimersAndWod => 'Tüm Sayaçlar & WOD';
 }

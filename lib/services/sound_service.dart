@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'audio_theme_generator.dart';
@@ -77,7 +78,7 @@ class SoundService {
     }
     try {
       _cachedTempDirPath ??= (await getTemporaryDirectory()).path;
-      final soundDir = Directory('$_cachedTempDirPath/sound_cache_v7');
+      final soundDir = Directory('$_cachedTempDirPath/sound_cache_v8');
       if (!await soundDir.exists()) {
         await soundDir.create(recursive: true);
       }
@@ -160,9 +161,63 @@ class SoundService {
     await _playSound(theme, SoundType.complete);
   }
 
-  /// Preview a theme with a quick work sound
+  int _previewToken = 0;
+  final ValueNotifier<bool> isPlayingPreviewNotifier = ValueNotifier<bool>(false);
+
+  void stopPreview() {
+    _previewToken++;
+    isPlayingPreviewNotifier.value = false;
+  }
+
+  /// Preview a theme with a full 4-second sequence: 3, 2, 1 countdown followed by GO.
   Future<void> previewTheme(String themeId) async {
-    await _playSound(themeId, SoundType.work);
+    final token = ++_previewToken;
+    isPlayingPreviewNotifier.value = true;
+
+    try {
+      // 0.0s: "3"
+      if (vibrationEnabled) {
+        try {
+          HapticFeedback.mediumImpact();
+        } catch (_) {}
+      }
+      await _playSound(themeId, SoundType.countdown);
+      await Future.delayed(const Duration(milliseconds: 1000));
+      if (token != _previewToken) return;
+
+      // 1.0s: "2"
+      if (vibrationEnabled) {
+        try {
+          HapticFeedback.mediumImpact();
+        } catch (_) {}
+      }
+      await _playSound(themeId, SoundType.countdown);
+      await Future.delayed(const Duration(milliseconds: 1000));
+      if (token != _previewToken) return;
+
+      // 2.0s: "1"
+      if (vibrationEnabled) {
+        try {
+          HapticFeedback.mediumImpact();
+        } catch (_) {}
+      }
+      await _playSound(themeId, SoundType.countdown);
+      await Future.delayed(const Duration(milliseconds: 1000));
+      if (token != _previewToken) return;
+
+      // 3.0s: "GO"
+      if (vibrationEnabled) {
+        try {
+          HapticFeedback.heavyImpact();
+        } catch (_) {}
+      }
+      await _playSound(themeId, SoundType.work);
+      await Future.delayed(const Duration(milliseconds: 1000));
+    } finally {
+      if (token == _previewToken) {
+        isPlayingPreviewNotifier.value = false;
+      }
+    }
   }
 
   AudioPlayer? _silentPlayer;
@@ -189,6 +244,8 @@ class SoundService {
   }
 
   void dispose() {
+    stopPreview();
+    isPlayingPreviewNotifier.dispose();
     for (final p in _playerPool) {
       p.dispose();
     }

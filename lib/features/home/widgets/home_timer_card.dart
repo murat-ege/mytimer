@@ -9,6 +9,8 @@ class TimerCatalogItem {
   final Color? gradientSecondColor;
   final IconData icon;
   final Widget Function() buildScreen;
+  final bool isPreset;
+  final String? badgeText;
 
   const TimerCatalogItem({
     required this.id,
@@ -18,6 +20,8 @@ class TimerCatalogItem {
     this.gradientSecondColor,
     required this.icon,
     required this.buildScreen,
+    this.isPreset = false,
+    this.badgeText,
   });
 }
 
@@ -49,6 +53,49 @@ class HomeTimerCard extends StatelessWidget {
     return trimmed;
   }
 
+  Widget _buildAutoShrinkText({
+    required String text,
+    required TextStyle baseStyle,
+    required double maxWidth,
+    int maxLines = 2,
+    double minFontSize = 9.0,
+  }) {
+    double currentSize = baseStyle.fontSize ?? 14.0;
+    while (currentSize > minFontSize) {
+      final painter = TextPainter(
+        text: TextSpan(
+          text: text,
+          style: baseStyle.copyWith(fontSize: currentSize),
+        ),
+        textDirection: TextDirection.ltr,
+        maxLines: maxLines,
+      )..layout(maxWidth: maxWidth);
+
+      if (!painter.didExceedMaxLines && painter.width <= maxWidth + 0.5) {
+        break;
+      }
+      currentSize -= 0.5;
+    }
+
+    return SizedBox(
+      width: maxWidth,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
+        child: SizedBox(
+          width: maxWidth,
+          child: Text(
+            text,
+            maxLines: maxLines,
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+            style: baseStyle.copyWith(fontSize: currentSize),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -58,8 +105,32 @@ class HomeTimerCard extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, cardConstraints) {
+        final cardW = cardConstraints.maxWidth;
+        final cardH = cardConstraints.maxHeight;
+
+        // Adaptive compact mode for landscape / small card sizes
+        final isCompact = cardH < 130 || cardW < 150;
+
+        final badgeSize = isCompact
+            ? (cardH * 0.28).clamp(28.0, 34.0)
+            : 38.0;
+        final iconSize = isCompact
+            ? (badgeSize * 0.52).clamp(15.0, 18.0)
+            : 20.0;
+        final paddingH = isCompact ? 11.0 : 14.0;
+        final paddingV = isCompact ? 9.0 : 13.0;
+        final titleFontSize = isCompact
+            ? (cardH * 0.165).clamp(14.0, 16.5)
+            : 18.0;
+        final subtitleFontSize = isCompact
+            ? (cardH * 0.11).clamp(10.0, 11.5)
+            : 12.0;
+        final borderRadiusVal = isCompact ? 16.0 : 20.0;
+        final maxBottomHeight = (cardH - (paddingV * 2) - badgeSize - 4.0)
+            .clamp(35.0, double.infinity);
+
         final contentWidth =
-            (cardConstraints.maxWidth - 28).clamp(1.0, double.infinity);
+            (cardW - (paddingH * 2)).clamp(1.0, double.infinity);
 
         return SizedBox.expand(
           child: Stack(
@@ -78,7 +149,7 @@ class HomeTimerCard extends StatelessWidget {
                       secondColor.withValues(alpha: isFeedback ? 0.26 : 0.16),
                     ],
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(borderRadiusVal),
                   border: Border.all(
                     color: item.color.withValues(alpha: isFeedback ? 0.85 : 0.45),
                     width: isFeedback ? 2 : 1.2,
@@ -99,13 +170,13 @@ class HomeTimerCard extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(borderRadiusVal),
                     onTap: onTap,
                     onLongPress: onLongPress,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14.0,
-                        vertical: 13.0,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: paddingH,
+                        vertical: paddingV,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,8 +187,8 @@ class HomeTimerCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 38,
-                                height: 38,
+                                width: badgeSize,
+                                height: badgeSize,
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
@@ -127,67 +198,94 @@ class HomeTimerCard extends StatelessWidget {
                                       secondColor.withValues(alpha: 0.18),
                                     ],
                                   ),
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(isCompact ? 10 : 12),
                                   border: Border.all(
                                     color: item.color.withValues(alpha: 0.50),
                                     width: 1.0,
                                   ),
                                 ),
-                                child: Icon(item.icon, color: item.color, size: 20),
+                                child: Icon(item.icon, color: item.color, size: iconSize),
                               ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                size: 11,
-                                color: item.color.withValues(alpha: 0.60),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (item.isPreset)
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 6),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: isCompact ? 6 : 8,
+                                        vertical: isCompact ? 2 : 3,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: item.color.withValues(alpha: 0.22),
+                                        borderRadius: BorderRadius.circular(6),
+                                        border: Border.all(
+                                          color: item.color.withValues(alpha: 0.65),
+                                          width: 0.9,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        item.badgeText ?? (l10n?.timerBadge ?? 'TIMER'),
+                                        style: TextStyle(
+                                          color: item.color,
+                                          fontSize: isCompact ? 8.5 : 9.5,
+                                          fontWeight: FontWeight.w900,
+                                          letterSpacing: 0.8,
+                                        ),
+                                      ),
+                                    ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: isCompact ? 10 : 11,
+                                    color: item.color.withValues(alpha: 0.60),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
 
-                          // Bottom: Title & Subtitle (both fit completely into the card without ellipsis)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
+                          // Bottom: Title & Subtitle (both 2 lines, auto-shrink if overflowing)
+                          ConstrainedBox(
+                            constraints: BoxConstraints(maxHeight: maxBottomHeight),
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.bottomLeft,
+                              child: SizedBox(
                                 width: contentWidth,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    title,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w900,
-                                      letterSpacing: 0.8,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 3),
-                              SizedBox(
-                                width: contentWidth,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  alignment: Alignment.centerLeft,
-                                  child: SizedBox(
-                                    width: contentWidth,
-                                    child: Text(
-                                      subtitle,
-                                      maxLines: 2,
-                                      softWrap: true,
-                                      style: const TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _buildAutoShrinkText(
+                                      text: title,
+                                      baseStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: titleFontSize,
+                                        fontWeight: FontWeight.w900,
+                                        letterSpacing: 0.6,
+                                        height: 1.15,
                                       ),
+                                      maxWidth: contentWidth,
+                                      maxLines: 2,
+                                      minFontSize: 10.0,
                                     ),
-                                  ),
+                                    SizedBox(height: isCompact ? 2.0 : 3.0),
+                                    _buildAutoShrinkText(
+                                      text: subtitle,
+                                      baseStyle: TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: subtitleFontSize,
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.15,
+                                      ),
+                                      maxWidth: contentWidth,
+                                      maxLines: 2,
+                                      minFontSize: 8.5,
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
@@ -199,13 +297,13 @@ class HomeTimerCard extends StatelessWidget {
               // iOS Delete Badge in top-left
               if (isEditing && !isFeedback)
                 Positioned(
-                  top: -6,
-                  left: -6,
+                  top: isCompact ? -4 : -6,
+                  left: isCompact ? -4 : -6,
                   child: GestureDetector(
                     onTap: onRemove,
                     child: Container(
-                      width: 28,
-                      height: 28,
+                      width: isCompact ? 24 : 28,
+                      height: isCompact ? 24 : 28,
                       decoration: const BoxDecoration(
                         color: Color(0xFFE53935),
                         shape: BoxShape.circle,
@@ -217,10 +315,10 @@ class HomeTimerCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.remove,
                         color: Colors.white,
-                        size: 18,
+                        size: isCompact ? 15 : 18,
                       ),
                     ),
                   ),

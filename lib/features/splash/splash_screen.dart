@@ -188,7 +188,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                     // // Discipline List
                     // const Text(
-                    //   'TABATA • TUR • EMOM • AMRAP • FOR TIME',
+                    //   'TABATA • ROUNDS • EMOM • AMRAP • FOR TIME',
                     //   style: TextStyle(
                     //     color: Colors.white54,
                     //     fontSize: 11,
